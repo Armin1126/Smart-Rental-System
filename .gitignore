@@ -1,0 +1,50 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.user
+
+# Frontend (Node / Vite / React)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.cache/
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Backend (Java / Maven / Spring Boot)
+backend/target/
+backend/*.log
+backend/.mvn/
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# Analytics (Python / FastAPI)
+analytics/__pycache__/
+analytics/*/__pycache__/
+analytics/.venv/
+analytics/venv/
+analytics/env/
+analytics/*.pyc
+analytics/*.pyo
+analytics/*.pyd
+analytics/.pytest_cache/
+analytics/.coverage
+analytics/htmlcov/
+analytics/*.egg-info/
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
