@@ -59,6 +59,7 @@ export const MapView = () => {
       zoomControl: true,
     });
 
+    // Primary tile layer: CartoDB Dark (Fallback: OpenStreetMap)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap © CARTO',
       subdomains: 'abcd',
@@ -67,18 +68,24 @@ export const MapView = () => {
 
     mapInstanceRef.current = map;
 
-    // Trigger invalidation so Leaflet sizes correctly inside flex containers
-    const timer = setTimeout(() => {
-      map.invalidateSize();
-    }, 200);
+    // Repeated invalidateSize to ensure full layout rendering
+    const interval = setInterval(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    }, 250);
+
+    setTimeout(() => clearInterval(interval), 2000);
 
     const observer = new ResizeObserver(() => {
-      map.invalidateSize();
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
     });
     observer.observe(mapRef.current);
 
     return () => {
-      clearTimeout(timer);
+      clearInterval(interval);
       observer.disconnect();
       map.remove();
       mapInstanceRef.current = null;
@@ -161,7 +168,7 @@ export const MapView = () => {
   const sites = [...new Set(assets.map(a => a.Site_ID).filter(Boolean))].sort();
 
   return (
-    <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: 16, height: 'calc(100vh - 120px)' }}>
+    <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 'calc(100vh - 120px)' }}>
       {/* Header */}
       <div className="page-header" style={{ marginBottom: 0, flexShrink: 0 }}>
         <div>
@@ -190,13 +197,13 @@ export const MapView = () => {
       {error && <div className="alert-banner alert-banner-error" style={{ flexShrink: 0 }}>⚠️ {error}</div>}
 
       {loading ? (
-        <div className="loading-center" style={{ flex: 1 }}>
+        <div className="loading-center" style={{ flex: 1, minHeight: 480 }}>
           <div className="spinner spinner-lg" /><span>Loading asset locations…</span>
         </div>
       ) : (
-        <div style={{ flex: 1, position: 'relative', borderRadius: 'var(--radius)', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '480px' }}>
+        <div style={{ flex: 1, position: 'relative', borderRadius: 'var(--radius)', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '540px', height: '540px' }}>
           {/* Leaflet map container */}
-          <div ref={mapRef} style={{ width: '100%', height: '100%', minHeight: '480px', background: '#0f1117' }} />
+          <div ref={mapRef} className="leaflet-container" style={{ width: '100%', height: '540px', minHeight: '540px' }} />
 
           {/* Selected asset info panel */}
           {selected && (
