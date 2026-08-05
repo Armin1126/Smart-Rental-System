@@ -41,7 +41,7 @@ export const MapView = () => {
   const [selected,   setSelected]   = useState(null);
   const [filterSite, setFilterSite] = useState('');
 
-  // Load assets
+  // Load assets from API
   useEffect(() => {
     analyticsApi.get('/assets')
       .then(res => setAssets(res.data.assets || []))
@@ -49,7 +49,7 @@ export const MapView = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // Init Leaflet map once
+  // ALWAYS initialize Leaflet map on mount (mapRef div is ALWAYS in DOM)
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
@@ -59,7 +59,6 @@ export const MapView = () => {
       zoomControl: true,
     });
 
-    // Primary tile layer: CartoDB Dark (Fallback: OpenStreetMap)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap © CARTO',
       subdomains: 'abcd',
@@ -68,14 +67,14 @@ export const MapView = () => {
 
     mapInstanceRef.current = map;
 
-    // Repeated invalidateSize to ensure full layout rendering
+    // Resize observer & invalidation timer
     const interval = setInterval(() => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.invalidateSize();
       }
-    }, 250);
+    }, 200);
 
-    setTimeout(() => clearInterval(interval), 2000);
+    setTimeout(() => clearInterval(interval), 1500);
 
     const observer = new ResizeObserver(() => {
       if (mapInstanceRef.current) {
@@ -92,12 +91,12 @@ export const MapView = () => {
     };
   }, []);
 
-  // Center & Place markers whenever assets or filter site changes
+  // Update markers and view bounds whenever assets or filterSite changes
   useEffect(() => {
     const map = mapInstanceRef.current;
-    if (!map || assets.length === 0) return;
+    if (!map) return;
 
-    // Remove old markers
+    // Clear previous markers
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
@@ -173,12 +172,12 @@ export const MapView = () => {
       <div className="page-header" style={{ marginBottom: 0, flexShrink: 0 }}>
         <div>
           <h1 className="page-title">Fleet Map</h1>
-          <p className="page-subtitle">{assets.length} assets across {sites.length} sites</p>
+          <p className="page-subtitle">{assets.length} assets across {sites.length || 8} sites</p>
         </div>
         <div className="flex gap-3 items-center" style={{ flexWrap: 'wrap' }}>
           <select className="select" value={filterSite} onChange={e => setFilterSite(e.target.value)}>
             <option value="">All Sites</option>
-            {sites.map(s => (
+            {(sites.length > 0 ? sites : Object.keys(SITE_COORDS)).map(s => (
               <option key={s} value={s}>{s} — {SITE_COORDS[s]?.name || s}</option>
             ))}
           </select>
@@ -196,52 +195,60 @@ export const MapView = () => {
 
       {error && <div className="alert-banner alert-banner-error" style={{ flexShrink: 0 }}>⚠️ {error}</div>}
 
-      {loading ? (
-        <div className="loading-center" style={{ flex: 1, minHeight: 480 }}>
-          <div className="spinner spinner-lg" /><span>Loading asset locations…</span>
-        </div>
-      ) : (
-        <div style={{ flex: 1, position: 'relative', borderRadius: 'var(--radius)', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '540px', height: '540px' }}>
-          {/* Leaflet map container */}
-          <div ref={mapRef} className="leaflet-container" style={{ width: '100%', height: '540px', minHeight: '540px' }} />
+      {/* Map Container — ALWAYS rendered in DOM so Leaflet mounts immediately */}
+      <div style={{ flex: 1, position: 'relative', borderRadius: 'var(--radius)', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '540px', height: '540px' }}>
+        {/* Leaflet map div */}
+        <div ref={mapRef} style={{ width: '100%', height: '540px', minHeight: '540px', background: '#121621' }} />
 
-          {/* Selected asset info panel */}
-          {selected && (
-            <div style={{
-              position: 'absolute', top: 16, right: 16, zIndex: 1000,
-              background: 'var(--bg-card)', border: '1px solid var(--border)',
-              borderRadius: 10, padding: '16px 20px', minWidth: 240, maxWidth: 280,
-              boxShadow: '0 8px 32px rgba(0,0,0,.6)',
-            }}>
-              <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
-                <span style={{ fontWeight: 800, color: 'var(--amber)', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.9rem' }}>
-                  {selected.Equipment_ID}
-                </span>
-                <button onClick={() => setSelected(null)}
-                  style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: 16, lineHeight: 1 }}>
-                  ✕
-                </button>
-              </div>
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: 10 }}>
-                {selected.Equipment_Type} · {selected.Make} {selected.Model}
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                {[
-                  { label: 'Site',      value: selected.Site_ID },
-                  { label: 'Status',    value: selected.Status || 'AVAILABLE' },
-                  { label: 'Eng Hours', value: Number(selected.Engine_Hours || 0).toLocaleString() },
-                  { label: 'Daily Rate',value: `$${Number(selected.Daily_Rate_USD || 0).toFixed(0)}` },
-                ].map(f => (
-                  <div key={f.label} style={{ background: 'var(--bg-elevated)', borderRadius: 6, padding: '8px 10px' }}>
-                    <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{f.label}</div>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: 2 }}>{f.value}</div>
-                  </div>
-                ))}
-              </div>
+        {/* Loading Overlay */}
+        {loading && (
+          <div style={{
+            position: 'absolute', inset: 0, zIndex: 1000,
+            background: 'rgba(15, 17, 23, 0.75)', backdropFilter: 'blur(2px)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            gap: 12, color: 'var(--text-secondary)', fontSize: '0.85rem'
+          }}>
+            <div className="spinner spinner-lg" />
+            <span>Loading asset locations…</span>
+          </div>
+        )}
+
+        {/* Selected asset info panel */}
+        {selected && (
+          <div style={{
+            position: 'absolute', top: 16, right: 16, zIndex: 1001,
+            background: 'var(--bg-card)', border: '1px solid var(--border)',
+            borderRadius: 10, padding: '16px 20px', minWidth: 240, maxWidth: 280,
+            boxShadow: '0 8px 32px rgba(0,0,0,.6)',
+          }}>
+            <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
+              <span style={{ fontWeight: 800, color: 'var(--amber)', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.9rem' }}>
+                {selected.Equipment_ID}
+              </span>
+              <button onClick={() => setSelected(null)}
+                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: 16, lineHeight: 1 }}>
+                ✕
+              </button>
             </div>
-          )}
-        </div>
-      )}
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: 10 }}>
+              {selected.Equipment_Type} · {selected.Make} {selected.Model}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              {[
+                { label: 'Site',      value: selected.Site_ID },
+                { label: 'Status',    value: selected.Status || 'AVAILABLE' },
+                { label: 'Eng Hours', value: Number(selected.Engine_Hours || 0).toLocaleString() },
+                { label: 'Daily Rate',value: `$${Number(selected.Daily_Rate_USD || 0).toFixed(0)}` },
+              ].map(f => (
+                <div key={f.label} style={{ background: 'var(--bg-elevated)', borderRadius: 6, padding: '8px 10px' }}>
+                  <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{f.label}</div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: 2 }}>{f.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
