@@ -2,19 +2,27 @@
 FastAPI Analytics Exposure API
 Run with: uvicorn api:app --reload
 
-This API exposes pre-computed analytics results by reading the JSON
-artifacts from the datasets directory. It does NOT perform live analytics.
+This API exposes pre-computed analytics JSON artifacts and allows triggering
+live synthetic telemetry data pipeline generation.
 """
 
 import os
 import json
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+
+from generate_full_dataset import build_datasets
+from preprocess import run_preprocessing
+from dashboard_analytics import calculate_dashboard_metrics
+from underutilization_analysis import analyze_underutilization
+from rule_based_anomaly_detector import run_anomaly_detection
+from forecast import get_forecast
+from recommendation import get_recommendations
 
 app = FastAPI(
     title="Smart Rental Analytics API",
-    description="Exposes pre-computed analytics JSON artifacts for the frontend dashboard.",
-    version="1.1.0"
+    description="Exposes pre-computed analytics JSON artifacts and triggers synthetic telemetry generation.",
+    version="1.2.0"
 )
 
 app.add_middleware(
@@ -44,15 +52,50 @@ def read_root():
     return {
         "service": "Smart Rental Analytics API",
         "status": "UP",
-        "mode": "Read-Only (Static Artifact Exposure)",
+        "mode": "Live Data Pipeline & Artifact Exposure",
         "endpoints": [
             "/dashboard",
             "/utilization",
             "/anomalies",
             "/forecast",
-            "/recommendations"
+            "/recommendations",
+            "/generate"
         ]
     }
+
+@app.post("/generate")
+@app.get("/generate")
+def generate_synthetic_telemetry(records: int = Query(default=50, ge=10, le=500)):
+    """Triggers dataset synthesis, preprocessing, anomaly detection, forecasting, and recommendation engines."""
+    try:
+        build_datasets()
+        run_preprocessing()
+        calculate_dashboard_metrics()
+        analyze_underutilization()
+        run_anomaly_detection()
+        get_forecast()
+        get_recommendations()
+
+        return {
+            "status": "SUCCESS",
+            "message": "Full synthetic telemetry data pipeline executed successfully.",
+            "records_generated": records,
+            "artifacts_updated": [
+                "assets.csv",
+                "sites.csv",
+                "operators.csv",
+                "rental_records.csv",
+                "telemetry.csv",
+                "processed_dataset.csv",
+                "dashboard_analytics.json",
+                "underutilized_assets.json",
+                "anomalies.json",
+                "forecast.json",
+                "recommendations.json"
+            ]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Pipeline execution failed: {str(e)}")
 
 @app.get("/dashboard")
 def get_dashboard():
@@ -70,11 +113,11 @@ def get_anomalies():
     return read_json_artifact("anomalies.json")
 
 @app.get("/forecast")
-def get_forecast():
+def get_forecast_endpoint():
     """Returns the pre-calculated moving average demand forecast."""
     return read_json_artifact("forecast.json")
 
 @app.get("/recommendations")
-def get_recommendations():
+def get_recommendations_endpoint():
     """Returns the pre-calculated AI recommendations."""
     return read_json_artifact("recommendations.json")

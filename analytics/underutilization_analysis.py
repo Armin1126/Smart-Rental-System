@@ -93,6 +93,10 @@ def analyze_underutilization():
     
     return response_json
 
+def run_underutilization_analysis():
+    return analyze_underutilization()
+
 if __name__ == "__main__":
     analysis = analyze_underutilization()
     print(json.dumps(analysis, indent=2))
+

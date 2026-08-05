@@ -125,6 +125,10 @@ def calculate_dashboard_metrics():
     print("SUCCESS: Dashboard analytics calculated & CSV debug summaries exported.")
     return response_json
 
+def generate_dashboard_metrics():
+    return calculate_dashboard_metrics()
+
 if __name__ == "__main__":
     metrics = calculate_dashboard_metrics()
     print(json.dumps(metrics, indent=2))
+
