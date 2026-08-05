@@ -1,52 +1,35 @@
 package com.smartrental.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "assets")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Asset {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String equipmentId;
+    
+    private String equipmentType;
+    private String make;
+    private String model;
+    private Integer manufactureYear;
+    private String purchaseDate;
+    private String currentSite;
+    private String status;
+    private Double dailyRentalRate;
+    private Double currentValue;
+    private Integer expectedLifespanYears;
+    private Double engineHours;
+    private Double idleHours;
 
-    @NotBlank(message = "Asset code is required")
-    @Column(unique = true, nullable = false)
-    private String assetCode;
-
-    @NotBlank(message = "Asset name is required")
-    @Column(nullable = false)
-    private String name;
-
-    private String category;
-
-    private String status; // AVAILABLE, RENTED, MAINTENANCE
-
-    @NotNull(message = "Daily rate is required")
-    private BigDecimal dailyRate;
-
-    private Double latitude;
-
-    private Double longitude;
-
-    private LocalDateTime createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        if (status == null) {
-            status = "AVAILABLE";
-        }
-    }
 }

@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -25,30 +24,7 @@ public class AssetController {
     @GetMapping
     @Operation(summary = "Get list of all registered assets")
     public ResponseEntity<List<Asset>> getAllAssets() {
-        List<Asset> assets = assetRepository.findAll();
-        if (assets.isEmpty()) {
-            // Provide placeholder sample assets if database is newly initialized
-            Asset a1 = Asset.builder()
-                    .assetCode("AST-101")
-                    .name("CAT 320 Hydraulic Excavator")
-                    .category("Heavy Equipment")
-                    .status("RENTED")
-                    .dailyRate(BigDecimal.valueOf(450.00))
-                    .latitude(37.7749)
-                    .longitude(-122.4194)
-                    .build();
-            Asset a2 = Asset.builder()
-                    .assetCode("AST-102")
-                    .name("Genie S-60 XC Boom Lift")
-                    .category("Aerial Lifts")
-                    .status("AVAILABLE")
-                    .dailyRate(BigDecimal.valueOf(280.00))
-                    .latitude(37.7833)
-                    .longitude(-122.4167)
-                    .build();
-            return ResponseEntity.ok(List.of(a1, a2));
-        }
-        return ResponseEntity.ok(assets);
+        return ResponseEntity.ok(assetRepository.findAll());
     }
 
     @PostMapping
