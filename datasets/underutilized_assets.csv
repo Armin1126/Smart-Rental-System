@@ -1,0 +1,32 @@
+Asset_ID,Equipment_Type,Current_Site,Utilization_Pct,Idle_Pct,Recommendation,Recommendation_Reason
+EQX1002,Grader,S003,0.0,100.0,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1007,Crane,S008,0.0,100.0,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1008,Skid Steer,S008,0.0,100.0,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1017,Crane,S004,0.0,100.0,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1030,Backhoe Loader,S006,0.0,100.0,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1032,Skid Steer,S008,0.0,100.0,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1029,Crane,S001,0.0,100.0,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1011,Bulldozer,S007,4.35,95.65,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1003,Bulldozer,S008,4.81,95.19,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1008,Skid Steer,S008,5.21,94.79,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1009,Skid Steer,S004,5.68,94.32,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1019,Crane,S004,7.87,92.13,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1021,Grader,S008,7.87,92.13,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1016,Excavator,S002,8.33,91.67,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1040,Excavator,S003,8.4,91.6,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1038,Skid Steer,S002,8.55,91.45,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1013,Crane,S005,8.77,91.23,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1032,Skid Steer,S008,9.35,90.65,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1027,Skid Steer,S008,9.8,90.2,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1033,Grader,S005,10.2,89.8,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1028,Bulldozer,S005,11.54,88.46,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1037,Wheel Loader,S005,11.72,88.28,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1028,Bulldozer,S005,12.93,87.07,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1001,Backhoe Loader,S006,13.04,86.96,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1011,Bulldozer,S007,13.27,86.73,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1023,Compactor,S007,13.76,86.24,Return Early,Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges.
+EQX1022,Bulldozer,S003,15.31,84.69,Reallocate,Low utilization (<25%). Reallocate to high-demand job site.
+EQX1002,Grader,S003,15.62,84.38,Reallocate,Low utilization (<25%). Reallocate to high-demand job site.
+EQX1029,Crane,S001,15.62,84.38,Reallocate,Low utilization (<25%). Reallocate to high-demand job site.
+EQX1019,Crane,S004,17.54,82.46,Reallocate,Low utilization (<25%). Reallocate to high-demand job site.
+EQX1004,Compactor,S004,18.18,81.82,Reallocate,Low utilization (<25%). Reallocate to high-demand job site.
