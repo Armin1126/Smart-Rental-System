@@ -1,0 +1,116 @@
+{
+  "status": "SUCCESS",
+  "summary": {
+    "total_records": 100,
+    "active_assets": 100,
+    "idle_assets": 32,
+    "overdue_assets": 100,
+    "average_utilization_pct": 56.06,
+    "average_idle_pct": 43.94,
+    "total_fuel_used_liters": 1631758.1,
+    "fuel_remaining_average_pct": 53.3,
+    "total_engine_hours": 133285.8
+  },
+  "breakdowns": {
+    "assets_by_site": [
+      {
+        "Site_ID": "S001",
+        "Asset_Count": 2,
+        "Avg_Utilization": 42.2,
+        "Avg_Health_Score": 10.0
+      },
+      {
+        "Site_ID": "S002",
+        "Asset_Count": 8,
+        "Avg_Utilization": 63.94,
+        "Avg_Health_Score": 18.7
+      },
+      {
+        "Site_ID": "S003",
+        "Asset_Count": 5,
+        "Avg_Utilization": 56.19,
+        "Avg_Health_Score": 23.8
+      },
+      {
+        "Site_ID": "S004",
+        "Asset_Count": 5,
+        "Avg_Utilization": 56.4,
+        "Avg_Health_Score": 10.0
+      },
+      {
+        "Site_ID": "S005",
+        "Asset_Count": 6,
+        "Avg_Utilization": 56.2,
+        "Avg_Health_Score": 34.6
+      },
+      {
+        "Site_ID": "S006",
+        "Asset_Count": 3,
+        "Avg_Utilization": 56.21,
+        "Avg_Health_Score": 27.1
+      },
+      {
+        "Site_ID": "S007",
+        "Asset_Count": 4,
+        "Avg_Utilization": 56.77,
+        "Avg_Health_Score": 10.0
+      },
+      {
+        "Site_ID": "S008",
+        "Asset_Count": 7,
+        "Avg_Utilization": 49.89,
+        "Avg_Health_Score": 18.3
+      }
+    ],
+    "assets_by_equipment_type": [
+      {
+        "Equipment_Type": "Backhoe Loader",
+        "Asset_Count": 4,
+        "Avg_Daily_Rate": 449.68,
+        "Avg_Utilization": 54.57
+      },
+      {
+        "Equipment_Type": "Bulldozer",
+        "Asset_Count": 5,
+        "Avg_Daily_Rate": 452.21,
+        "Avg_Utilization": 49.32
+      },
+      {
+        "Equipment_Type": "Compactor",
+        "Asset_Count": 5,
+        "Avg_Daily_Rate": 446.68,
+        "Avg_Utilization": 69.92
+      },
+      {
+        "Equipment_Type": "Crane",
+        "Asset_Count": 9,
+        "Avg_Daily_Rate": 411.0,
+        "Avg_Utilization": 55.96
+      },
+      {
+        "Equipment_Type": "Excavator",
+        "Asset_Count": 3,
+        "Avg_Daily_Rate": 502.23,
+        "Avg_Utilization": 57.2
+      },
+      {
+        "Equipment_Type": "Grader",
+        "Asset_Count": 7,
+        "Avg_Daily_Rate": 355.29,
+        "Avg_Utilization": 62.51
+      },
+      {
+        "Equipment_Type": "Skid Steer",
+        "Asset_Count": 6,
+        "Avg_Daily_Rate": 317.62,
+        "Avg_Utilization": 39.87
+      },
+      {
+        "Equipment_Type": "Wheel Loader",
+        "Asset_Count": 1,
+        "Avg_Daily_Rate": 412.41,
+        "Avg_Utilization": 50.98
+      }
+    ]
+  }
+}
