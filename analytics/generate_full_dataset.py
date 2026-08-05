@@ -1,11 +1,11 @@
 """
-Realistic Synthetic Dataset Generator for Caterpillar-Inspired Smart Rental Asset Tracking System
+Updated Synthetic Dataset Generator matching exact user table format for rental_records.csv
 Generates:
-1. datasets/assets.csv
-2. datasets/sites.csv
-3. datasets/operators.csv
-4. datasets/rental_records.csv
-5. datasets/telemetry.csv
+1. datasets/rental_records.csv (matching image table structure & columns)
+2. datasets/telemetry.csv
+3. datasets/assets.csv
+4. datasets/sites.csv
+5. datasets/operators.csv
 """
 import os
 import random
@@ -21,16 +21,8 @@ np.random.seed(42)
 
 DATASETS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "datasets"))
 
-EQUIPMENT_TYPES = [
-    ("Excavator", "CAT 320", 450.00),
-    ("Bulldozer", "CAT D6", 520.00),
-    ("Wheel Loader", "CAT 950M", 480.00),
-    ("Motor Grader", "CAT 14M", 550.00),
-    ("Backhoe Loader", "CAT 420", 280.00),
-    ("Dump Truck", "CAT 745", 600.00),
-    ("Compactor", "CAT CB2.7", 220.00),
-    ("Skid Steer", "CAT 259D3", 180.00)
-]
+EQUIPMENT_TYPES = ["Excavator", "Bulldozer", "Wheel Loader", "Grader", "Backhoe Loader", "Crane", "Compactor", "Skid Steer"]
+SITE_IDS = ["S001", "S002", "S003", "S004", "S005", "S006", "S007", "S008"]
 
 SITE_DEFINITIONS = [
     ("S001", "San Francisco Main Depot", 37.7749, -122.4194),
@@ -46,7 +38,7 @@ SITE_DEFINITIONS = [
 DTC_CODES = ["P0017", "P0087", "P0217", "P0300", "P0420", "P0562"]
 
 def build_datasets():
-    print("Building Caterpillar Smart Rental datasets...")
+    print("Building datasets matching exact image table layout for rental_records.csv...")
 
     # 1. Site Master (sites.csv)
     sites_data = []
@@ -66,9 +58,10 @@ def build_datasets():
 
     # 2. Operator Master (operators.csv)
     operators_data = []
-    for i in range(1, 31):
-        op_id = f"OP-{100 + i}"
-        site_id = random.choice(SITE_DEFINITIONS)[0]
+    operator_ids = []
+    for i in range(101, 350):
+        op_id = f"OP{i}"
+        operator_ids.append(op_id)
         operators_data.append({
             "Operator_ID": op_id,
             "Operator_Name": fake.name(),
@@ -76,7 +69,7 @@ def build_datasets():
             "Phone": fake.phone_number(),
             "Role": random.choice(["FIELD_OPERATOR", "FIELD_OPERATOR", "MANAGER"]),
             "Status": "ACTIVE",
-            "Site_ID": site_id
+            "Site_ID": random.choice(SITE_IDS)
         })
     df_operators = pd.DataFrame(operators_data)
 
@@ -85,21 +78,20 @@ def build_datasets():
     equipment_data = []
     equipment_ids = []
 
-    for i in range(1, num_equipment + 1):
-        eq_id = f"EQ-{1000 + i}"
+    for i in range(1001, 1001 + num_equipment):
+        eq_id = f"EQX{i}"
         equipment_ids.append(eq_id)
-        eq_type, model, default_rate = random.choice(EQUIPMENT_TYPES)
+        eq_type = random.choice(EQUIPMENT_TYPES)
         site_id, site_name, base_lat, base_lon = random.choice(SITE_DEFINITIONS)
-        year = random.randint(2018, 2024)
-
+        
         equipment_data.append({
             "Equipment_ID": eq_id,
-            "Equipment_Code": f"AST-{100 + i}",
+            "Equipment_Code": f"AST-{i}",
             "Equipment_Type": eq_type,
             "Make": "Caterpillar",
-            "Model": model,
-            "Year": year,
-            "Daily_Rental_Rate": default_rate,
+            "Model": f"CAT {random.choice(['320', 'D6', '950M', '14M', '420', '745', 'CB2.7', '259D3'])}",
+            "Year": random.randint(2018, 2024),
+            "Daily_Rental_Rate": round(random.uniform(180.0, 600.0), 2),
             "Site_ID": site_id,
             "Latitude": base_lat + random.uniform(-0.01, 0.01),
             "Longitude": base_lon + random.uniform(-0.01, 0.01),
@@ -107,139 +99,102 @@ def build_datasets():
         })
     df_assets = pd.DataFrame(equipment_data)
 
-    # 4. Rental Records (rental_records.csv) ~100 records
-    num_rentals = 100
-    rentals_data = []
-    now = datetime.now()
+    # 4. Rental Records (rental_records.csv) ~100 records with exact column format from image:
+    # Equipment_ID, Type, Site_ID, Check_In_Date, Check_Out_Date, Engine_Hours_Day, Idle_Hours_Day, Rental_Days, Last_Operator_ID
+    
+    # Exact sample rows from user's image table:
+    sample_rows = [
+        {"Equipment_ID": "EQX1001", "Type": "Excavator", "Site_ID": "S003", "Check_In_Date": "2025-04-01", "Check_Out_Date": "2025-04-16", "Engine_Hours_Day": 1.5, "Idle_Hours_Day": 10.0, "Rental_Days": 15, "Last_Operator_ID": "OP101"},
+        {"Equipment_ID": "EQX1002", "Type": "Crane", "Site_ID": "NULL", "Check_In_Date": "2025-03-10", "Check_Out_Date": "2025-03-30", "Engine_Hours_Day": 0.0, "Idle_Hours_Day": 11.0, "Rental_Days": 20, "Last_Operator_ID": "NULL"},
+        {"Equipment_ID": "EQX1003", "Type": "Bulldozer", "Site_ID": "S002", "Check_In_Date": "2025-02-15", "Check_Out_Date": "2025-03-11", "Engine_Hours_Day": 7.5, "Idle_Hours_Day": 0.5, "Rental_Days": 25, "Last_Operator_ID": "OP203"},
+        {"Equipment_ID": "EQX1004", "Type": "Excavator", "Site_ID": "S004", "Check_In_Date": "2025-05-05", "Check_Out_Date": "2025-05-15", "Engine_Hours_Day": 2.0, "Idle_Hours_Day": 9.0, "Rental_Days": 10, "Last_Operator_ID": "OP106"},
+        {"Equipment_ID": "EQX1005", "Type": "Bulldozer", "Site_ID": "S006", "Check_In_Date": "2025-01-01", "Check_Out_Date": "2025-01-31", "Engine_Hours_Day": 8.0, "Idle_Hours_Day": 0.0, "Rental_Days": 30, "Last_Operator_ID": "OP301"},
+        {"Equipment_ID": "EQX1006", "Type": "Grader", "Site_ID": "S001", "Check_In_Date": "2025-04-05", "Check_Out_Date": "2025-04-23", "Engine_Hours_Day": 3.0, "Idle_Hours_Day": 6.0, "Rental_Days": 18, "Last_Operator_ID": "OP114"},
+        {"Equipment_ID": "EQX1007", "Type": "Excavator", "Site_ID": "NULL", "Check_In_Date": "2025-03-20", "Check_Out_Date": "2025-04-01", "Engine_Hours_Day": 0.0, "Idle_Hours_Day": 12.0, "Rental_Days": 12, "Last_Operator_ID": "NULL"},
+    ]
 
-    # Pre-select anomaly assets
-    rapid_fuel_drop_assets = set(random.sample(equipment_ids, int(num_equipment * 0.05)))
-    idle_heavy_assets = set(random.sample(equipment_ids, int(num_equipment * 0.15)))
-    critical_engine_assets = set(random.sample(equipment_ids, int(num_equipment * 0.05)))
+    rentals_data = list(sample_rows)
 
-    for i in range(1, num_rentals + 1):
-        rental_id = f"RNT-2026-{1000 + i}"
-        eq_row = df_assets.sample(1).iloc[0]
-        eq_id = eq_row["Equipment_ID"]
+    # Generate additional rows up to ~100 records
+    start_base_date = datetime(2025, 1, 1)
 
-        site_info = random.choice(SITE_DEFINITIONS)
-        site_id, site_name, base_lat, base_lon = site_info
-
-        # 10% missing operator IDs for unauthorized/unassigned usage
+    for i in range(8, 101):
+        eq_id = f"EQX{1000 + (i % num_equipment) + 1}"
+        eq_type = random.choice(EQUIPMENT_TYPES)
+        
+        # 10% unassigned site (NULL)
         if random.random() < 0.10:
-            operator_id = ""
-            operator_name = ""
+            site_id = "NULL"
         else:
-            op_row = df_operators.sample(1).iloc[0]
-            operator_id = op_row["Operator_ID"]
-            operator_name = op_row["Operator_Name"]
+            site_id = random.choice(SITE_IDS)
 
-        cust_id = f"CUST-{random.randint(1001, 1030)}"
-        cust_name = fake.company()
+        # 10% NULL operator
+        if random.random() < 0.10 or site_id == "NULL":
+            operator_id = "NULL"
+        else:
+            operator_id = f"OP{random.randint(101, 320)}"
 
         rental_days = random.randint(5, 45)
-        # Random checkout in last 12 months
-        days_ago = random.randint(10, 350)
-        checkout_date = (now - timedelta(days=days_ago)).date()
-        expected_return = checkout_date + timedelta(days=rental_days)
+        check_in_dt = start_base_date + timedelta(days=random.randint(0, 180))
+        check_out_dt = check_in_dt + timedelta(days=rental_days)
 
-        # Status distribution: ~10% OVERDUE, rest ACTIVE or RETURNED
-        rand_val = random.random()
-        if rand_val < 0.10:
-            rental_status = "OVERDUE"
-            actual_return = ""
-            current_status = "IN_USE"
-        elif checkout_date + timedelta(days=rental_days) < now.date() and random.random() < 0.70:
-            rental_status = "RETURNED"
-            actual_return = expected_return + timedelta(days=random.randint(-2, 3))
-            current_status = "IDLE"
+        # Engine & Idle Hours patterns (some idle heavy > engine hours)
+        if operator_id == "NULL" or random.random() < 0.20:
+            engine_hrs = round(random.choice([0.0, 0.5, 1.0, 1.5, 2.0]), 1)
+            idle_hrs = round(random.uniform(8.0, 12.0), 1)
         else:
-            rental_status = "ACTIVE"
-            actual_return = ""
-            # Current Status distribution: ~15% IDLE, ~5% MAINTENANCE, rest IN_USE
-            cs_val = random.random()
-            if cs_val < 0.15:
-                current_status = "IDLE"
-            elif cs_val < 0.20 or eq_id in critical_engine_assets:
-                current_status = "MAINTENANCE"
-            else:
-                current_status = "IN_USE"
+            engine_hrs = round(random.uniform(4.0, 10.0), 1)
+            idle_hrs = round(random.uniform(0.0, 4.0), 1)
 
         rentals_data.append({
-            "Rental_ID": rental_id,
             "Equipment_ID": eq_id,
-            "Equipment_Type": eq_row["Equipment_Type"],
-            "Make": "Caterpillar",
-            "Model": eq_row["Model"],
-            "Year": eq_row["Year"],
+            "Type": eq_type,
             "Site_ID": site_id,
-            "Site_Name": site_name,
-            "Latitude": round(base_lat + random.uniform(-0.01, 0.01), 6),
-            "Longitude": round(base_lon + random.uniform(-0.01, 0.01), 6),
-            "Customer_ID": cust_id,
-            "Customer_Name": cust_name,
-            "Operator_ID": operator_id,
-            "Operator_Name": operator_name,
-            "Check_Out_Date": str(checkout_date),
-            "Expected_Return_Date": str(expected_return),
-            "Actual_Return_Date": str(actual_return) if actual_return else "",
+            "Check_In_Date": check_in_dt.strftime("%Y-%m-%d"),
+            "Check_Out_Date": check_out_dt.strftime("%Y-%m-%d"),
+            "Engine_Hours_Day": engine_hrs,
+            "Idle_Hours_Day": idle_hrs,
             "Rental_Days": rental_days,
-            "Rental_Status": rental_status,
-            "Daily_Rental_Rate": eq_row["Daily_Rental_Rate"],
-            "Current_Status": current_status
+            "Last_Operator_ID": operator_id
         })
 
     df_rentals = pd.DataFrame(rentals_data)
 
     # 5. Telemetry Logs (telemetry.csv) ~5000 rows
-    print("Generating telemetry logs with embedded machine anomalies...")
+    print("Generating telemetry logs matching EQX IDs...")
     telemetry_data = []
     telemetry_id_counter = 1
 
-    # Generate telemetry streams for selected active / overdue rentals
-    active_rentals = df_rentals[df_rentals["Rental_Status"].isin(["ACTIVE", "OVERDUE"])].copy()
-    if len(active_rentals) < 15:
-        active_rentals = df_rentals.head(30)
+    site_coord_map = {site_id: (lat, lon) for site_id, name, lat, lon in SITE_DEFINITIONS}
 
-    rows_per_rental = max(50, 5000 // len(active_rentals))
-
-    for _, rental in active_rentals.iterrows():
+    for _, rental in df_rentals.head(35).iterrows():
         eq_id = rental["Equipment_ID"]
-        base_lat = rental["Latitude"]
-        base_lon = rental["Longitude"]
+        site_id = rental["Site_ID"]
+        base_lat, base_lon = site_coord_map.get(site_id, (37.7749, -122.4194))
 
-        start_dt = datetime.strptime(rental["Check_Out_Date"], "%Y-%m-%d") + timedelta(hours=8)
-        end_dt = datetime.now() if not rental["Actual_Return_Date"] else datetime.strptime(rental["Actual_Return_Date"], "%Y-%m-%d")
+        start_dt = datetime.strptime(rental["Check_In_Date"], "%Y-%m-%d") + timedelta(hours=8)
+        end_dt = datetime.strptime(rental["Check_Out_Date"], "%Y-%m-%d")
 
-        cum_engine_hours = round(random.uniform(500.0, 3000.0), 1)
-        cum_idle_hours = round(cum_engine_hours * (random.uniform(0.6, 1.2) if eq_id in idle_heavy_assets else random.uniform(0.15, 0.35)), 1)
-        cum_fuel_total = round(cum_engine_hours * random.uniform(12.0, 18.0), 1)
+        cum_engine_hours = round(random.uniform(200.0, 2500.0), 1)
+        cum_idle_hours = round(cum_engine_hours * random.uniform(0.2, 0.6), 1)
+        cum_fuel_total = round(cum_engine_hours * random.uniform(10.0, 15.0), 1)
 
-        fuel_pct = 95.0
-        def_pct = round(random.uniform(60.0, 100.0), 1)
-        payload_total = 0.0
-        load_count = 0
+        fuel_pct = 90.0
+        def_pct = round(random.uniform(50.0, 100.0), 1)
 
-        # Simulate timestamps every 30 mins
         current_time = start_dt
         step = 0
+        max_steps = max(40, 5000 // 35)
 
-        while step < rows_per_rental and current_time < end_dt:
-            # Ignition & Motion behavior
-            hour_of_day = current_time.hour
-            is_work_hours = (7 <= hour_of_day <= 18)
+        while step < max_steps and current_time <= end_dt:
+            hour = current_time.hour
+            is_working = (8 <= hour <= 17) and (rental["Engine_Hours_Day"] > 0)
 
-            if is_work_hours and random.random() < 0.85:
+            if is_working:
                 ignition = "ON"
-                speed = round(random.uniform(2.5, 35.0), 1)
-                engine_inc = 0.5  # 30 mins = 0.5h
-                
-                # Idle anomaly vs active working
-                if eq_id in idle_heavy_assets or random.random() < 0.30:
-                    idle_inc = 0.5
-                else:
-                    idle_inc = round(random.uniform(0.05, 0.15), 2)
-
+                speed = round(random.uniform(5.0, 30.0), 1)
+                engine_inc = 0.5
+                idle_inc = 0.1 if rental["Idle_Hours_Day"] < rental["Engine_Hours_Day"] else 0.4
                 fuel_burn = round(random.uniform(4.0, 8.0), 2)
             else:
                 ignition = "OFF"
@@ -248,56 +203,31 @@ def build_datasets():
                 idle_inc = 0.0
                 fuel_burn = 0.1
 
-            # Rapid fuel drop anomaly
-            if eq_id in rapid_fuel_drop_assets and 10 <= step <= 25:
-                fuel_burn *= 3.5
-
             cum_engine_hours += engine_inc
             cum_idle_hours += idle_inc
             cum_fuel_total += fuel_burn
 
-            fuel_pct -= (fuel_burn / 2.5)
-            if fuel_pct < 5.0:
-                fuel_pct = 98.0  # Refueled
+            fuel_pct -= (fuel_burn / 3.0)
+            if fuel_pct < 8.0:
+                fuel_pct = 95.0
 
             def_pct -= 0.1
             if def_pct < 10.0:
                 def_pct = 90.0
 
-            # GPS Status & location drift
-            if random.random() < 0.03:
-                gps_status = "OFFLINE"
-            else:
-                gps_status = "ONLINE"
+            gps_status = "OFFLINE" if random.random() < 0.03 else "ONLINE"
+            cur_lat = base_lat + (random.uniform(-0.005, 0.005) if ignition == "ON" else 0.0)
+            cur_lon = base_lon + (random.uniform(-0.005, 0.005) if ignition == "ON" else 0.0)
 
-            # GPS location jump anomaly (out of site boundary)
-            if random.random() < 0.02:
-                cur_lat = base_lat + random.uniform(0.15, 0.45)
-                cur_lon = base_lon + random.uniform(0.15, 0.45)
-            else:
-                cur_lat = base_lat + (random.uniform(-0.005, 0.005) if ignition == "ON" else 0.0)
-                cur_lon = base_lon + (random.uniform(-0.005, 0.005) if ignition == "ON" else 0.0)
-
-            # Engine Condition & DTC Codes
-            if eq_id in critical_engine_assets:
-                engine_condition = "CRITICAL"
+            if random.random() < 0.08:
+                engine_cond = "WARNING"
                 dtc = random.choice(DTC_CODES)
-                temp_c = round(random.uniform(102.0, 118.0), 1)
-                vib_hz = round(random.uniform(62.0, 88.0), 1)
-            elif random.random() < 0.10:
-                engine_condition = "WARNING"
+            elif random.random() < 0.03:
+                engine_cond = "CRITICAL"
                 dtc = random.choice(DTC_CODES)
-                temp_c = round(random.uniform(92.0, 101.0), 1)
-                vib_hz = round(random.uniform(40.0, 60.0), 1)
             else:
-                engine_condition = "GOOD"
+                engine_cond = "GOOD"
                 dtc = ""
-                temp_c = round(random.uniform(82.0, 94.0), 1)
-                vib_hz = round(random.uniform(18.0, 38.0), 1)
-
-            if ignition == "ON":
-                load_count += random.choice([0, 1])
-                payload_total += round(random.uniform(0.0, 15.0), 1) if load_count > 0 else 0.0
 
             telemetry_data.append({
                 "Telemetry_ID": f"TEL-{10000 + telemetry_id_counter}",
@@ -313,9 +243,9 @@ def build_datasets():
                 "Fuel_Used_Last_24H": round(fuel_burn * 24, 1),
                 "Fuel_Remaining_Percentage": round(max(1.0, min(100.0, fuel_pct)), 1),
                 "DEF_Remaining_Percentage": round(max(5.0, min(100.0, def_pct)), 1),
-                "Engine_Condition": engine_condition,
-                "Load_Count": load_count,
-                "Payload_Total": round(payload_total, 1),
+                "Engine_Condition": engine_cond,
+                "Load_Count": random.randint(0, 30),
+                "Payload_Total": round(random.uniform(0.0, 300.0), 1),
                 "Diagnostic_Trouble_Code": dtc,
                 "GPS_Status": gps_status,
                 "Ignition_Status": ignition
@@ -333,7 +263,6 @@ def build_datasets():
 
     df_telemetry = pd.DataFrame(telemetry_data)
 
-    # Write files to datasets/ keeping existing filenames!
     print("Saving dataset CSV files to datasets/...")
     df_assets.to_csv(os.path.join(DATASETS_DIR, "assets.csv"), index=False)
     df_sites.to_csv(os.path.join(DATASETS_DIR, "sites.csv"), index=False)
@@ -341,12 +270,10 @@ def build_datasets():
     df_rentals.to_csv(os.path.join(DATASETS_DIR, "rental_records.csv"), index=False)
     df_telemetry.to_csv(os.path.join(DATASETS_DIR, "telemetry.csv"), index=False)
 
-    print("SUCCESS: All 5 datasets generated successfully!")
-    print(f"  - assets.csv: {len(df_assets)} rows")
-    print(f"  - sites.csv: {len(df_sites)} rows")
-    print(f"  - operators.csv: {len(df_operators)} rows")
+    print("SUCCESS: All datasets updated to match image format!")
     print(f"  - rental_records.csv: {len(df_rentals)} rows")
     print(f"  - telemetry.csv: {len(df_telemetry)} rows")
+    print(f"  - assets.csv: {len(df_assets)} rows")
 
 if __name__ == "__main__":
     build_datasets()
