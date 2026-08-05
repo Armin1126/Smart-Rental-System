@@ -5,11 +5,11 @@ import { Sidebar } from '../components/Sidebar';
 
 export const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#f9fafb] text-gray-900 flex flex-col font-sans">
       <Navbar />
       <div className="flex flex-1">
         <Sidebar />
-        <main className="flex-1 p-6 bg-slate-900/50 overflow-y-auto">
+        <main className="flex-1 p-5 bg-[#f9fafb] overflow-y-auto min-h-[calc(100vh-56px)]">
           <Outlet />
         </main>
       </div>
