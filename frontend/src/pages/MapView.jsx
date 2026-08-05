@@ -25,14 +25,33 @@ const SITE_COORDS = {
 
 const STATUS_COLORS = {
   AVAILABLE:   '#10b981',
-  RENTED:      '#38bdf8',
-  IN_USE:      '#38bdf8',
-  MAINTENANCE: '#f97316',
+  RENTED:      '#0284c7',
+  IN_USE:      '#0284c7',
+  MAINTENANCE: '#ea580c',
+};
+
+const TILE_STYLES = {
+  voyager: {
+    name: '🎨 Voyager (Bright & Clear)',
+    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
+    subdomains: 'abcd',
+  },
+  dark: {
+    name: '🌙 Dark Mode',
+    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+    subdomains: 'abcd',
+  },
+  osm: {
+    name: '🗺️ OpenStreetMap',
+    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    subdomains: 'abc',
+  },
 };
 
 export const MapView = () => {
   const mapRef         = useRef(null);
   const mapInstanceRef = useRef(null);
+  const tileLayerRef   = useRef(null);
   const markersRef     = useRef([]);
 
   const [assets,     setAssets]     = useState([]);
@@ -40,6 +59,7 @@ export const MapView = () => {
   const [error,      setError]      = useState(null);
   const [selected,   setSelected]   = useState(null);
   const [filterSite, setFilterSite] = useState('');
+  const [mapStyle,   setMapStyle]   = useState('voyager');
 
   // Load assets from API
   useEffect(() => {
@@ -49,7 +69,7 @@ export const MapView = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // ALWAYS initialize Leaflet map on mount (mapRef div is ALWAYS in DOM)
+  // Initialize Leaflet map on mount
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
@@ -59,12 +79,14 @@ export const MapView = () => {
       zoomControl: true,
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    const currentStyle = TILE_STYLES[mapStyle] || TILE_STYLES.voyager;
+    const tileLayer = L.tileLayer(currentStyle.url, {
       attribution: '© OpenStreetMap © CARTO',
-      subdomains: 'abcd',
+      subdomains: currentStyle.subdomains,
       maxZoom: 19,
     }).addTo(map);
 
+    tileLayerRef.current = tileLayer;
     mapInstanceRef.current = map;
 
     // Resize observer & invalidation timer
@@ -88,8 +110,28 @@ export const MapView = () => {
       observer.disconnect();
       map.remove();
       mapInstanceRef.current = null;
+      tileLayerRef.current = null;
     };
   }, []);
+
+  // Dynamic Tile Layer Update on style change
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (tileLayerRef.current) {
+      map.removeLayer(tileLayerRef.current);
+    }
+
+    const selectedStyle = TILE_STYLES[mapStyle] || TILE_STYLES.voyager;
+    const newTileLayer = L.tileLayer(selectedStyle.url, {
+      attribution: '© OpenStreetMap © CARTO',
+      subdomains: selectedStyle.subdomains,
+      maxZoom: 19,
+    }).addTo(map);
+
+    tileLayerRef.current = newTileLayer;
+  }, [mapStyle]);
 
   // Update markers and view bounds whenever assets or filterSite changes
   useEffect(() => {
@@ -123,9 +165,9 @@ export const MapView = () => {
         radius: 9,
         fillColor: color,
         color: '#ffffff',
-        weight: 1.5,
+        weight: 2,
         opacity: 1,
-        fillOpacity: 0.9,
+        fillOpacity: 0.95,
       }).addTo(map);
 
       marker.bindPopup(`
@@ -175,15 +217,24 @@ export const MapView = () => {
           <p className="page-subtitle">{assets.length} assets across {sites.length || 8} sites</p>
         </div>
         <div className="flex gap-3 items-center" style={{ flexWrap: 'wrap' }}>
+          {/* Map Style Selector */}
+          <select className="select" value={mapStyle} onChange={e => setMapStyle(e.target.value)}>
+            {Object.entries(TILE_STYLES).map(([key, style]) => (
+              <option key={key} value={key}>{style.name}</option>
+            ))}
+          </select>
+
+          {/* Site Filter */}
           <select className="select" value={filterSite} onChange={e => setFilterSite(e.target.value)}>
             <option value="">All Sites</option>
             {(sites.length > 0 ? sites : Object.keys(SITE_COORDS)).map(s => (
               <option key={s} value={s}>{s} — {SITE_COORDS[s]?.name || s}</option>
             ))}
           </select>
+
           {/* Legend */}
           <div className="flex gap-3" style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-            {[['AVAILABLE','#10b981'],['RENTED','#38bdf8'],['MAINTENANCE','#f97316']].map(([label, color]) => (
+            {[['AVAILABLE','#10b981'],['RENTED','#0284c7'],['MAINTENANCE','#ea580c']].map(([label, color]) => (
               <span key={label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: color, display: 'inline-block', flexShrink: 0 }} />
                 {label}
@@ -195,17 +246,17 @@ export const MapView = () => {
 
       {error && <div className="alert-banner alert-banner-error" style={{ flexShrink: 0 }}>⚠️ {error}</div>}
 
-      {/* Map Container — ALWAYS rendered in DOM so Leaflet mounts immediately */}
+      {/* Map Container */}
       <div style={{ flex: 1, position: 'relative', borderRadius: 'var(--radius)', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '540px', height: '540px' }}>
         {/* Leaflet map div */}
-        <div ref={mapRef} style={{ width: '100%', height: '540px', minHeight: '540px', background: '#121621' }} />
+        <div ref={mapRef} style={{ width: '100%', height: '540px', minHeight: '540px', background: '#e2e8f0' }} />
 
         {/* Loading Overlay */}
         {loading && (
           <div style={{
             position: 'absolute', inset: 0, zIndex: 1000,
-            background: 'rgba(15, 17, 23, 0.75)', backdropFilter: 'blur(2px)',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(15, 17, 23, 0.65)', backdropFilter: 'blur(2px)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyCenter: 'center',
             gap: 12, color: 'var(--text-secondary)', fontSize: '0.85rem'
           }}>
             <div className="spinner spinner-lg" />

@@ -545,7 +545,7 @@ code, .mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 
 }
 
 .leaflet-tile-container img {
-  filter: brightness(0.8) contrast(1.2) saturate(0.8);
+  border: none;
 }
 
 .leaflet-popup-content-wrapper {
