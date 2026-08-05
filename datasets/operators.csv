@@ -1,4 +1,31 @@
-operator_id,operator_code,full_name,email,phone,role,status,assigned_site_id
-1,OP-101,John Miller,john.miller@caterpillar-rental.com,555-0192,FIELD_OPERATOR,ACTIVE,1
-2,OP-102,Sarah Jenkins,sarah.jenkins@caterpillar-rental.com,555-0193,MANAGER,ACTIVE,1
-3,OP-103,David Chen,david.chen@caterpillar-rental.com,555-0194,FIELD_OPERATOR,ACTIVE,2
+Operator_ID,Operator_Name,Email,Phone,Role,Status,Site_ID
+OP-101,Emily Rios,pwilkerson@thomas-taylor.net,+1-949-369-6532,FIELD_OPERATOR,ACTIVE,S002
+OP-102,Shannon Hernandez,laurahenderson@cruz.info,648.401.8451x46270,FIELD_OPERATOR,ACTIVE,S005
+OP-103,Ashley Garrett,ericfarmer@ashley.org,470-415-4303x91171,FIELD_OPERATOR,ACTIVE,S004
+OP-104,Theresa Martin,ibrandt@vaughn.com,587.213.3150x983,MANAGER,ACTIVE,S002
+OP-105,Mark Perez,heathchad@ramirez.com,+1-329-397-3763,MANAGER,ACTIVE,S002
+OP-106,Heather Jenkins,nuneztracey@brown.com,633-938-7262,FIELD_OPERATOR,ACTIVE,S007
+OP-107,Thomas Ramos,williamsyvette@novak.com,(977)436-0260x64746,FIELD_OPERATOR,ACTIVE,S001
+OP-108,Daniel Brown,adkinsbrian@woods.com,312.819.1361x93990,FIELD_OPERATOR,ACTIVE,S004
+OP-109,Krystal Stewart,james53@foster-powers.com,651.407.9911x838,MANAGER,ACTIVE,S001
+OP-110,Shirley Suarez,justin78@turner.net,4846124118,MANAGER,ACTIVE,S004
+OP-111,Daniel Cooper,william40@walters.com,2523427868,FIELD_OPERATOR,ACTIVE,S007
+OP-112,Stephen Mckee,davenportbrandi@jordan.com,(405)433-1586x923,MANAGER,ACTIVE,S008
+OP-113,Allison Doyle,kimberly63@moore-haynes.biz,2735375433,FIELD_OPERATOR,ACTIVE,S005
+OP-114,Donald Jones,michael86@zavala.com,329-840-1965x569,MANAGER,ACTIVE,S003
+OP-115,Cheryl Williams,zsmith@mcdaniel.com,(861)659-5148x465,FIELD_OPERATOR,ACTIVE,S007
+OP-116,Cheryl Ortega,lbyrd@carroll.com,336-699-5777x3872,FIELD_OPERATOR,ACTIVE,S005
+OP-117,Mackenzie Rogers,emilywalker@hernandez.com,391.876.9367x6320,FIELD_OPERATOR,ACTIVE,S004
+OP-118,Robert Dominguez,pwilliams@bryant.net,+1-495-979-8687,FIELD_OPERATOR,ACTIVE,S002
+OP-119,Paul Larsen,katie87@allen.com,855-881-2236x231,FIELD_OPERATOR,ACTIVE,S007
+OP-120,John Brown,xprice@shah.org,(670)854-6688x9373,FIELD_OPERATOR,ACTIVE,S006
+OP-121,Mr. Michael Yates,marycalhoun@ferguson.com,562-972-0465,FIELD_OPERATOR,ACTIVE,S005
+OP-122,Philip Gray,fking@smith-ryan.com,510.403.3092,MANAGER,ACTIVE,S008
+OP-123,Brian Gould,xlyons@jackson-lawson.com,001-324-619-0496x63193,FIELD_OPERATOR,ACTIVE,S002
+OP-124,Lindsay Martinez,reedross@jones-holland.com,(971)865-7262x84987,MANAGER,ACTIVE,S002
+OP-125,Leslie Morris,mariahmiller@sanchez-marshall.org,+1-665-207-5273x54549,MANAGER,ACTIVE,S005
+OP-126,Cheryl Allen,wfreeman@vaughn.info,701.843.6349x578,MANAGER,ACTIVE,S006
+OP-127,Krista Bell MD,john13@wilson-herrera.com,537.649.8941,MANAGER,ACTIVE,S004
+OP-128,Christopher Smith,joshuamccann@carter.info,209-647-7752,FIELD_OPERATOR,ACTIVE,S002
+OP-129,Karen Short,kvasquez@parks.com,831-986-9993,FIELD_OPERATOR,ACTIVE,S004
+OP-130,Elizabeth Chapman,ntorres@lynch.com,001-933-641-2328x12067,FIELD_OPERATOR,ACTIVE,S002
