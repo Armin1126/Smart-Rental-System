@@ -1,0 +1,322 @@
+{
+  "status": "SUCCESS",
+  "forecast_target_month": "2025-08",
+  "total_predictions": 45,
+  "forecasts": [
+    {
+      "Site": "S001",
+      "Equipment_Type": "Compactor",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S002",
+      "Equipment_Type": "Compactor",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S003",
+      "Equipment_Type": "Compactor",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S008",
+      "Equipment_Type": "Compactor",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S005",
+      "Equipment_Type": "Excavator",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S004",
+      "Equipment_Type": "Grader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S008",
+      "Equipment_Type": "Grader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S003",
+      "Equipment_Type": "Skid Steer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S007",
+      "Equipment_Type": "Skid Steer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 66.7
+    },
+    {
+      "Site": "S001",
+      "Equipment_Type": "Backhoe Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S003",
+      "Equipment_Type": "Backhoe Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S008",
+      "Equipment_Type": "Backhoe Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S001",
+      "Equipment_Type": "Bulldozer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S008",
+      "Equipment_Type": "Bulldozer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S005",
+      "Equipment_Type": "Compactor",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S007",
+      "Equipment_Type": "Compactor",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S003",
+      "Equipment_Type": "Crane",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S004",
+      "Equipment_Type": "Crane",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S007",
+      "Equipment_Type": "Crane",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S002",
+      "Equipment_Type": "Excavator",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S001",
+      "Equipment_Type": "Grader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S006",
+      "Equipment_Type": "Grader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S002",
+      "Equipment_Type": "Skid Steer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S004",
+      "Equipment_Type": "Skid Steer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S005",
+      "Equipment_Type": "Wheel Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S006",
+      "Equipment_Type": "Wheel Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S007",
+      "Equipment_Type": "Wheel Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 50.0
+    },
+    {
+      "Site": "S002",
+      "Equipment_Type": "Bulldozer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S004",
+      "Equipment_Type": "Excavator",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 1,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S002",
+      "Equipment_Type": "Backhoe Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S005",
+      "Equipment_Type": "Backhoe Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S007",
+      "Equipment_Type": "Backhoe Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S003",
+      "Equipment_Type": "Bulldozer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S005",
+      "Equipment_Type": "Bulldozer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S006",
+      "Equipment_Type": "Bulldozer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S007",
+      "Equipment_Type": "Bulldozer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S002",
+      "Equipment_Type": "Crane",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S005",
+      "Equipment_Type": "Crane",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S006",
+      "Equipment_Type": "Crane",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S008",
+      "Equipment_Type": "Crane",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S006",
+      "Equipment_Type": "Excavator",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S007",
+      "Equipment_Type": "Excavator",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S008",
+      "Equipment_Type": "Skid Steer",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S001",
+      "Equipment_Type": "Wheel Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    },
+    {
+      "Site": "S003",
+      "Equipment_Type": "Wheel Loader",
+      "Forecast_Month": "2025-08",
+      "Predicted_Rentals": 0,
+      "Confidence_Score": 38.4
+    }
+  ]
+}

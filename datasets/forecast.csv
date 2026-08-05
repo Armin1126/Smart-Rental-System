@@ -1,0 +1,46 @@
+Site,Equipment_Type,Forecast_Month,Predicted_Rentals,Confidence_Score
+S001,Compactor,2025-08,1,66.7
+S002,Compactor,2025-08,1,66.7
+S003,Compactor,2025-08,1,66.7
+S008,Compactor,2025-08,1,66.7
+S005,Excavator,2025-08,1,66.7
+S004,Grader,2025-08,1,66.7
+S008,Grader,2025-08,1,66.7
+S003,Skid Steer,2025-08,1,66.7
+S007,Skid Steer,2025-08,1,66.7
+S001,Backhoe Loader,2025-08,1,50.0
+S003,Backhoe Loader,2025-08,1,50.0
+S008,Backhoe Loader,2025-08,1,50.0
+S001,Bulldozer,2025-08,1,50.0
+S008,Bulldozer,2025-08,1,50.0
+S005,Compactor,2025-08,1,50.0
+S007,Compactor,2025-08,1,50.0
+S003,Crane,2025-08,1,50.0
+S004,Crane,2025-08,1,50.0
+S007,Crane,2025-08,1,50.0
+S002,Excavator,2025-08,1,50.0
+S001,Grader,2025-08,1,50.0
+S006,Grader,2025-08,1,50.0
+S002,Skid Steer,2025-08,1,50.0
+S004,Skid Steer,2025-08,1,50.0
+S005,Wheel Loader,2025-08,1,50.0
+S006,Wheel Loader,2025-08,1,50.0
+S007,Wheel Loader,2025-08,1,50.0
+S002,Bulldozer,2025-08,1,38.4
+S004,Excavator,2025-08,1,38.4
+S002,Backhoe Loader,2025-08,0,38.4
+S005,Backhoe Loader,2025-08,0,38.4
+S007,Backhoe Loader,2025-08,0,38.4
+S003,Bulldozer,2025-08,0,38.4
+S005,Bulldozer,2025-08,0,38.4
+S006,Bulldozer,2025-08,0,38.4
+S007,Bulldozer,2025-08,0,38.4
+S002,Crane,2025-08,0,38.4
+S005,Crane,2025-08,0,38.4
+S006,Crane,2025-08,0,38.4
+S008,Crane,2025-08,0,38.4
+S006,Excavator,2025-08,0,38.4
+S007,Excavator,2025-08,0,38.4
+S008,Skid Steer,2025-08,0,38.4
+S001,Wheel Loader,2025-08,0,38.4
+S003,Wheel Loader,2025-08,0,38.4
