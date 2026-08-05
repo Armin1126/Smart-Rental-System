@@ -1,7 +1,7 @@
 """
-Updated Synthetic Dataset Generator matching exact user table format for rental_records.csv
+Enhanced Dataset Generator supporting long-term, ongoing, and extended rental contracts.
 Generates:
-1. datasets/rental_records.csv (matching image table structure & columns)
+1. datasets/rental_records.csv with Rental_Status, Is_Extended, Extension_Count, Original_Return_Date, Expected_Return_Date
 2. datasets/telemetry.csv
 3. datasets/assets.csv
 4. datasets/sites.csv
@@ -38,9 +38,9 @@ SITE_DEFINITIONS = [
 DTC_CODES = ["P0017", "P0087", "P0217", "P0300", "P0420", "P0562"]
 
 def build_datasets():
-    print("Building datasets matching exact image table layout for rental_records.csv...")
+    print("Building datasets supporting long-term, ongoing, and extended rental contracts...")
 
-    # 1. Site Master (sites.csv)
+    # 1. Sites
     sites_data = []
     for site_id, name, lat, lon in SITE_DEFINITIONS:
         sites_data.append({
@@ -56,12 +56,10 @@ def build_datasets():
         })
     df_sites = pd.DataFrame(sites_data)
 
-    # 2. Operator Master (operators.csv)
+    # 2. Operators
     operators_data = []
-    operator_ids = []
     for i in range(101, 350):
         op_id = f"OP{i}"
-        operator_ids.append(op_id)
         operators_data.append({
             "Operator_ID": op_id,
             "Operator_Name": fake.name(),
@@ -73,17 +71,13 @@ def build_datasets():
         })
     df_operators = pd.DataFrame(operators_data)
 
-    # 3. Equipment Master (assets.csv)
+    # 3. Equipment Master
     num_equipment = 40
     equipment_data = []
-    equipment_ids = []
-
     for i in range(1001, 1001 + num_equipment):
         eq_id = f"EQX{i}"
-        equipment_ids.append(eq_id)
         eq_type = random.choice(EQUIPMENT_TYPES)
         site_id, site_name, base_lat, base_lon = random.choice(SITE_DEFINITIONS)
-        
         equipment_data.append({
             "Equipment_ID": eq_id,
             "Equipment_Code": f"AST-{i}",
@@ -99,92 +93,113 @@ def build_datasets():
         })
     df_assets = pd.DataFrame(equipment_data)
 
-    # 4. Rental Records (rental_records.csv) ~100 records with exact column format from image:
-    # Equipment_ID, Type, Site_ID, Check_In_Date, Check_Out_Date, Engine_Hours_Day, Idle_Hours_Day, Rental_Days, Last_Operator_ID
-    
-    # Exact sample rows from user's image table:
-    sample_rows = [
-        {"Equipment_ID": "EQX1001", "Type": "Excavator", "Site_ID": "S003", "Check_In_Date": "2025-04-01", "Check_Out_Date": "2025-04-16", "Engine_Hours_Day": 1.5, "Idle_Hours_Day": 10.0, "Rental_Days": 15, "Last_Operator_ID": "OP101"},
-        {"Equipment_ID": "EQX1002", "Type": "Crane", "Site_ID": "NULL", "Check_In_Date": "2025-03-10", "Check_Out_Date": "2025-03-30", "Engine_Hours_Day": 0.0, "Idle_Hours_Day": 11.0, "Rental_Days": 20, "Last_Operator_ID": "NULL"},
-        {"Equipment_ID": "EQX1003", "Type": "Bulldozer", "Site_ID": "S002", "Check_In_Date": "2025-02-15", "Check_Out_Date": "2025-03-11", "Engine_Hours_Day": 7.5, "Idle_Hours_Day": 0.5, "Rental_Days": 25, "Last_Operator_ID": "OP203"},
-        {"Equipment_ID": "EQX1004", "Type": "Excavator", "Site_ID": "S004", "Check_In_Date": "2025-05-05", "Check_Out_Date": "2025-05-15", "Engine_Hours_Day": 2.0, "Idle_Hours_Day": 9.0, "Rental_Days": 10, "Last_Operator_ID": "OP106"},
-        {"Equipment_ID": "EQX1005", "Type": "Bulldozer", "Site_ID": "S006", "Check_In_Date": "2025-01-01", "Check_Out_Date": "2025-01-31", "Engine_Hours_Day": 8.0, "Idle_Hours_Day": 0.0, "Rental_Days": 30, "Last_Operator_ID": "OP301"},
-        {"Equipment_ID": "EQX1006", "Type": "Grader", "Site_ID": "S001", "Check_In_Date": "2025-04-05", "Check_Out_Date": "2025-04-23", "Engine_Hours_Day": 3.0, "Idle_Hours_Day": 6.0, "Rental_Days": 18, "Last_Operator_ID": "OP114"},
-        {"Equipment_ID": "EQX1007", "Type": "Excavator", "Site_ID": "NULL", "Check_In_Date": "2025-03-20", "Check_Out_Date": "2025-04-01", "Engine_Hours_Day": 0.0, "Idle_Hours_Day": 12.0, "Rental_Days": 12, "Last_Operator_ID": "NULL"},
-    ]
+    # 4. Rental Records (with long-term, ongoing, extended contract support)
+    rentals_data = []
+    base_today = datetime(2025, 8, 1)
 
-    rentals_data = list(sample_rows)
-
-    # Generate additional rows up to ~100 records
-    start_base_date = datetime(2025, 1, 1)
-
-    for i in range(8, 101):
-        eq_id = f"EQX{1000 + (i % num_equipment) + 1}"
+    for i in range(1, 105):
+        eq_id = f"EQX{1000 + ((i - 1) % num_equipment) + 1}"
         eq_type = random.choice(EQUIPMENT_TYPES)
         
-        # 10% unassigned site (NULL)
         if random.random() < 0.10:
             site_id = "NULL"
+            op_id = "NULL"
         else:
             site_id = random.choice(SITE_IDS)
+            op_id = f"OP{random.randint(101, 320)}"
 
-        # 10% NULL operator
-        if random.random() < 0.10 or site_id == "NULL":
-            operator_id = "NULL"
+        # Contract Type distribution: Short-term (7-30 days), Medium-term (30-180 days), Long-term (180-365 days)
+        r_type_roll = random.random()
+        if r_type_roll < 0.50:
+            contract_type = "SHORT_TERM"
+            base_duration = random.randint(7, 30)
+        elif r_type_roll < 0.85:
+            contract_type = "MEDIUM_TERM"
+            base_duration = random.randint(30, 180)
         else:
-            operator_id = f"OP{random.randint(101, 320)}"
+            contract_type = "LONG_TERM"
+            base_duration = random.randint(180, 365)  # Up to 1 year long-term rental!
 
-        rental_days = random.randint(5, 45)
-        check_in_dt = start_base_date + timedelta(days=random.randint(0, 180))
-        check_out_dt = check_in_dt + timedelta(days=rental_days)
+        # Check-in date between 1 year ago and today
+        check_in_dt = base_today - timedelta(days=random.randint(10, 360))
+        orig_return_dt = check_in_dt + timedelta(days=base_duration)
 
-        # Engine & Idle Hours patterns (some idle heavy > engine hours)
-        if operator_id == "NULL" or random.random() < 0.20:
-            engine_hrs = round(random.choice([0.0, 0.5, 1.0, 1.5, 2.0]), 1)
-            idle_hrs = round(random.uniform(8.0, 12.0), 1)
+        # Contract extension status
+        is_extended = random.random() < 0.25
+        ext_count = random.randint(1, 3) if is_extended else 0
+        ext_days = ext_count * random.randint(15, 60) if is_extended else 0
+
+        current_expected_return_dt = orig_return_dt + timedelta(days=ext_days)
+        total_rental_days = (current_expected_return_dt - check_in_dt).days
+
+        # Rental status determination
+        if current_expected_return_dt > base_today:
+            if is_extended:
+                status = "EXTENDED"
+            else:
+                status = "ACTIVE"  # Ongoing contract
+            actual_return_dt_str = "NULL"
         else:
-            engine_hrs = round(random.uniform(4.0, 10.0), 1)
-            idle_hrs = round(random.uniform(0.0, 4.0), 1)
+            if random.random() < 0.15:
+                status = "OVERDUE"  # Contract past return date without return
+                actual_return_dt_str = "NULL"
+            else:
+                status = "COMPLETED"  # Returned
+                actual_return_dt_str = current_expected_return_dt.strftime("%Y-%m-%d")
+
+        # Engine & Idle Hours
+        if op_id == "NULL" or random.random() < 0.20:
+            eng_h = round(random.uniform(0.5, 2.5), 1)
+            idle_h = round(random.uniform(8.0, 12.0), 1)
+        else:
+            eng_h = round(random.uniform(4.5, 9.5), 1)
+            idle_h = round(random.uniform(0.5, 3.5), 1)
 
         rentals_data.append({
             "Equipment_ID": eq_id,
             "Type": eq_type,
             "Site_ID": site_id,
             "Check_In_Date": check_in_dt.strftime("%Y-%m-%d"),
-            "Check_Out_Date": check_out_dt.strftime("%Y-%m-%d"),
-            "Engine_Hours_Day": engine_hrs,
-            "Idle_Hours_Day": idle_hrs,
-            "Rental_Days": rental_days,
-            "Last_Operator_ID": operator_id
+            "Check_Out_Date": current_expected_return_dt.strftime("%Y-%m-%d"),
+            "Original_Return_Date": orig_return_dt.strftime("%Y-%m-%d"),
+            "Actual_Return_Date": actual_return_dt_str,
+            "Engine_Hours_Day": eng_h,
+            "Idle_Hours_Day": idle_h,
+            "Rental_Days": total_rental_days,
+            "Contract_Type": contract_type,
+            "Rental_Status": status,
+            "Is_Extended": is_extended,
+            "Extension_Count": ext_count,
+            "Last_Operator_ID": op_id
         })
 
     df_rentals = pd.DataFrame(rentals_data)
 
-    # 5. Telemetry Logs (telemetry.csv) ~5000 rows
+    # 5. Telemetry
     print("Generating telemetry logs matching EQX IDs...")
     telemetry_data = []
     telemetry_id_counter = 1
 
     site_coord_map = {site_id: (lat, lon) for site_id, name, lat, lon in SITE_DEFINITIONS}
 
-    for _, rental in df_rentals.head(35).iterrows():
+    for _, rental in df_rentals.head(40).iterrows():
         eq_id = rental["Equipment_ID"]
         site_id = rental["Site_ID"]
         base_lat, base_lon = site_coord_map.get(site_id, (37.7749, -122.4194))
 
         start_dt = datetime.strptime(rental["Check_In_Date"], "%Y-%m-%d") + timedelta(hours=8)
-        end_dt = datetime.strptime(rental["Check_Out_Date"], "%Y-%m-%d")
+        end_dt = base_today if rental["Rental_Status"] in ["ACTIVE", "EXTENDED", "OVERDUE"] else datetime.strptime(rental["Check_Out_Date"], "%Y-%m-%d")
 
-        cum_engine_hours = round(random.uniform(200.0, 2500.0), 1)
-        cum_idle_hours = round(cum_engine_hours * random.uniform(0.2, 0.6), 1)
-        cum_fuel_total = round(cum_engine_hours * random.uniform(10.0, 15.0), 1)
+        cum_engine_hours = round(random.uniform(300.0, 3500.0), 1)
+        cum_idle_hours = round(cum_engine_hours * random.uniform(0.2, 0.5), 1)
+        cum_fuel_total = round(cum_engine_hours * random.uniform(11.0, 14.0), 1)
 
-        fuel_pct = 90.0
-        def_pct = round(random.uniform(50.0, 100.0), 1)
+        fuel_pct = 85.0
+        def_pct = round(random.uniform(60.0, 100.0), 1)
 
         current_time = start_dt
         step = 0
-        max_steps = max(40, 5000 // 35)
+        max_steps = 125
 
         while step < max_steps and current_time <= end_dt:
             hour = current_time.hour
@@ -192,9 +207,9 @@ def build_datasets():
 
             if is_working:
                 ignition = "ON"
-                speed = round(random.uniform(5.0, 30.0), 1)
+                speed = round(random.uniform(5.0, 35.0), 1)
                 engine_inc = 0.5
-                idle_inc = 0.1 if rental["Idle_Hours_Day"] < rental["Engine_Hours_Day"] else 0.4
+                idle_inc = 0.1
                 fuel_burn = round(random.uniform(4.0, 8.0), 2)
             else:
                 ignition = "OFF"
@@ -206,9 +221,8 @@ def build_datasets():
             cum_engine_hours += engine_inc
             cum_idle_hours += idle_inc
             cum_fuel_total += fuel_burn
-
-            fuel_pct -= (fuel_burn / 3.0)
-            if fuel_pct < 8.0:
+            fuel_pct -= (fuel_burn / 3.5)
+            if fuel_pct < 10.0:
                 fuel_pct = 95.0
 
             def_pct -= 0.1
@@ -219,10 +233,10 @@ def build_datasets():
             cur_lat = base_lat + (random.uniform(-0.005, 0.005) if ignition == "ON" else 0.0)
             cur_lon = base_lon + (random.uniform(-0.005, 0.005) if ignition == "ON" else 0.0)
 
-            if random.random() < 0.08:
+            if random.random() < 0.05:
                 engine_cond = "WARNING"
                 dtc = random.choice(DTC_CODES)
-            elif random.random() < 0.03:
+            elif random.random() < 0.02:
                 engine_cond = "CRITICAL"
                 dtc = random.choice(DTC_CODES)
             else:
@@ -253,27 +267,18 @@ def build_datasets():
 
             telemetry_id_counter += 1
             step += 1
-            current_time += timedelta(minutes=30)
-
-            if len(telemetry_data) >= 5000:
-                break
-
-        if len(telemetry_data) >= 5000:
-            break
+            current_time += timedelta(hours=1)
 
     df_telemetry = pd.DataFrame(telemetry_data)
 
-    print("Saving dataset CSV files to datasets/...")
+    print("Saving datasets to datasets/...")
     df_assets.to_csv(os.path.join(DATASETS_DIR, "assets.csv"), index=False)
     df_sites.to_csv(os.path.join(DATASETS_DIR, "sites.csv"), index=False)
     df_operators.to_csv(os.path.join(DATASETS_DIR, "operators.csv"), index=False)
     df_rentals.to_csv(os.path.join(DATASETS_DIR, "rental_records.csv"), index=False)
     df_telemetry.to_csv(os.path.join(DATASETS_DIR, "telemetry.csv"), index=False)
 
-    print("SUCCESS: All datasets updated to match image format!")
-    print(f"  - rental_records.csv: {len(df_rentals)} rows")
-    print(f"  - telemetry.csv: {len(df_telemetry)} rows")
-    print(f"  - assets.csv: {len(df_assets)} rows")
+    print("SUCCESS: Full datasets built with long-term, ongoing, & extended rental contract support!")
 
 if __name__ == "__main__":
     build_datasets()

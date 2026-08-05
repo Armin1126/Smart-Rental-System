@@ -1,115 +1,115 @@
 {
   "status": "SUCCESS",
   "summary": {
-    "total_records": 100,
-    "active_assets": 100,
-    "idle_assets": 32,
-    "overdue_assets": 100,
-    "average_utilization_pct": 56.06,
-    "average_idle_pct": 43.94,
-    "total_fuel_used_liters": 1631758.1,
-    "fuel_remaining_average_pct": 53.3,
-    "total_engine_hours": 133285.8
+    "total_records": 104,
+    "active_assets": 104,
+    "idle_assets": 27,
+    "overdue_assets": 104,
+    "average_utilization_pct": 61.97,
+    "average_idle_pct": 38.03,
+    "total_fuel_used_liters": 2368848.7,
+    "fuel_remaining_average_pct": 52.6,
+    "total_engine_hours": 189007.2
   },
   "breakdowns": {
     "assets_by_site": [
       {
         "Site_ID": "S001",
         "Asset_Count": 2,
-        "Avg_Utilization": 42.2,
+        "Avg_Utilization": 63.25,
         "Avg_Health_Score": 10.0
       },
       {
         "Site_ID": "S002",
         "Asset_Count": 8,
-        "Avg_Utilization": 63.94,
-        "Avg_Health_Score": 18.7
+        "Avg_Utilization": 53.63,
+        "Avg_Health_Score": 10.0
       },
       {
         "Site_ID": "S003",
         "Asset_Count": 5,
-        "Avg_Utilization": 56.19,
-        "Avg_Health_Score": 23.8
+        "Avg_Utilization": 59.65,
+        "Avg_Health_Score": 11.2
       },
       {
         "Site_ID": "S004",
         "Asset_Count": 5,
-        "Avg_Utilization": 56.4,
+        "Avg_Utilization": 71.55,
         "Avg_Health_Score": 10.0
       },
       {
         "Site_ID": "S005",
         "Asset_Count": 6,
-        "Avg_Utilization": 56.2,
-        "Avg_Health_Score": 34.6
+        "Avg_Utilization": 52.95,
+        "Avg_Health_Score": 10.0
       },
       {
         "Site_ID": "S006",
         "Asset_Count": 3,
-        "Avg_Utilization": 56.21,
-        "Avg_Health_Score": 27.1
+        "Avg_Utilization": 80.26,
+        "Avg_Health_Score": 10.0
       },
       {
         "Site_ID": "S007",
         "Asset_Count": 4,
-        "Avg_Utilization": 56.77,
-        "Avg_Health_Score": 10.0
+        "Avg_Utilization": 74.49,
+        "Avg_Health_Score": 17.5
       },
       {
         "Site_ID": "S008",
         "Asset_Count": 7,
-        "Avg_Utilization": 49.89,
-        "Avg_Health_Score": 18.3
+        "Avg_Utilization": 56.49,
+        "Avg_Health_Score": 11.6
       }
     ],
     "assets_by_equipment_type": [
       {
         "Equipment_Type": "Backhoe Loader",
         "Asset_Count": 4,
-        "Avg_Daily_Rate": 449.68,
-        "Avg_Utilization": 54.57
+        "Avg_Daily_Rate": 445.08,
+        "Avg_Utilization": 73.37
       },
       {
         "Equipment_Type": "Bulldozer",
         "Asset_Count": 5,
-        "Avg_Daily_Rate": 452.21,
-        "Avg_Utilization": 49.32
+        "Avg_Daily_Rate": 450.13,
+        "Avg_Utilization": 73.91
       },
       {
         "Equipment_Type": "Compactor",
         "Asset_Count": 5,
-        "Avg_Daily_Rate": 446.68,
-        "Avg_Utilization": 69.92
+        "Avg_Daily_Rate": 445.48,
+        "Avg_Utilization": 71.3
       },
       {
         "Equipment_Type": "Crane",
         "Asset_Count": 9,
         "Avg_Daily_Rate": 411.0,
-        "Avg_Utilization": 55.96
+        "Avg_Utilization": 59.95
       },
       {
         "Equipment_Type": "Excavator",
         "Asset_Count": 3,
         "Avg_Daily_Rate": 502.23,
-        "Avg_Utilization": 57.2
+        "Avg_Utilization": 66.64
       },
       {
         "Equipment_Type": "Grader",
         "Asset_Count": 7,
         "Avg_Daily_Rate": 355.29,
-        "Avg_Utilization": 62.51
+        "Avg_Utilization": 50.83
       },
       {
         "Equipment_Type": "Skid Steer",
         "Asset_Count": 6,
-        "Avg_Daily_Rate": 317.62,
-        "Avg_Utilization": 39.87
+        "Avg_Daily_Rate": 315.21,
+        "Avg_Utilization": 49.71
       },
       {
         "Equipment_Type": "Wheel Loader",
         "Asset_Count": 1,
         "Avg_Daily_Rate": 412.41,
-        "Avg_Utilization": 50.98
+        "Avg_Utilization": 49.92
       }
     ]
   }

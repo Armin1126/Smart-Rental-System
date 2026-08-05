@@ -1,49 +1,40 @@
 {
   "status": "SUCCESS",
-  "total_flagged_assets": 31,
+  "total_flagged_assets": 27,
   "underutilized_assets": [
+    {
+      "Asset_ID": "EQX1031",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S002",
+      "Utilization_Pct": 6.38,
+      "Idle_Pct": 93.62,
+      "Recommendation": "Return Early",
+      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
+    },
     {
       "Asset_ID": "EQX1002",
       "Equipment_Type": "Grader",
       "Current_Site": "S003",
-      "Utilization_Pct": 0.0,
-      "Idle_Pct": 100.0,
+      "Utilization_Pct": 7.02,
+      "Idle_Pct": 92.98,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
     {
-      "Asset_ID": "EQX1007",
+      "Asset_ID": "EQX1002",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S003",
+      "Utilization_Pct": 8.05,
+      "Idle_Pct": 91.95,
+      "Recommendation": "Return Early",
+      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
+    },
+    {
+      "Asset_ID": "EQX1025",
       "Equipment_Type": "Crane",
-      "Current_Site": "S008",
-      "Utilization_Pct": 0.0,
-      "Idle_Pct": 100.0,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "S008",
-      "Utilization_Pct": 0.0,
-      "Idle_Pct": 100.0,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1017",
-      "Equipment_Type": "Crane",
-      "Current_Site": "S004",
-      "Utilization_Pct": 0.0,
-      "Idle_Pct": 100.0,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1030",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "S006",
-      "Utilization_Pct": 0.0,
-      "Idle_Pct": 100.0,
+      "Current_Site": "S001",
+      "Utilization_Pct": 8.13,
+      "Idle_Pct": 91.87,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
@@ -51,71 +42,8 @@
       "Asset_ID": "EQX1032",
       "Equipment_Type": "Skid Steer",
       "Current_Site": "S008",
-      "Utilization_Pct": 0.0,
-      "Idle_Pct": 100.0,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1029",
-      "Equipment_Type": "Crane",
-      "Current_Site": "S001",
-      "Utilization_Pct": 0.0,
-      "Idle_Pct": 100.0,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "S007",
-      "Utilization_Pct": 4.35,
-      "Idle_Pct": 95.65,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1003",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "S008",
-      "Utilization_Pct": 4.81,
-      "Idle_Pct": 95.19,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "S008",
-      "Utilization_Pct": 5.21,
-      "Idle_Pct": 94.79,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "S004",
-      "Utilization_Pct": 5.68,
-      "Idle_Pct": 94.32,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1019",
-      "Equipment_Type": "Crane",
-      "Current_Site": "S004",
-      "Utilization_Pct": 7.87,
-      "Idle_Pct": 92.13,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1021",
-      "Equipment_Type": "Grader",
-      "Current_Site": "S008",
-      "Utilization_Pct": 7.87,
-      "Idle_Pct": 92.13,
+      "Utilization_Pct": 9.76,
+      "Idle_Pct": 90.24,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
@@ -123,35 +51,8 @@
       "Asset_ID": "EQX1016",
       "Equipment_Type": "Excavator",
       "Current_Site": "S002",
-      "Utilization_Pct": 8.33,
-      "Idle_Pct": 91.67,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1040",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "S003",
-      "Utilization_Pct": 8.4,
-      "Idle_Pct": 91.6,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1038",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "S002",
-      "Utilization_Pct": 8.55,
-      "Idle_Pct": 91.45,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1013",
-      "Equipment_Type": "Crane",
-      "Current_Site": "S005",
-      "Utilization_Pct": 8.77,
-      "Idle_Pct": 91.23,
+      "Utilization_Pct": 10.08,
+      "Idle_Pct": 89.92,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
@@ -159,17 +60,44 @@
       "Asset_ID": "EQX1032",
       "Equipment_Type": "Skid Steer",
       "Current_Site": "S008",
-      "Utilization_Pct": 9.35,
-      "Idle_Pct": 90.65,
+      "Utilization_Pct": 10.31,
+      "Idle_Pct": 89.69,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
     {
-      "Asset_ID": "EQX1027",
-      "Equipment_Type": "Skid Steer",
+      "Asset_ID": "EQX1006",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S002",
+      "Utilization_Pct": 10.74,
+      "Idle_Pct": 89.26,
+      "Recommendation": "Return Early",
+      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
+    },
+    {
+      "Asset_ID": "EQX1007",
+      "Equipment_Type": "Crane",
       "Current_Site": "S008",
-      "Utilization_Pct": 9.8,
-      "Idle_Pct": 90.2,
+      "Utilization_Pct": 12.9,
+      "Idle_Pct": 87.1,
+      "Recommendation": "Return Early",
+      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
+    },
+    {
+      "Asset_ID": "EQX1013",
+      "Equipment_Type": "Crane",
+      "Current_Site": "S005",
+      "Utilization_Pct": 13.04,
+      "Idle_Pct": 86.96,
+      "Recommendation": "Return Early",
+      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
+    },
+    {
+      "Asset_ID": "EQX1026",
+      "Equipment_Type": "Skid Steer",
+      "Current_Site": "S003",
+      "Utilization_Pct": 13.08,
+      "Idle_Pct": 86.92,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
@@ -177,89 +105,116 @@
       "Asset_ID": "EQX1033",
       "Equipment_Type": "Grader",
       "Current_Site": "S005",
-      "Utilization_Pct": 10.2,
-      "Idle_Pct": 89.8,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1028",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "S005",
-      "Utilization_Pct": 11.54,
-      "Idle_Pct": 88.46,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1037",
-      "Equipment_Type": "Wheel Loader",
-      "Current_Site": "S005",
-      "Utilization_Pct": 11.72,
-      "Idle_Pct": 88.28,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1028",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "S005",
-      "Utilization_Pct": 12.93,
-      "Idle_Pct": 87.07,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1001",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "S006",
-      "Utilization_Pct": 13.04,
-      "Idle_Pct": 86.96,
-      "Recommendation": "Return Early",
-      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
-    },
-    {
-      "Asset_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "S007",
       "Utilization_Pct": 13.27,
       "Idle_Pct": 86.73,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
     {
-      "Asset_ID": "EQX1023",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "S007",
-      "Utilization_Pct": 13.76,
-      "Idle_Pct": 86.24,
+      "Asset_ID": "EQX1014",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S008",
+      "Utilization_Pct": 13.89,
+      "Idle_Pct": 86.11,
       "Recommendation": "Return Early",
       "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
     },
     {
-      "Asset_ID": "EQX1022",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "S003",
-      "Utilization_Pct": 15.31,
-      "Idle_Pct": 84.69,
+      "Asset_ID": "EQX1012",
+      "Equipment_Type": "Compactor",
+      "Current_Site": "S007",
+      "Utilization_Pct": 14.05,
+      "Idle_Pct": 85.95,
+      "Recommendation": "Return Early",
+      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
+    },
+    {
+      "Asset_ID": "EQX1018",
+      "Equipment_Type": "Compactor",
+      "Current_Site": "S005",
+      "Utilization_Pct": 14.6,
+      "Idle_Pct": 85.4,
+      "Recommendation": "Return Early",
+      "Recommendation_Reason": "Extreme under-utilization (<15% active). Return asset to depot to stop daily rental charges."
+    },
+    {
+      "Asset_ID": "EQX1009",
+      "Equipment_Type": "Skid Steer",
+      "Current_Site": "S004",
+      "Utilization_Pct": 15.0,
+      "Idle_Pct": 85.0,
       "Recommendation": "Reallocate",
       "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
     },
     {
-      "Asset_ID": "EQX1002",
+      "Asset_ID": "EQX1027",
+      "Equipment_Type": "Skid Steer",
+      "Current_Site": "S008",
+      "Utilization_Pct": 15.33,
+      "Idle_Pct": 84.67,
+      "Recommendation": "Reallocate",
+      "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
+    },
+    {
+      "Asset_ID": "EQX1031",
       "Equipment_Type": "Grader",
-      "Current_Site": "S003",
-      "Utilization_Pct": 15.62,
-      "Idle_Pct": 84.38,
+      "Current_Site": "S002",
+      "Utilization_Pct": 16.16,
+      "Idle_Pct": 83.84,
       "Recommendation": "Reallocate",
       "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
     },
     {
-      "Asset_ID": "EQX1029",
+      "Asset_ID": "EQX1033",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S005",
+      "Utilization_Pct": 16.67,
+      "Idle_Pct": 83.33,
+      "Recommendation": "Reallocate",
+      "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
+    },
+    {
+      "Asset_ID": "EQX1008",
+      "Equipment_Type": "Skid Steer",
+      "Current_Site": "S008",
+      "Utilization_Pct": 17.27,
+      "Idle_Pct": 82.73,
+      "Recommendation": "Reallocate",
+      "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
+    },
+    {
+      "Asset_ID": "EQX1010",
       "Equipment_Type": "Crane",
-      "Current_Site": "S001",
-      "Utilization_Pct": 15.62,
-      "Idle_Pct": 84.38,
+      "Current_Site": "S002",
+      "Utilization_Pct": 17.61,
+      "Idle_Pct": 82.39,
+      "Recommendation": "Reallocate",
+      "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
+    },
+    {
+      "Asset_ID": "EQX1036",
+      "Equipment_Type": "Backhoe Loader",
+      "Current_Site": "S002",
+      "Utilization_Pct": 18.1,
+      "Idle_Pct": 81.9,
+      "Recommendation": "Reallocate",
+      "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
+    },
+    {
+      "Asset_ID": "EQX1037",
+      "Equipment_Type": "Wheel Loader",
+      "Current_Site": "S005",
+      "Utilization_Pct": 19.17,
+      "Idle_Pct": 80.83,
+      "Recommendation": "Reallocate",
+      "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
+    },
+    {
+      "Asset_ID": "EQX1010",
+      "Equipment_Type": "Crane",
+      "Current_Site": "S002",
+      "Utilization_Pct": 19.42,
+      "Idle_Pct": 80.58,
       "Recommendation": "Reallocate",
       "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
     },
@@ -267,17 +222,26 @@
       "Asset_ID": "EQX1019",
       "Equipment_Type": "Crane",
       "Current_Site": "S004",
-      "Utilization_Pct": 17.54,
-      "Idle_Pct": 82.46,
+      "Utilization_Pct": 19.66,
+      "Idle_Pct": 80.34,
       "Recommendation": "Reallocate",
       "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
     },
     {
-      "Asset_ID": "EQX1004",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "S004",
-      "Utilization_Pct": 18.18,
-      "Idle_Pct": 81.82,
+      "Asset_ID": "EQX1003",
+      "Equipment_Type": "Bulldozer",
+      "Current_Site": "S008",
+      "Utilization_Pct": 21.24,
+      "Idle_Pct": 78.76,
+      "Recommendation": "Reallocate",
+      "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
+    },
+    {
+      "Asset_ID": "EQX1035",
+      "Equipment_Type": "Crane",
+      "Current_Site": "S002",
+      "Utilization_Pct": 21.7,
+      "Idle_Pct": 78.3,
       "Recommendation": "Reallocate",
       "Recommendation_Reason": "Low utilization (<25%). Reallocate to high-demand job site."
     }

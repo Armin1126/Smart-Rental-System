@@ -1,9 +1,9 @@
 Equipment_Type,Asset_Count,Avg_Daily_Rate,Avg_Utilization
-Backhoe Loader,4,449.68,54.57
-Bulldozer,5,452.21,49.32
-Compactor,5,446.68,69.92
-Crane,9,411.0,55.96
-Excavator,3,502.23,57.2
-Grader,7,355.29,62.51
-Skid Steer,6,317.62,39.87
-Wheel Loader,1,412.41,50.98
+Backhoe Loader,4,445.08,73.37
+Bulldozer,5,450.13,73.91
+Compactor,5,445.48,71.3
+Crane,9,411.0,59.95
+Excavator,3,502.23,66.64
+Grader,7,355.29,50.83
+Skid Steer,6,315.21,49.71
+Wheel Loader,1,412.41,49.92
