@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   servlet:
     context-path: /
 
@@ -9,10 +9,10 @@ spring:
 
   # Default profile: H2 in-memory DB for immediate zero-config startup
   datasource:
-    url: jdbc:h2:mem:smartrentaldb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    username: sa
-    password: 
+    url: ${DB_URL:jdbc:h2:mem:smartrentaldb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
 
   h2:
     console:
@@ -20,10 +20,9 @@ spring:
       path: /h2-console
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:true}
     properties:
       hibernate:
         format_sql: true
@@ -37,19 +36,28 @@ springdoc:
     operationsSorter: method
 
 ---
-# PostgreSQL profile activated via SPRING_PROFILES_ACTIVE=postgres
+# PostgreSQL profile — activate via SPRING_PROFILES_ACTIVE=postgres
+# Override individual values with environment variables:
+#   DB_URL=jdbc:postgresql://localhost:5432/smart_rental_db
+#   DB_USERNAME=postgres
+#   DB_PASSWORD=yourpassword
+#   DB_DRIVER=org.postgresql.Driver
 spring:
   config:
     activate:
       on-profile: postgres
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/smart_rental_db
-    username: postgres
-    password: postgrespassword
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/smart_rental_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgrespassword}
     driver-class-name: org.postgresql.Driver
+
+  h2:
+    console:
+      enabled: false
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${JPA_DDL_AUTO:update}

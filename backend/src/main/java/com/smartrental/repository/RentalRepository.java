@@ -1,6 +1,6 @@
 package com.smartrental.repository;
 
-import com.smartrental.model.Rental;
+import com.smartrental.entity.Rental;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +10,5 @@ import java.util.List;
 public interface RentalRepository extends JpaRepository<Rental, Long> {
     List<Rental> findByStatus(String status);
     List<Rental> findByCustomerNameContainingIgnoreCase(String customerName);
+    List<Rental> findByAssetId(Long assetId);
 }

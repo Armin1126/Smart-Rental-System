@@ -1,6 +1,6 @@
 package com.smartrental.controller;
 
-import com.smartrental.model.Rental;
+import com.smartrental.entity.Rental;
 import com.smartrental.repository.RentalRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rentals")
 @Tag(name = "Rental Contracts API", description = "Endpoints for managing rental contracts and lifecycle")
-@CrossOrigin(origins = "*")
+
 public class RentalController {
 
     @Autowired

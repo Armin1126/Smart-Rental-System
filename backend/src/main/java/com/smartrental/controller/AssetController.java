@@ -1,6 +1,6 @@
 package com.smartrental.controller;
 
-import com.smartrental.model.Asset;
+import com.smartrental.entity.Asset;
 import com.smartrental.repository.AssetRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/assets")
 @Tag(name = "Asset Management API", description = "CRUD operations for rental equipment assets")
-@CrossOrigin(origins = "*")
+
 public class AssetController {
 
     @Autowired

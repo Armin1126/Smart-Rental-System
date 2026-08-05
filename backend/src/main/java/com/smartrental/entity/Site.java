@@ -1,44 +1,45 @@
-package com.smartrental.model;
+package com.smartrental.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "assets")
+@Table(name = "sites")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Asset {
+public class Site {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Asset code is required")
+    @NotBlank(message = "Site code is required")
     @Column(unique = true, nullable = false)
-    private String assetCode;
+    private String siteCode;
 
-    @NotBlank(message = "Asset name is required")
+    @NotBlank(message = "Site name is required")
     @Column(nullable = false)
     private String name;
 
-    private String category;
+    private String address;
 
-    private String status; // AVAILABLE, RENTED, MAINTENANCE
+    private String city;
 
-    @NotNull(message = "Daily rate is required")
-    private BigDecimal dailyRate;
+    private String state;
+
+    private String country;
 
     private Double latitude;
 
     private Double longitude;
+
+    private String status; // ACTIVE, INACTIVE
 
     private LocalDateTime createdAt;
 
@@ -46,7 +47,7 @@ public class Asset {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         if (status == null) {
-            status = "AVAILABLE";
+            status = "ACTIVE";
         }
     }
 }

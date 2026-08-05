@@ -1,4 +1,4 @@
-package com.smartrental.model;
+package com.smartrental.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +31,10 @@ public class Rental {
     @JoinColumn(name = "asset_id", nullable = false)
     private Asset asset;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "operator_id")
+    private Operator operator;
+
     @NotBlank(message = "Customer name is required")
     private String customerName;
 
@@ -45,11 +49,19 @@ public class Rental {
 
     private LocalDateTime createdAt;
 
+    private LocalDateTime updatedAt;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+        updatedAt = createdAt;
         if (status == null) {
             status = "RESERVED";
         }
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }
