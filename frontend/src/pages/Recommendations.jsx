@@ -1,57 +1,151 @@
-import React, { useState, useEffect } from 'react';
-import { CircularProgress, Alert } from '@mui/material';
-import { RecommendationCard } from '../components/RecommendationCard';
-import { getRecommendations } from '../services/recommendationService';
+import React, { useState, useEffect, useMemo } from 'react';
+import { analyticsApi, springApi } from '../services/api';
+import { DataTable } from '../components/DataTable';
+import { ActionBadge, PriorityBadge } from '../components/Badges';
 
 export const Recommendations = () => {
-  const [recommendations, setRecommendations] = useState([]);
+  const [recs, setRecs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterAction, setFilterAction] = useState('');
+  const [filterPriority, setFilterPriority] = useState('');
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    const fetchRecs = async () => {
+    const load = async () => {
       setLoading(true);
-      setError(null);
       try {
-        const data = await getRecommendations();
-        setRecommendations(data || []);
-      } catch (err) {
-        console.error('Error loading recommendations:', err);
-        setError('Unable to fetch recommendations from Spring Boot backend. Displaying cached recommendations.');
+        // Try Spring Boot first (has 220 records), fallback to FastAPI
+        const res = await springApi.get('/recommendations')
+          .catch(() => analyticsApi.get('/recommendations'));
+        const data = Array.isArray(res.data) ? res.data : (res.data.recommendations || []);
+        // Normalise field names
+        const normalised = data.map((r, i) => ({
+          id: r.id || i,
+          assetId: r.equipmentId || r.Equipment_ID || '—',
+          type: r.equipmentType || r.Equipment_Type || '—',
+          site: r.currentSite || r.Current_Site || '—',
+          action: r.action || r.Action || '—',
+          priority: r.priority || r.Priority || 'Low',
+          justification: r.justification || r.Justification || '—',
+        }));
+        setRecs(normalised);
+      } catch {
+        setError('Could not load recommendations.');
       } finally {
         setLoading(false);
       }
     };
-    fetchRecs();
+    load();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[300px] gap-3">
-        <CircularProgress sx={{ color: '#ffcd00' }} />
-        <p className="text-gray-500 text-xs font-medium">Computing AI Recommendations...</p>
-      </div>
-    );
-  }
+  const actions = useMemo(() => [...new Set(recs.map(r => r.action).filter(Boolean))].sort(), [recs]);
+
+  const filtered = useMemo(() => recs.filter(r => {
+    const matchAction = !filterAction || r.action === filterAction;
+    const matchPriority = !filterPriority || r.priority?.toUpperCase() === filterPriority;
+    const q = search.toLowerCase();
+    const matchSearch = !q ||
+      (r.assetId || '').toLowerCase().includes(q) ||
+      (r.type || '').toLowerCase().includes(q) ||
+      (r.justification || '').toLowerCase().includes(q);
+    return matchAction && matchPriority && matchSearch;
+  }), [recs, filterAction, filterPriority, search]);
+
+  const counts = useMemo(() => ({
+    maintenance: recs.filter(r => r.action?.toLowerCase().includes('maintenance')).length,
+    returnEarly: recs.filter(r => r.action?.toLowerCase().includes('return')).length,
+    move: recs.filter(r => r.action?.toLowerCase().includes('move')).length,
+    refuel: recs.filter(r => r.action?.toLowerCase().includes('refuel')).length,
+    extend: recs.filter(r => r.action?.toLowerCase().includes('extend')).length,
+  }), [recs]);
+
+  const columns = [
+    {
+      key: 'assetId', label: 'Asset ID', primary: true, width: 110,
+      render: v => <span style={{ color: 'var(--amber)', fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>{v}</span>
+    },
+    { key: 'type', label: 'Equipment Type', width: 150 },
+    {
+      key: 'site', label: 'Current Site', width: 100,
+      render: v => v !== 'UNKNOWN' ? <span className="badge badge-info">{v}</span> : <span className="text-muted">—</span>
+    },
+    {
+      key: 'action', label: 'Action', width: 190,
+      render: v => <ActionBadge action={v} />
+    },
+    {
+      key: 'priority', label: 'Priority', width: 110,
+      render: v => <PriorityBadge priority={v} />
+    },
+    {
+      key: 'justification', label: 'Justification',
+      render: v => <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{v}</span>
+    },
+  ];
+
+  if (loading) return <div className="loading-center"><div className="spinner spinner-lg" /><span>Loading recommendations…</span></div>;
 
   return (
-    <div className="space-y-4 font-sans">
-      {error && (
-        <Alert severity="warning" className="rounded-lg shadow-2xs">
-          {error}
-        </Alert>
-      )}
-
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">AI Recommendation Engine</h1>
-        <p className="text-gray-500 text-xs">Cross-referenced insights for equipment reallocation, early returns, rental extensions, and refuel alerts.</p>
+    <div className="fade-in">
+      <div className="page-header">
+        <div>
+          <h1 className="page-title">AI Recommendations</h1>
+          <p className="page-subtitle">{filtered.length} of {recs.length} recommendations — generated by the analytics engine</p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {recommendations.map((rec, idx) => (
-          <RecommendationCard key={rec.id || idx} recommendation={rec} />
+      {error && <div className="alert-banner alert-banner-error">⚠️ {error}</div>}
+
+      {/* Action Summary Cards */}
+      <div className="grid-auto mb-5">
+        {[
+          { label: 'Schedule Maintenance', count: counts.maintenance, icon: '🔧', color: 'rose' },
+          { label: 'Return Early', count: counts.returnEarly, icon: '↩️', color: 'orange' },
+          { label: 'Move Asset', count: counts.move, icon: '🚚', color: 'violet' },
+          { label: 'Refuel', count: counts.refuel, icon: '⛽', color: 'amber' },
+          { label: 'Extend Rental', count: counts.extend, icon: '📅', color: 'sky' },
+        ].map(c => (
+          <div key={c.label} className="card" style={{ padding: '16px', cursor: 'pointer', transition: 'border-color .15s' }}
+            onClick={() => setFilterAction(filterAction === c.label ? '' : c.label)}>
+            <div className="flex items-center gap-3">
+              <span style={{ fontSize: 22 }}>{c.icon}</span>
+              <div>
+                <div style={{ fontSize: '1.3rem', fontWeight: 800, color: `var(--${c.color})` }}>{c.count}</div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{c.label}</div>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
+
+      {/* Filters */}
+      <div className="flex gap-3 mb-4" style={{ flexWrap: 'wrap' }}>
+        <div className="input-wrap" style={{ flex: '1 1 260px' }}>
+          <span className="input-icon">
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </span>
+          <input className="input input-with-icon" placeholder="Search asset, type, justification…" value={search} onChange={e => setSearch(e.target.value)} />
+        </div>
+        <select className="select" value={filterAction} onChange={e => setFilterAction(e.target.value)}>
+          <option value="">All Actions</option>
+          {actions.map(a => <option key={a} value={a}>{a}</option>)}
+        </select>
+        <select className="select" value={filterPriority} onChange={e => setFilterPriority(e.target.value)}>
+          <option value="">All Priorities</option>
+          <option value="CRITICAL">Critical</option>
+          <option value="HIGH">High</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="LOW">Low</option>
+        </select>
+        {(filterAction || filterPriority || search) && (
+          <button className="btn btn-ghost btn-sm" onClick={() => { setFilterAction(''); setFilterPriority(''); setSearch(''); }}>
+            ✕ Clear
+          </button>
+        )}
+      </div>
+
+      <DataTable columns={columns} rows={filtered} rowKey={r => r.id} emptyMessage="No recommendations match your filters" />
     </div>
   );
 };

@@ -1,102 +1,133 @@
-import React, { useState, useEffect } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { AssetTable } from '../components/AssetTable';
-import { getAssets } from '../services/assetService';
-import { MOCK_ASSETS } from '../constants/mockData';
+import React, { useState, useEffect, useMemo } from 'react';
+import { analyticsApi } from '../services/api';
+import { DataTable } from '../components/DataTable';
+import { StatusBadge } from '../components/Badges';
+import { SparkBar } from '../components/SparkBar';
 
 export const Assets = () => {
   const [assets, setAssets] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [search, setSearch] = useState('');
+  const [filterType, setFilterType] = useState('');
+  const [filterSite, setFilterSite] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
 
   useEffect(() => {
-    const fetchAssetData = async () => {
+    const load = async () => {
       setLoading(true);
       try {
-        const data = await getAssets();
-        if (data && data.length > 0) {
-          setAssets(data);
-        } else {
-          setAssets(MOCK_ASSETS);
-        }
-      } catch (e) {
-        setAssets(MOCK_ASSETS);
+        const res = await analyticsApi.get('/assets');
+        setAssets(res.data.assets || []);
+      } catch {
+        setError('Could not load assets. Is FastAPI running on port 8000?');
       } finally {
         setLoading(false);
       }
     };
-    fetchAssetData();
+    load();
   }, []);
 
-  // Filter assets based on search query
-  const filteredAssets = assets.filter((a) => {
-    const id = (a.equipmentId || a.assetCode || '').toLowerCase();
-    const type = (a.equipmentType || a.category || '').toLowerCase();
-    const q = searchQuery.toLowerCase();
-    return id.includes(q) || type.includes(q);
-  });
+  const types = useMemo(() => [...new Set(assets.map(a => a.Equipment_Type).filter(Boolean))].sort(), [assets]);
+  const sites = useMemo(() => [...new Set(assets.map(a => a.Site_ID).filter(Boolean))].sort(), [assets]);
+
+  const filtered = useMemo(() => {
+    return assets.filter(a => {
+      const q = search.toLowerCase();
+      const matchSearch = !q ||
+        (a.Equipment_ID || '').toLowerCase().includes(q) ||
+        (a.Equipment_Type || '').toLowerCase().includes(q) ||
+        (a.Make || '').toLowerCase().includes(q) ||
+        (a.Model || '').toLowerCase().includes(q);
+      const matchType = !filterType || a.Equipment_Type === filterType;
+      const matchSite = !filterSite || a.Site_ID === filterSite;
+      const matchStatus = !filterStatus || (a.Status || '').toUpperCase() === filterStatus.toUpperCase();
+      return matchSearch && matchType && matchSite && matchStatus;
+    });
+  }, [assets, search, filterType, filterSite, filterStatus]);
+
+  const columns = [
+    {
+      key: 'Equipment_ID', label: 'Asset ID', primary: true, width: 110,
+      render: v => <span className="font-mono" style={{ color: 'var(--amber)', fontWeight: 700 }}>{v}</span>
+    },
+    { key: 'Equipment_Type', label: 'Type', width: 140 },
+    {
+      key: 'Make', label: 'Make / Model', width: 160,
+      render: (v, row) => <span style={{ color: 'var(--text-secondary)' }}>{v} {row.Model}</span>
+    },
+    {
+      key: 'Site_ID', label: 'Site', width: 80,
+      render: v => <span className="badge badge-info">{v}</span>
+    },
+    {
+      key: 'Status', label: 'Status', width: 110,
+      render: v => <StatusBadge status={v || 'AVAILABLE'} />
+    },
+    {
+      key: 'Engine_Hours', label: 'Engine Hrs', width: 110,
+      render: v => <span className="font-mono">{Number(v || 0).toLocaleString()}</span>
+    },
+    {
+      key: 'Fuel_Capacity_Liters', label: 'Fuel Cap (L)', width: 110,
+      render: v => <span className="font-mono">{Number(v || 0).toLocaleString()}</span>
+    },
+    {
+      key: 'Daily_Rate_USD', label: 'Daily Rate', width: 110,
+      render: v => <span className="font-mono text-emerald">${Number(v || 0).toFixed(0)}</span>
+    },
+    {
+      key: 'Health_Score', label: 'Health', width: 120,
+      render: v => <SparkBar value={parseFloat(v) || 0} max={100} />
+    },
+  ];
+
+  if (loading) return <div className="loading-center"><div className="spinner spinner-lg" /><span>Loading assets…</span></div>;
 
   return (
-    <div className="space-y-3 font-sans">
-      {/* VisionLink Top Grid Controls Toolbar */}
-      <div className="bg-white p-3 rounded-md border border-gray-200 shadow-2xs flex flex-wrap items-center justify-between gap-3 text-xs select-none">
-        {/* Search Input: Find asset */}
-        <div className="relative flex items-center min-w-[240px]">
-          <SearchIcon className="absolute left-2.5 text-gray-400" fontSize="small" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Find asset"
-            className="w-full bg-white text-gray-800 placeholder-gray-400 text-xs pl-8 pr-3 py-1.5 rounded border border-gray-300 focus:outline-none focus:border-gray-500 transition-all"
-          />
+    <div className="fade-in">
+      <div className="page-header">
+        <div>
+          <h1 className="page-title">Fleet Assets</h1>
+          <p className="page-subtitle">{filtered.length} of {assets.length} assets shown</p>
         </div>
-
-        {/* Right Controls: Item count, Pagination, Action Icons */}
-        <div className="flex items-center gap-4 text-gray-600 font-medium">
-          {/* Pagination Counter */}
-          <span className="text-gray-500">
-            1 - {filteredAssets.length} of {assets.length > 0 ? assets.length : 250}
-          </span>
-
-          {/* Nav arrows */}
-          <div className="flex items-center gap-1">
-            <button className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700">
-              <ChevronLeftIcon fontSize="small" />
-            </button>
-            <button className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700">
-              <ChevronRightIcon fontSize="small" />
-            </button>
-          </div>
-
-          {/* Toolbar Action Icons */}
-          <div className="flex items-center gap-2 border-l border-gray-200 pl-3">
-            <button className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors" title="Date Range">
-              <CalendarTodayOutlinedIcon fontSize="small" />
-            </button>
-            <button className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors" title="Export CSV">
-              <FileDownloadOutlinedIcon fontSize="small" />
-            </button>
-            <button className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors" title="Table Settings">
-              <SettingsOutlinedIcon fontSize="small" />
-            </button>
-          </div>
-        </div>
+        <button className="btn btn-primary" onClick={() => { setSearch(''); setFilterType(''); setFilterSite(''); setFilterStatus(''); }}>
+          Clear Filters
+        </button>
       </div>
 
-      {/* VisionLink Data Grid Table */}
-      {loading ? (
-        <div className="p-12 bg-white rounded-md border border-gray-200 text-center text-gray-500 text-sm">
-          Loading Caterpillar VisionLink Asset Inventory...
+      {error && <div className="alert-banner alert-banner-error">⚠️ {error}</div>}
+
+      {/* Filter Bar */}
+      <div className="flex gap-3 mb-4" style={{ flexWrap: 'wrap' }}>
+        <div className="input-wrap" style={{ flex: '1 1 260px' }}>
+          <span className="input-icon">
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </span>
+          <input className="input input-with-icon" placeholder="Search by ID, type, make, model…" value={search} onChange={e => setSearch(e.target.value)} />
         </div>
-      ) : (
-        <AssetTable assets={filteredAssets} />
-      )}
+        <select className="select" value={filterType} onChange={e => setFilterType(e.target.value)}>
+          <option value="">All Types</option>
+          {types.map(t => <option key={t} value={t}>{t}</option>)}
+        </select>
+        <select className="select" value={filterSite} onChange={e => setFilterSite(e.target.value)}>
+          <option value="">All Sites</option>
+          {sites.map(s => <option key={s} value={s}>{s}</option>)}
+        </select>
+        <select className="select" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+          <option value="">All Statuses</option>
+          <option value="AVAILABLE">Available</option>
+          <option value="RENTED">Rented</option>
+          <option value="MAINTENANCE">Maintenance</option>
+        </select>
+      </div>
+
+      <DataTable
+        columns={columns}
+        rows={filtered}
+        rowKey={r => r.Equipment_ID}
+        emptyMessage="No assets match your filters"
+      />
     </div>
   );
 };

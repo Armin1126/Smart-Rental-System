@@ -1,272 +1,265 @@
 import React, { useState, useEffect } from 'react';
 import { analyticsApi } from '../services/api';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import StorageIcon from '@mui/icons-material/Storage';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import RecommendIcon from '@mui/icons-material/Recommend';
-import CircularProgress from '@mui/material/CircularProgress';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-const PIPELINE_STAGES = [
-  { key: 'generate', icon: <StorageIcon fontSize="small" />, label: 'Synthetic Dataset Generation', desc: 'assets.csv · sites.csv · operators.csv · rental_records.csv · telemetry.csv' },
-  { key: 'preprocess', icon: <RefreshIcon fontSize="small" />, label: 'Data Preprocessing & Enrichment', desc: 'processed_dataset.csv · Extended Contracts · Long-Term Rentals' },
-  { key: 'dashboard', icon: <BarChartIcon fontSize="small" />, label: 'Dashboard Analytics Engine', desc: 'dashboard_analytics.json · Fleet KPIs · Site Breakdowns · Equipment Types' },
-  { key: 'underutil', icon: <TroubleshootIcon fontSize="small" />, label: 'Under-Utilization Analyzer', desc: 'underutilized_assets.json · Return Early / Reallocate / Monitor flags' },
-  { key: 'anomaly', icon: <ErrorIcon fontSize="small" />, label: 'Rule-Based Anomaly Detector', desc: 'anomalies.json · High Fuel Consumption · Engine Overtemp · Overdue Alerts' },
-  { key: 'forecast', icon: <TrendingUpIcon fontSize="small" />, label: 'Demand Forecasting Model', desc: 'forecast.json · 3-Month Moving Average · Confidence Scoring' },
-  { key: 'recommendations', icon: <RecommendIcon fontSize="small" />, label: 'AI Recommendation Engine', desc: 'recommendations.json · Move Asset · Return Early · Refuel · Maintenance' },
+const STAGES = [
+  { key: 'dataset',    icon: '💾', label: 'Dataset Generation',    desc: 'assets · sites · operators · rentals · telemetry' },
+  { key: 'preprocess', icon: '⚙️', label: 'Preprocessing',          desc: 'processed_dataset.csv · extended/long-term contracts' },
+  { key: 'dashboard',  icon: '📊', label: 'Dashboard Analytics',    desc: 'KPIs · site breakdowns · equipment type analysis' },
+  { key: 'underutil',  icon: '📉', label: 'Under-Utilization',      desc: 'flagged assets · Return Early / Reallocate' },
+  { key: 'anomaly',    icon: '🔍', label: 'Anomaly Detection',       desc: 'engine critical · overheating · overdue · fuel low' },
+  { key: 'forecast',   icon: '📈', label: 'Demand Forecasting',      desc: '3-month moving average · confidence scoring' },
+  { key: 'recs',       icon: '💡', label: 'Recommendation Engine',  desc: 'recommendations.json · action + priority generation' },
 ];
 
-const StageRow = ({ stage, status }) => {
-  const isComplete = status === 'done';
-  const isRunning = status === 'running';
-  const isError = status === 'error';
+const ANOMALY_COLORS = { CRITICAL: '#f43f5e', HIGH: '#f97316', MEDIUM: '#ffcd00', LOW: '#38bdf8' };
 
+const CustomTooltip = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
   return (
-    <div className={`flex items-start gap-3 p-3 rounded-lg border transition-all duration-300 ${
-      isComplete ? 'bg-emerald-50 border-emerald-200' :
-      isRunning ? 'bg-amber-50 border-amber-300' :
-      isError ? 'bg-red-50 border-red-200' :
-      'bg-white border-gray-200'
-    }`}>
-      <div className={`mt-0.5 flex-shrink-0 ${
-        isComplete ? 'text-emerald-600' :
-        isRunning ? 'text-amber-500' :
-        isError ? 'text-red-500' :
-        'text-gray-300'
-      }`}>
-        {isRunning
-          ? <CircularProgress size={16} sx={{ color: '#f59e0b' }} />
-          : isComplete
-            ? <CheckCircleIcon fontSize="small" />
-            : isError
-              ? <ErrorIcon fontSize="small" />
-              : <span className="w-4 h-4 rounded-full border-2 border-gray-200 inline-block" />
-        }
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className={`text-xs font-semibold ${
-          isComplete ? 'text-emerald-800' : isRunning ? 'text-amber-800' : isError ? 'text-red-800' : 'text-gray-500'
-        }`}>
-          {stage.label}
-        </div>
-        <div className="text-[11px] text-gray-500 font-mono mt-0.5 truncate">{stage.desc}</div>
-      </div>
-      <div className={`text-[10px] font-bold uppercase tracking-wide flex-shrink-0 ${
-        isComplete ? 'text-emerald-600' : isRunning ? 'text-amber-600' : isError ? 'text-red-600' : 'text-gray-300'
-      }`}>
-        {isComplete ? 'Done' : isRunning ? 'Running…' : isError ? 'Failed' : 'Pending'}
-      </div>
+    <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, padding: '10px 14px', fontSize: '0.75rem' }}>
+      <p style={{ color: 'var(--text-muted)', marginBottom: 6 }}>{label}</p>
+      {payload.map((p, i) => <p key={i} style={{ color: p.color || 'var(--amber)', fontWeight: 600 }}>{p.name}: {p.value}</p>)}
     </div>
   );
 };
 
-const SummaryCard = ({ label, value, unit }) => (
-  <div className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col gap-1 shadow-xs">
-    <div className="text-[11px] text-gray-500 font-medium">{label}</div>
-    <div className="text-xl font-extrabold text-gray-900 font-mono tracking-tight">{value}</div>
-    {unit && <div className="text-[10px] text-gray-400">{unit}</div>}
-  </div>
-);
-
 export const Analytics = () => {
-  const [loading, setLoading] = useState(false);
+  const [running, setRunning] = useState(false);
+  const [stageStatus, setStageStatus] = useState({});
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const [stageStatuses, setStageStatuses] = useState({});
-  const [dashboardData, setDashboardData] = useState(null);
   const [elapsed, setElapsed] = useState(0);
-  const [apiStatus, setApiStatus] = useState(null);
+  const [apiOnline, setApiOnline] = useState(null);
+  const [anomalyData, setAnomalyData] = useState([]);
+  const [forecastData, setForecastData] = useState([]);
+  const [dashSummary, setDashSummary] = useState(null);
 
-  // Check if FastAPI is live on mount
+  // Check API status on mount + load charts
   useEffect(() => {
-    analyticsApi.get('/')
-      .then(res => setApiStatus({ online: true, data: res.data }))
-      .catch(() => setApiStatus({ online: false }));
+    const init = async () => {
+      try {
+        await analyticsApi.get('/');
+        setApiOnline(true);
+      } catch { setApiOnline(false); }
+      try {
+        const [anomRes, dashRes] = await Promise.all([
+          analyticsApi.get('/anomalies'),
+          analyticsApi.get('/dashboard'),
+        ]);
+        // Aggregate anomalies by severity
+        const anomList = anomRes.data.anomalies || [];
+        const sevCount = {};
+        anomList.forEach(a => { sevCount[a.Severity] = (sevCount[a.Severity] || 0) + 1; });
+        setAnomalyData(Object.entries(sevCount).map(([sev, count]) => ({ sev, count })));
+        setDashSummary(dashRes.data.summary);
+      } catch {}
+    };
+    init();
   }, []);
 
-  // Fetch dashboard stats after pipeline completes
-  const fetchDashboardStats = async () => {
-    try {
-      const res = await analyticsApi.get('/dashboard');
-      setDashboardData(res.data);
-    } catch {}
-  };
-
-  useEffect(() => {
-    if (result?.status === 'SUCCESS') {
-      fetchDashboardStats();
-    }
-  }, [result]);
-
   const triggerPipeline = async () => {
-    setLoading(true);
+    setRunning(true);
     setResult(null);
     setError(null);
-    setDashboardData(null);
+    setStageStatus({});
     setElapsed(0);
 
-    // Animate stages sequentially
-    const stages = PIPELINE_STAGES.map(s => s.key);
-    const animateStages = async () => {
-      const stageDelay = 600;
-      const statuses = {};
-      for (let i = 0; i < stages.length; i++) {
-        statuses[stages[i]] = 'running';
-        setStageStatuses({ ...statuses });
-        await new Promise(r => setTimeout(r, stageDelay));
-      }
-    };
+    const start = Date.now();
+    const timer = setInterval(() => setElapsed(Math.floor((Date.now() - start) / 1000)), 200);
 
-    const startTime = Date.now();
-    const timer = setInterval(() => setElapsed(Math.floor((Date.now() - startTime) / 1000)), 200);
+    // Animate stages as request runs
+    const stageKeys = STAGES.map(s => s.key);
+    const animateTask = (async () => {
+      for (const key of stageKeys) {
+        setStageStatus(p => ({ ...p, [key]: 'running' }));
+        await new Promise(r => setTimeout(r, 700));
+      }
+    })();
 
     try {
-      const [pipelineRes] = await Promise.all([
+      const [res] = await Promise.all([
         analyticsApi.post('/generate?records=50'),
-        animateStages(),
+        animateTask,
       ]);
-
-      const finalStatuses = {};
-      stages.forEach(k => finalStatuses[k] = 'done');
-      setStageStatuses(finalStatuses);
-      setResult(pipelineRes.data);
-    } catch (err) {
-      const finalStatuses = {};
-      stages.forEach(k => finalStatuses[k] = 'error');
-      setStageStatuses(finalStatuses);
-      setError(err?.response?.data?.detail || 'FastAPI analytics engine offline or encountered an error.');
+      const done = {};
+      stageKeys.forEach(k => done[k] = 'done');
+      setStageStatus(done);
+      setResult(res.data);
+      // Refresh charts
+      const [anomRes, dashRes] = await Promise.all([
+        analyticsApi.get('/anomalies'),
+        analyticsApi.get('/dashboard'),
+      ]);
+      const anomList = anomRes.data.anomalies || [];
+      const sevCount = {};
+      anomList.forEach(a => { sevCount[a.Severity] = (sevCount[a.Severity] || 0) + 1; });
+      setAnomalyData(Object.entries(sevCount).map(([sev, count]) => ({ sev, count })));
+      setDashSummary(anomRes.data.summary || dashRes.data.summary);
+    } catch (e) {
+      const failed = {};
+      stageKeys.forEach(k => failed[k] = 'error');
+      setStageStatus(failed);
+      setError(e?.response?.data?.detail || 'Pipeline failed. Check if FastAPI is running on port 8000.');
     } finally {
       clearInterval(timer);
-      setElapsed(Math.floor((Date.now() - startTime) / 1000));
-      setLoading(false);
+      setElapsed(Math.floor((Date.now() - start) / 1000));
+      setRunning(false);
     }
   };
 
-  const summary = dashboardData?.summary;
-
   return (
-    <div className="space-y-5">
-      {/* Header */}
-      <div>
-        <h1 className="text-xl font-extrabold text-gray-900 tracking-tight">FastAPI Analytics Engine</h1>
-        <p className="text-gray-500 text-sm mt-0.5">Run the full AI pipeline: synthetic telemetry generation → preprocessing → anomaly detection → forecasting → recommendations.</p>
+    <div className="fade-in">
+      <div className="page-header">
+        <div>
+          <h1 className="page-title">AI Analytics Pipeline</h1>
+          <p className="page-subtitle">End-to-end synthetic data generation, anomaly detection, forecasting, and recommendations</p>
+        </div>
+        {/* API Status */}
+        <div className="flex items-center gap-2" style={{ fontSize: '0.75rem', color: apiOnline ? 'var(--emerald)' : apiOnline === false ? 'var(--rose)' : 'var(--text-muted)' }}>
+          <span className="live-dot" style={{ background: apiOnline ? 'var(--emerald)' : apiOnline === false ? 'var(--rose)' : 'var(--text-muted)' }} />
+          {apiOnline === true ? 'FastAPI online · :8000' : apiOnline === false ? 'FastAPI offline' : 'Checking…'}
+        </div>
       </div>
 
-      {/* API Status Banner */}
-      {apiStatus && (
-        <div className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-semibold ${
-          apiStatus.online
-            ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
-            : 'bg-red-50 border-red-200 text-red-700'
-        }`}>
-          <span className={`w-2 h-2 rounded-full ${apiStatus.online ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`} />
-          {apiStatus.online
-            ? `FastAPI Analytics Engine ONLINE — v${apiStatus.data?.version || '1.2.0'} · http://localhost:8000`
-            : 'FastAPI Analytics Engine OFFLINE — start with: uvicorn api:app --port 8000'
-          }
-        </div>
+      {error && <div className="alert-banner alert-banner-error">⚠️ {error}</div>}
+      {result?.status === 'SUCCESS' && (
+        <div className="alert-banner alert-banner-success">✅ Pipeline completed successfully in {elapsed}s — {result.artifacts_updated?.length} artifacts updated</div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Pipeline Control Panel */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden">
-          <div className="bg-neutral-900 px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-white text-sm font-bold">
-              <AutoAwesomeIcon fontSize="small" className="text-[#ffcd00]" />
-              <span>Analytics Pipeline Control</span>
-            </div>
-            {loading && (
-              <div className="flex items-center gap-2 text-amber-400 text-xs font-mono">
-                <CircularProgress size={12} sx={{ color: '#ffcd00' }} />
-                <span>{elapsed}s elapsed</span>
-              </div>
-            )}
-            {result?.status === 'SUCCESS' && !loading && (
-              <span className="text-emerald-400 text-xs font-bold">✓ Completed in {elapsed}s</span>
+      <div className="grid-2" style={{ alignItems: 'start' }}>
+        {/* Pipeline Control */}
+        <div className="card">
+          <div style={{ background: '#0d1117', padding: '14px 20px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ color: 'var(--amber)' }}>⚡</span> Pipeline Control
+            </span>
+            {running && (
+              <span style={{ fontSize: '0.75rem', color: 'var(--amber)', fontFamily: 'JetBrains Mono, monospace', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span className="live-dot" style={{ background: 'var(--amber)' }} />
+                {elapsed}s elapsed
+              </span>
             )}
           </div>
 
-          <div className="p-4 space-y-3">
+          <div className="card-body space-y-4">
             {/* Trigger Button */}
             <button
               onClick={triggerPipeline}
-              disabled={loading || !apiStatus?.online}
-              className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-bold text-sm transition-all duration-200 ${
-                loading || !apiStatus?.online
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-[#ffcd00] text-black hover:bg-amber-400 hover:shadow-md active:scale-95'
-              }`}
+              disabled={running || !apiOnline}
+              className="btn btn-primary btn-lg w-full"
+              style={{ justifyContent: 'center' }}
             >
-              {loading
-                ? <><CircularProgress size={16} sx={{ color: '#666' }} /> Running Pipeline...</>
-                : <><AutoAwesomeIcon fontSize="small" /> Generate Synthetic Telemetry Data</>
-              }
+              {running ? (
+                <><span className="live-dot" style={{ background: '#111' }} /> Running Pipeline…</>
+              ) : (
+                <>⚡ Generate Synthetic Telemetry Data</>
+              )}
             </button>
 
-            {/* Pipeline Stages */}
-            <div className="space-y-1.5">
-              {PIPELINE_STAGES.map(stage => (
-                <StageRow key={stage.key} stage={stage} status={stageStatuses[stage.key] || 'pending'} />
-              ))}
+            {/* Stage Progress */}
+            <div className="space-y-4">
+              {STAGES.map(stage => {
+                const status = stageStatus[stage.key];
+                const isDone    = status === 'done';
+                const isRunning = status === 'running';
+                const isError   = status === 'error';
+
+                return (
+                  <div key={stage.key} style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 12,
+                    padding: '10px 12px', borderRadius: 8,
+                    border: `1px solid ${isDone ? '#10b98133' : isRunning ? '#ffcd0033' : isError ? '#f43f5e33' : 'var(--border-subtle)'}`,
+                    background: isDone ? '#10b98108' : isRunning ? '#ffcd0008' : isError ? '#f43f5e08' : 'transparent',
+                    transition: 'all 0.3s',
+                  }}>
+                    <span style={{ fontSize: 16, marginTop: 1, flexShrink: 0 }}>
+                      {isRunning ? <span className="live-dot" style={{ width: 10, height: 10, background: 'var(--amber)' }} /> :
+                       isDone ? '✅' : isError ? '❌' : <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: '50%', border: '2px solid var(--border)' }} />}
+                    </span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: '0.8rem', fontWeight: 600, color: isDone ? 'var(--emerald)' : isRunning ? 'var(--amber)' : isError ? 'var(--rose)' : 'var(--text-secondary)' }}>
+                        {stage.icon} {stage.label}
+                      </div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>{stage.desc}</div>
+                    </div>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', flexShrink: 0,
+                      color: isDone ? 'var(--emerald)' : isRunning ? 'var(--amber)' : isError ? 'var(--rose)' : 'var(--text-muted)' }}>
+                      {isDone ? 'Done' : isRunning ? 'Running' : isError ? 'Failed' : 'Pending'}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {/* Results Panel */}
-        <div className="space-y-4">
-          {/* Error state */}
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-xs font-mono">
-              <div className="font-bold text-sm mb-1 flex items-center gap-1"><ErrorIcon fontSize="small" /> Pipeline Error</div>
-              {error}
+        {/* Right Column: Charts + Artifacts */}
+        <div className="space-y-5">
+          {/* Anomaly Distribution */}
+          {anomalyData.length > 0 && (
+            <div className="card">
+              <div className="card-header">
+                <h3>Anomalies by Severity</h3>
+                <span className="text-xs text-muted">{anomalyData.reduce((s, a) => s + a.count, 0)} total</span>
+              </div>
+              <div className="card-body" style={{ padding: '12px 8px' }}>
+                <ResponsiveContainer width="100%" height={160}>
+                  <BarChart data={anomalyData} margin={{ top: 4, right: 16, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="sev" tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
+                    <YAxis tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="count" name="Count" radius={[3,3,0,0]}>
+                      {anomalyData.map((entry, i) => (
+                        <Cell key={i} fill={ANOMALY_COLORS[entry.sev] || '#ffcd00'} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           )}
 
-          {/* Success Summary Metrics */}
-          {summary && (
-            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-xs">
-              <div className="bg-neutral-900 px-4 py-2 text-white text-xs font-bold flex items-center gap-2">
-                <BarChartIcon fontSize="small" className="text-[#ffcd00]" /> Live Pipeline Output Metrics
+          {/* Fleet Stats */}
+          {dashSummary && (
+            <div className="card">
+              <div className="card-header">
+                <h3>Fleet Metrics (Latest Run)</h3>
               </div>
-              <div className="p-4 grid grid-cols-2 gap-2.5">
-                <SummaryCard label="Total Records" value={summary.total_records?.toLocaleString()} unit="processed dataset rows" />
-                <SummaryCard label="Avg Utilization" value={`${summary.average_utilization_pct}%`} unit="fleet-wide average" />
-                <SummaryCard label="Total Engine Hours" value={summary.total_engine_hours?.toLocaleString()} unit="cumulative hours" />
-                <SummaryCard label="Fuel Remaining" value={`${summary.fuel_remaining_average_pct}%`} unit="average across fleet" />
-                <SummaryCard label="Overdue Assets" value={summary.overdue_assets} unit="require return action" />
-                <SummaryCard label="Idle Assets" value={summary.idle_assets} unit="flagged for review" />
+              <div className="card-body">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                  {[
+                    { label: 'Total Records', value: dashSummary.total_records },
+                    { label: 'Avg Utilization', value: `${dashSummary.average_utilization_pct}%` },
+                    { label: 'Engine Hours', value: (dashSummary.total_engine_hours || 0).toLocaleString() },
+                    { label: 'Fuel Remaining', value: `${dashSummary.fuel_remaining_average_pct}%` },
+                    { label: 'Overdue Assets', value: dashSummary.overdue_assets },
+                    { label: 'Idle Assets', value: dashSummary.idle_assets },
+                  ].map(s => (
+                    <div key={s.label} style={{ padding: '10px 12px', background: 'var(--bg-elevated)', borderRadius: 8, border: '1px solid var(--border-subtle)' }}>
+                      <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{s.label}</div>
+                      <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: 2 }}>{s.value}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
 
-          {/* Artifacts Updated */}
+          {/* Artifacts list on success */}
           {result?.artifacts_updated && (
-            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-xs">
-              <div className="bg-emerald-700 px-4 py-2 text-white text-xs font-bold flex items-center gap-2">
-                <CheckCircleIcon fontSize="small" /> Artifacts Updated ({result.artifacts_updated.length} files)
+            <div className="card">
+              <div style={{ background: '#0d3320', padding: '12px 20px', borderBottom: '1px solid #10b98133' }}>
+                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--emerald)' }}>✅ Artifacts Updated</span>
               </div>
-              <div className="p-3 grid grid-cols-1 gap-1">
+              <div className="card-body" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
                 {result.artifacts_updated.map(f => (
-                  <div key={f} className="flex items-center gap-2 text-xs text-gray-700 font-mono px-2 py-1 bg-gray-50 rounded border border-gray-100">
-                    <CheckCircleIcon fontSize="inherit" className="text-emerald-500" />
-                    datasets/{f}
+                  <div key={f} style={{ padding: '6px 10px', background: 'var(--bg-elevated)', borderRadius: 6, fontSize: '0.7rem', fontFamily: 'JetBrains Mono, monospace', color: 'var(--emerald)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span>✓</span> {f}
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-
-          {/* Placeholder before pipeline run */}
-          {!result && !error && !loading && (
-            <div className="bg-gray-50 border border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-400">
-              <AutoAwesomeIcon fontSize="large" className="text-gray-300 mb-2" />
-              <p className="text-sm font-medium">Click "Generate Synthetic Telemetry Data" to run the full AI pipeline</p>
-              <p className="text-xs mt-1">Generates 104+ records, runs anomaly detection, forecasting, and recommendations</p>
             </div>
           )}
         </div>
