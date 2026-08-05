@@ -1,20 +1,12 @@
 import { backendApi } from './api';
 import { MOCK_TELEMETRY } from '../constants/mockData';
 
-export const postTelemetry = async (telemetryPayload) => {
+export const getTelemetryForAsset = async (assetId = 'EQX1001') => {
   try {
-    const res = await backendApi.post('/telemetry', telemetryPayload);
+    const res = await backendApi.get(`/telemetry/${assetId}`);
     return res.data;
   } catch (err) {
-    return { status: 'RECEIVED', data: telemetryPayload };
-  }
-};
-
-export const getTelemetryByAsset = async (assetId) => {
-  try {
-    const res = await backendApi.get(`/telemetry/asset/${assetId}`);
-    return res.data;
-  } catch (err) {
-    return MOCK_TELEMETRY.filter(t => t.assetId === Number(assetId));
+    console.warn(`Backend API /telemetry/${assetId} failed, using fallback telemetry`);
+    return MOCK_TELEMETRY;
   }
 };

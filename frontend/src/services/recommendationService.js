@@ -6,6 +6,7 @@ export const getRecommendations = async () => {
     const res = await backendApi.get('/recommendations');
     return res.data;
   } catch (err) {
+    console.warn('Backend API /recommendations failed, using fallback recommendations');
     return MOCK_RECOMMENDATIONS;
   }
 };
