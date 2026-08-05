@@ -7,14 +7,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from synthetic_data_generator import generate_data
 from forecast import get_forecast
-from anomaly import get_anomalies
 from recommendation import get_recommendations
 from dashboard_analytics import calculate_dashboard_metrics
 from underutilization_analysis import analyze_underutilization
+from rule_based_anomaly_detector import run_anomaly_detection
 
 app = FastAPI(
     title="Smart Rental Analytics Service",
-    description="Python FastAPI service for IoT telemetry data synthesis, demand forecasting, anomaly detection, dashboard metrics, under-utilization analysis, and recommendation engine.",
+    description="Python FastAPI service for IoT telemetry data synthesis, demand forecasting, rule-based anomaly detection, dashboard metrics, under-utilization analysis, and recommendation engine.",
     version="1.0.0"
 )
 
@@ -31,7 +31,7 @@ def read_root():
     return {
         "service": "Smart Rental Analytics API",
         "status": "UP",
-        "endpoints": ["/health", "/dashboard-analytics", "/underutilized", "/generate", "/forecast", "/anomalies", "/recommendations", "/docs"]
+        "endpoints": ["/health", "/dashboard-analytics", "/underutilized", "/anomalies", "/generate", "/forecast", "/recommendations", "/docs"]
     }
 
 @app.get("/health")
@@ -48,6 +48,11 @@ def get_underutilized_assets_endpoint():
     """Identifies underutilized assets (Utilization < 30% or Idle > 70%) and assigns operational recommendations."""
     return analyze_underutilization()
 
+@app.get("/anomalies")
+def get_telemetry_anomalies_endpoint():
+    """Executes rule-based operational anomaly detection engine across all 8 rule categories."""
+    return run_anomaly_detection()
+
 @app.post("/generate")
 def generate_synthetic_telemetry_endpoint(records: int = Query(default=50, ge=10, le=500)):
     """Triggers synthetic telemetry generation batch using Faker & NumPy."""
@@ -62,11 +67,6 @@ def generate_synthetic_telemetry_endpoint(records: int = Query(default=50, ge=10
 def get_demand_forecast_endpoint():
     """Returns predictive equipment demand forecasts."""
     return get_forecast()
-
-@app.get("/anomalies")
-def get_telemetry_anomalies_endpoint():
-    """Returns detected telemetry vibration and temperature anomalies."""
-    return get_anomalies()
 
 @app.get("/recommendations")
 def get_ai_recommendations_endpoint():
