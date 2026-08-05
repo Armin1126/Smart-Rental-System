@@ -1,12 +1,9 @@
 package com.smartrental.controller;
 
-import com.smartrental.model.Asset;
-import com.smartrental.repository.AssetRepository;
+import com.smartrental.dto.AssetDTO;
+import com.smartrental.service.AssetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,23 +11,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/assets")
-@Tag(name = "Asset Management API", description = "CRUD operations for rental equipment assets")
+@Tag(name = "Asset Management API", description = "Operations for rental equipment assets")
 @CrossOrigin(origins = "*")
 public class AssetController {
 
-    @Autowired
-    private AssetRepository assetRepository;
+    private final AssetService assetService;
 
-    @GetMapping
-    @Operation(summary = "Get list of all registered assets")
-    public ResponseEntity<List<Asset>> getAllAssets() {
-        return ResponseEntity.ok(assetRepository.findAll());
+    public AssetController(AssetService assetService) {
+        this.assetService = assetService;
     }
 
-    @PostMapping
-    @Operation(summary = "Register a new rental asset")
-    public ResponseEntity<Asset> createAsset(@Valid @RequestBody Asset asset) {
-        Asset savedAsset = assetRepository.save(asset);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedAsset);
+    @GetMapping
+    @Operation(summary = "Get list of all registered assets as DTOs")
+    public ResponseEntity<List<AssetDTO>> getAllAssets() {
+        return ResponseEntity.ok(assetService.getAllAssets());
     }
 }
