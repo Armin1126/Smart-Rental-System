@@ -1,0 +1,4 @@
+site_id,site_code,name,address,city,state,country,latitude,longitude,status
+1,SIT-001,San Francisco Main Depot,100 Industrial Way,San Francisco,CA,USA,37.7749,-122.4194,ACTIVE
+2,SIT-002,Silicon Valley Equipment Hub,500 Innovation Blvd,San Jose,CA,USA,37.3382,-121.8863,ACTIVE
+3,SIT-003,Oakland Port Yard,700 Maritime St,Oakland,CA,USA,37.8044,-122.2712,ACTIVE

@@ -1,0 +1,4 @@
+rental_id,rental_code,asset_id,operator_id,site_id,customer_name,start_date,end_date,total_amount,status
+1,RNT-1001,1,1,1,Apex Construction Corp,2026-08-01,2026-08-15,6750.00,ACTIVE
+2,RNT-1002,4,3,3,BuildTech Infra Solutions,2026-08-03,2026-08-20,8840.00,ACTIVE
+3,RNT-1003,2,2,2,Pacific Excavation Ltd,2026-07-15,2026-07-30,4200.00,COMPLETED

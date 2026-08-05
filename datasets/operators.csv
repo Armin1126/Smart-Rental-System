@@ -1,0 +1,4 @@
+operator_id,operator_code,full_name,email,phone,role,status,assigned_site_id
+1,OP-101,John Miller,john.miller@caterpillar-rental.com,555-0192,FIELD_OPERATOR,ACTIVE,1
+2,OP-102,Sarah Jenkins,sarah.jenkins@caterpillar-rental.com,555-0193,MANAGER,ACTIVE,1
+3,OP-103,David Chen,david.chen@caterpillar-rental.com,555-0194,FIELD_OPERATOR,ACTIVE,2

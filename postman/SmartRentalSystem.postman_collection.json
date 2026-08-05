@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "smart-rental-system-collection",
+		"name": "Smart Rental Asset Tracking System API",
+		"description": "Postman API Collection for testing Spring Boot Backend and FastAPI Analytics endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Backend - Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/health",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "health"]
+				}
+			}
+		},
+		{
+			"name": "Backend - Dashboard Summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/dashboard",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "dashboard"]
+				}
+			}
+		},
+		{
+			"name": "Backend - Get Assets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/assets",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "assets"]
+				}
+			}
+		},
+		{
+			"name": "Backend - Checkout Rental",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assetId\": 1,\n  \"operatorId\": 1,\n  \"siteId\": 1,\n  \"customerName\": \"Caterpillar Infra Corp\",\n  \"startDate\": \"2026-08-05\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/rentals/checkout",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "rentals", "checkout"]
+				}
+			}
+		},
+		{
+			"name": "Backend - Checkin Rental",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"rentalCode\": \"RNT-1001\",\n  \"returnDate\": \"2026-08-15\",\n  \"totalHoursUsed\": 120.5\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/rentals/checkin",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "rentals", "checkin"]
+				}
+			}
+		},
+		{
+			"name": "Backend - Ingest Telemetry",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assetId\": 1,\n  \"engineTempCelsius\": 92.4,\n  \"vibrationHz\": 28.5,\n  \"operatingHours\": 1420.0,\n  \"latitude\": 37.7749,\n  \"longitude\": -122.4194\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/telemetry",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "telemetry"]
+				}
+			}
+		},
+		{
+			"name": "Backend - Get Alerts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/alerts",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "alerts"]
+				}
+			}
+		},
+		{
+			"name": "Backend - Get Recommendations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recommendations",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "recommendations"]
+				}
+			}
+		},
+		{
+			"name": "Analytics - Generate Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/generate?records=50",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["generate"],
+					"query": [
+						{
+							"key": "records",
+							"value": "50"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Analytics - Forecast Demand",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/forecast",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["forecast"]
+				}
+			}
+		},
+		{
+			"name": "Analytics - Anomaly Detection",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/anomalies",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["anomalies"]
+				}
+			}
+		},
+		{
+			"name": "Analytics - Recommendations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/recommendations",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["recommendations"]
+				}
+			}
+		}
+	]
+}

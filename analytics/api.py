@@ -1,22 +1,21 @@
 """
-FastAPI Application for Smart Rental Analytics Engine
-Run server with: uvicorn api:app --reload
+FastAPI Analytics Engine API Entry Point
+Run with: uvicorn api:app --reload
 """
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import Optional
 
-from synthetic_data_generator import generate_synthetic_telemetry, generate_rental_history
-from analytics import analytics_engine
+from synthetic_data_generator import generate_data
+from forecast import get_forecast
+from anomaly import get_anomalies
+from recommendation import get_recommendations
 
 app = FastAPI(
     title="Smart Rental Analytics Service",
-    description="Python FastAPI service providing predictive asset maintenance analytics & synthetic telemetry",
+    description="Python FastAPI service for IoT telemetry data synthesis, demand forecasting, anomaly detection, and recommendation engine.",
     version="1.0.0"
 )
 
-# Enable CORS for React frontend communication
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -25,50 +24,39 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class TelemetryPayload(BaseModel):
-    operating_hours: Optional[float] = 1200.0
-    engine_temp_c: Optional[float] = 88.5
-    vibration_hz: Optional[float] = 32.0
-    battery_voltage: Optional[float] = 12.6
-    fuel_level_pct: Optional[float] = 60.0
-
 @app.get("/")
 def read_root():
     return {
         "service": "Smart Rental Analytics API",
         "status": "UP",
-        "endpoints": {
-            "docs": "/docs",
-            "health": "/health",
-            "summary": "/analytics/summary",
-            "synthetic_telemetry": "/generate-synthetic-data",
-            "predict_risk": "/analytics/predict-risk"
-        }
+        "endpoints": ["/health", "/generate", "/forecast", "/anomalies", "/recommendations", "/docs"]
     }
 
 @app.get("/health")
 def health_check():
-    return {"status": "HEALTHY", "engine": "FastAPI + Scikit-Learn"}
+    return {"status": "HEALTHY", "engine": "FastAPI + Pandas + Scikit-Learn"}
 
-@app.get("/analytics/summary")
-def get_fleet_summary():
-    """Returns aggregated fleet health metrics and simulated revenue stats."""
-    return analytics_engine.compute_fleet_summary()
-
-@app.post("/generate-synthetic-data")
-def trigger_data_generation(records: int = Query(default=50, ge=10, le=500)):
-    """Generates synthetic IoT telemetry data using Faker and NumPy."""
-    df_telemetry = generate_synthetic_telemetry(records)
+@app.post("/generate")
+def generate_synthetic_telemetry_endpoint(records: int = Query(default=50, ge=10, le=500)):
+    """Triggers synthetic telemetry generation batch using Faker & NumPy."""
+    data = generate_data(records)
     return {
-        "record_count": len(df_telemetry),
-        "data_sample": df_telemetry.head(10).to_dict(orient="records")
+        "status": "SUCCESS",
+        "record_count": len(data),
+        "data": data
     }
 
-@app.post("/analytics/predict-risk")
-def predict_maintenance_risk(payload: TelemetryPayload):
-    """Predicts asset maintenance risk score using Scikit-Learn classifier."""
-    result = analytics_engine.predict_asset_risk(payload.model_dump())
-    return {
-        "input_telemetry": payload.model_dump(),
-        "prediction_result": result
-    }
+@app.get("/forecast")
+def get_demand_forecast_endpoint():
+    """Returns predictive equipment demand forecasts."""
+    return get_forecast()
+
+@app.get("/anomalies")
+def get_telemetry_anomalies_endpoint():
+    """Returns detected telemetry vibration and temperature anomalies."""
+    return get_anomalies()
+
+@app.get("/recommendations")
+def get_ai_recommendations_endpoint():
+    """Returns equipment reallocation and predictive maintenance recommendations."""
+    return get_recommendations()

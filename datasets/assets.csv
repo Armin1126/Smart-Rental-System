@@ -1,0 +1,6 @@
+asset_id,asset_code,name,category,status,daily_rate,latitude,longitude,site_id
+1,AST-101,CAT 320 Hydraulic Excavator,Earthmoving,RENTED,450.00,37.7749,-122.4194,1
+2,AST-102,Genie S-60 XC Boom Lift,Aerial Lifts,AVAILABLE,280.00,37.7833,-122.4167,2
+3,AST-103,Atlas Copco XAS 188 Compressor,Generators & Power,MAINTENANCE,150.00,37.7750,-122.4180,1
+4,AST-104,CAT D6 Dozer,Earthmoving,RENTED,520.00,37.7690,-122.4210,3
+5,AST-105,BOMAG BW 120 AD-5 Roller,Compaction,AVAILABLE,210.00,37.7800,-122.4100,2
