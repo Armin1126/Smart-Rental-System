@@ -1,21 +1,20 @@
 """
-FastAPI Analytics Engine API Entry Point
+FastAPI Analytics Exposure API
 Run with: uvicorn api:app --reload
+
+This API exposes pre-computed analytics results by reading the JSON
+artifacts from the datasets directory. It does NOT perform live analytics.
 """
-from fastapi import FastAPI, Query
+
+import os
+import json
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from synthetic_data_generator import generate_data
-from forecast import get_forecast
-from recommendation import get_recommendations
-from dashboard_analytics import calculate_dashboard_metrics
-from underutilization_analysis import analyze_underutilization
-from rule_based_anomaly_detector import run_anomaly_detection
-
 app = FastAPI(
-    title="Smart Rental Analytics Service",
-    description="Python FastAPI service for IoT telemetry data synthesis, demand forecasting, rule-based anomaly detection, dashboard metrics, under-utilization analysis, and recommendation engine.",
-    version="1.0.0"
+    title="Smart Rental Analytics API",
+    description="Exposes pre-computed analytics JSON artifacts for the frontend dashboard.",
+    version="1.1.0"
 )
 
 app.add_middleware(
@@ -26,49 +25,56 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+DATASETS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "datasets"))
+
+def read_json_artifact(filename: str):
+    """Helper function to safely read JSON artifacts."""
+    filepath = os.path.join(DATASETS_DIR, filename)
+    if not os.path.exists(filepath):
+        raise HTTPException(status_code=404, detail=f"Analytics artifact {filename} not found. Please run the analytics pipeline first.")
+    
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error parsing {filename}: {str(e)}")
+
 @app.get("/")
 def read_root():
     return {
         "service": "Smart Rental Analytics API",
         "status": "UP",
-        "endpoints": ["/health", "/dashboard-analytics", "/underutilized", "/anomalies", "/generate", "/forecast", "/recommendations", "/docs"]
+        "mode": "Read-Only (Static Artifact Exposure)",
+        "endpoints": [
+            "/dashboard",
+            "/utilization",
+            "/anomalies",
+            "/forecast",
+            "/recommendations"
+        ]
     }
 
-@app.get("/health")
-def health_check():
-    return {"status": "HEALTHY", "engine": "FastAPI + Pandas + Scikit-Learn"}
+@app.get("/dashboard")
+def get_dashboard():
+    """Returns the pre-calculated dashboard metrics summary."""
+    return read_json_artifact("dashboard_analytics.json")
 
-@app.get("/dashboard-analytics")
-def get_dashboard_analytics_endpoint():
-    """Calculates operational metrics, fleet utilization, and breakdowns from processed_dataset.csv."""
-    return calculate_dashboard_metrics()
-
-@app.get("/underutilized")
-def get_underutilized_assets_endpoint():
-    """Identifies underutilized assets (Utilization < 30% or Idle > 70%) and assigns operational recommendations."""
-    return analyze_underutilization()
+@app.get("/utilization")
+def get_utilization():
+    """Returns the pre-calculated under-utilization analysis."""
+    return read_json_artifact("underutilized_assets.json")
 
 @app.get("/anomalies")
-def get_telemetry_anomalies_endpoint():
-    """Executes rule-based operational anomaly detection engine across all 8 rule categories."""
-    return run_anomaly_detection()
-
-@app.post("/generate")
-def generate_synthetic_telemetry_endpoint(records: int = Query(default=50, ge=10, le=500)):
-    """Triggers synthetic telemetry generation batch using Faker & NumPy."""
-    data = generate_data(records)
-    return {
-        "status": "SUCCESS",
-        "record_count": len(data),
-        "data": data
-    }
+def get_anomalies():
+    """Returns the pre-calculated rule-based anomaly detection results."""
+    return read_json_artifact("anomalies.json")
 
 @app.get("/forecast")
-def get_demand_forecast_endpoint():
-    """Returns predictive equipment demand forecasts."""
-    return get_forecast()
+def get_forecast():
+    """Returns the pre-calculated moving average demand forecast."""
+    return read_json_artifact("forecast.json")
 
 @app.get("/recommendations")
-def get_ai_recommendations_endpoint():
-    """Returns equipment reallocation and predictive maintenance recommendations."""
-    return get_recommendations()
+def get_recommendations():
+    """Returns the pre-calculated AI recommendations."""
+    return read_json_artifact("recommendations.json")
