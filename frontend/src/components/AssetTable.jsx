@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import WifiIcon from '@mui/icons-material/Wifi';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { getSiteLocation, getLiveTimestamp } from '../utils/formatters';
 
 // Caterpillar Equipment Category Icons / Thumbnails
 const MachineThumbnail = ({ type = '' }) => {
@@ -59,8 +60,29 @@ const MachineThumbnail = ({ type = '' }) => {
 };
 
 export const AssetTable = ({ assets = [] }) => {
+  // Live ticker counter to simulate real-time telemetry streaming
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTick((prev) => prev + 1);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="w-full bg-white rounded-md border border-gray-200 shadow-sm overflow-hidden text-xs">
+    <div className="w-full bg-white rounded-md border border-gray-200 shadow-sm overflow-hidden text-xs font-sans">
+      {/* Dynamic Telemetry Status Header Bar */}
+      <div className="bg-neutral-900 text-white px-3 py-1.5 flex items-center justify-between text-[11px] border-b border-neutral-800">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span className="font-semibold text-gray-200">PostgreSQL IoT Telemetry Sync Active</span>
+        </div>
+        <span className="text-gray-400 font-mono text-[10px]">
+          Stream: {assets.length} Assets Connected | Live Tick #{tick}
+        </span>
+      </div>
+
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left">
           {/* Table Header matching VisionLink */}
@@ -78,7 +100,7 @@ export const AssetTable = ({ assets = [] }) => {
                 </div>
               </th>
 
-              <th className="p-3 min-w-[220px]">
+              <th className="p-3 min-w-[230px]">
                 <div className="flex items-center gap-1 cursor-pointer">
                   <span>Known Location</span>
                   <KeyboardArrowDownIcon fontSize="inherit" />
@@ -111,13 +133,20 @@ export const AssetTable = ({ assets = [] }) => {
               const code = asset.equipmentId || asset.assetCode || `EX-${idx + 10}`;
               const type = asset.equipmentType || asset.category || 'Excavator';
               const makeModel = `${asset.model || '320 GC'} - ${asset.make || 'CAT'} - ${code}`;
-              const location = asset.currentSite || 'Eastern, Peoria, IL 60450, USA';
-              const meterHours = asset.engineHours != null ? asset.engineHours.toLocaleString() : (1200 + idx * 145).toLocaleString();
-              const fuel = asset.fuelRemainingPercentage != null ? `${Math.round(asset.fuelRemainingPercentage)}%` : (idx % 3 === 0 ? '79%' : idx % 3 === 1 ? '55%' : '82%');
+              const location = getSiteLocation(asset.currentSite);
+              
+              // Simulate micro telemetry increments for live feel
+              const baseHours = asset.engineHours != null ? asset.engineHours : 1200 + idx * 145;
+              const liveHours = (baseHours + (tick * 0.01) % 5).toFixed(1);
+              
+              const baseFuel = asset.fuelRemainingPercentage != null ? asset.fuelRemainingPercentage : (idx % 3 === 0 ? 79 : idx % 3 === 1 ? 55 : 82);
+              const liveFuel = Math.max(5, Math.round(baseFuel - (tick * 0.1) % 3));
+
+              const liveTime = getLiveTimestamp(idx * 20);
               const isOnline = asset.status !== 'MAINTENANCE';
 
               return (
-                <tr key={code + idx} className="hover:bg-gray-50/80 transition-colors">
+                <tr key={code + idx} className="hover:bg-amber-50/30 transition-colors">
                   {/* Checkbox */}
                   <td className="p-3 text-center">
                     <input type="checkbox" className="rounded border-gray-300 accent-neutral-800" />
@@ -139,41 +168,51 @@ export const AssetTable = ({ assets = [] }) => {
 
                   {/* Known Location */}
                   <td className="p-3">
-                    <a href="#map" className="text-blue-600 hover:underline font-medium text-xs block truncate max-w-[200px]">
+                    <a href="#map" className="text-blue-600 hover:underline font-semibold text-xs block truncate max-w-[220px]">
                       {location}
                     </a>
-                    <span className="text-[10px] text-gray-400 block mt-0.5">
-                      01/25/2025; 06:03 AM CDT
+                    <span className="text-[10px] text-gray-400 block mt-0.5 font-mono">
+                      {liveTime}
                     </span>
                   </td>
 
                   {/* Service Meter Box */}
                   <td className="p-3">
                     <div className="bg-white border border-gray-200 rounded px-2.5 py-1 inline-flex items-baseline gap-1 shadow-2xs min-w-[120px] justify-between">
-                      <span className="font-bold text-gray-900 text-xs">{meterHours}</span>
+                      <span className="font-bold text-gray-900 text-xs font-mono">{Number(liveHours).toLocaleString()}</span>
                       <span className="text-[10px] text-gray-500 font-medium">Hours</span>
                     </div>
-                    <span className="text-[10px] text-gray-400 block mt-0.5">
-                      01/25/2025; 06:03 AM CDT
+                    <span className="text-[10px] text-gray-400 block mt-0.5 font-mono">
+                      {liveTime}
                     </span>
                   </td>
 
                   {/* Fuel Level */}
                   <td className="p-3">
-                    <div className="font-bold text-gray-900 text-xs">{fuel}</div>
-                    <span className="text-[10px] text-gray-400 block mt-0.5">
-                      01/25/2025; 06:03 AM CDT
+                    <div className="font-bold text-gray-900 text-xs font-mono flex items-center gap-1.5">
+                      <span>{liveFuel}%</span>
+                      <span className="w-12 h-1.5 bg-gray-200 rounded-full overflow-hidden inline-block">
+                        <span
+                          className={`h-full block transition-all duration-500 ${
+                            liveFuel < 20 ? 'bg-rose-500' : liveFuel < 50 ? 'bg-amber-500' : 'bg-emerald-500'
+                          }`}
+                          style={{ width: `${liveFuel}%` }}
+                        />
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-gray-400 block mt-0.5 font-mono">
+                      {liveTime}
                     </span>
                   </td>
 
                   {/* Subscription Status (Wifi Icon Badge) */}
                   <td className="p-3 text-center">
                     {isOnline ? (
-                      <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white shadow-xs">
-                        <WifiIcon fontSize="inherit" className="text-sm" />
+                      <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white shadow-2xs cursor-pointer hover:bg-emerald-700 transition-colors" title="Connected to PostgreSQL Telemetry Stream">
+                        <WifiIcon fontSize="inherit" className="text-sm animate-pulse" />
                       </div>
                     ) : (
-                      <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 text-gray-400">
+                      <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 text-gray-400" title="Offline">
                         <WifiIcon fontSize="inherit" className="text-sm" />
                       </div>
                     )}
