@@ -1,0 +1,9 @@
+Site_ID,Site_Name,Address,City,State,Country,Latitude,Longitude,Status
+S001,San Francisco Main Depot,43321 Brittany Bypass,San,CA,USA,37.7749,-122.4194,ACTIVE
+S002,Silicon Valley Equipment Hub,33890 Jennifer Squares,Silicon,CA,USA,37.3382,-121.8863,ACTIVE
+S003,Oakland Port Yard,79402 Peterson Drives Apt. 511,Oakland,CA,USA,37.8044,-122.2712,ACTIVE
+S004,Sacramento Equipment Yard,55940 Herrera Lane Apt. 849,Sacramento,CA,USA,38.5816,-121.4944,ACTIVE
+S005,San Jose North Job Site,310 Kendra Common Apt. 164,San,CA,USA,37.3861,-121.9642,ACTIVE
+S006,Fresno Industrial Depot,525 Clark Grove Apt. 928,Fresno,CA,USA,36.7468,-119.7726,ACTIVE
+S007,Redding Heavy Yard,76483 Cameron Trail,Redding,CA,USA,40.5865,-122.3917,ACTIVE
+S008,Bakersfield Fleet Hub,05641 Robin Port,Bakersfield,CA,USA,35.3733,-119.0187,ACTIVE
