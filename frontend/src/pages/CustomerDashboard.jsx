@@ -231,7 +231,7 @@ const CustomerDashboard = () => {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <Fuel size={20} color="#ef4444" />
+              <GasPump size={20} weight="bold" color="#ef4444" />
               <div>
                 <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                   ⛽ Critical Low Fuel Warning &mdash; <span style={{ fontFamily: 'monospace' }}>EQX1004 (Compactor CAT 950M)</span>
@@ -376,7 +376,7 @@ const CustomerDashboard = () => {
 
                 <div className="asset-metric-box">
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <Fuel size={14} color="var(--amber)" />
+                    <GasPump size={14} weight="bold" color="var(--amber)" />
                     <div>
                       <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Fuel</div>
                       <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{asset.fuelLevel != null ? `${asset.fuelLevel}%` : '84.5%'}</div>
