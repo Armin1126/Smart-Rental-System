@@ -209,7 +209,16 @@ export const Shell = () => {
     navigate(link);
   };
 
-  const unreadCount = notifications.length;
+  // Customer tenant asset scoping filter
+  const customerAssetIds = isCustomer
+    ? (customerCode === 'CUST001' ? ['EQX1001', 'EQX1003', 'EQX1010'] : (customerCode === 'CUST003' ? ['EQX1005', 'EQX1008', 'EQX1015'] : ['EQX1002', 'EQX1004', 'EQX1012']))
+    : null;
+
+  const displayNotifications = isCustomer
+    ? notifications.filter(n => !n.assetId || customerAssetIds.includes(n.assetId))
+    : notifications;
+
+  const unreadCount = displayNotifications.length;
 
   return (
     <div className="shell">
@@ -283,32 +292,34 @@ export const Shell = () => {
               {showDropdown && (
                 <div style={{
                   position: 'absolute',
-                  top: 46,
+                  top: 48,
                   right: 0,
-                  width: 380,
-                  maxHeight: 480,
+                  width: 420,
+                  maxWidth: 'calc(100vw - 32px)',
+                  maxHeight: 520,
                   background: 'var(--bg-card)',
                   border: '1px solid var(--border)',
                   borderRadius: 12,
-                  boxShadow: '0 12px 32px rgba(0, 0, 0, 0.15)',
-                  zIndex: 100,
+                  boxShadow: '0 12px 36px rgba(0, 0, 0, 0.18)',
+                  zIndex: 1000,
                   display: 'flex',
                   flexDirection: 'column',
                   overflow: 'hidden',
                   animation: 'fadeIn 0.15s ease-out'
                 }}>
-                  {/* Header */}
+                  {/* Header Bar */}
                   <div style={{
-                    padding: '12px 16px',
+                    padding: '14px 18px',
                     background: 'var(--bg-elevated)',
                     borderBottom: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    gap: 12
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <Bell size={16} color="var(--brand-accent-hover)" />
-                      <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                      <Bell size={18} weight="bold" color="var(--brand-accent-hover)" />
+                      <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-primary)', whiteSpace: 'nowrap' }}>
                         Notifications & Alerts
                       </span>
                       {unreadCount > 0 && (
@@ -316,33 +327,34 @@ export const Shell = () => {
                           fontSize: '0.68rem',
                           fontWeight: 800,
                           padding: '2px 8px',
-                          borderRadius: 10,
-                          background: 'rgba(220, 38, 38, 0.1)',
-                          color: '#dc2626',
-                          border: '1px solid rgba(220, 38, 38, 0.2)'
+                          borderRadius: 12,
+                          background: 'var(--rose-dim)',
+                          color: 'var(--rose)',
+                          border: '1px solid var(--rose)',
+                          whiteSpace: 'nowrap'
                         }}>
                           {unreadCount} Live
                         </span>
                       )}
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
                       {unreadCount > 0 && (
                         <button
                           onClick={handleClearAll}
                           title="Clear all topbar notifications"
                           style={{
-                            background: 'rgba(220, 38, 38, 0.08)',
-                            border: '1px solid rgba(220, 38, 38, 0.2)',
+                            background: 'var(--rose-dim)',
+                            border: '1px solid var(--rose)',
                             borderRadius: 6,
-                            padding: '3px 8px',
-                            fontSize: '0.68rem',
+                            padding: '4px 10px',
+                            fontSize: '0.7rem',
                             fontWeight: 700,
-                            color: '#dc2626',
+                            color: 'var(--rose)',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: 4,
-                            marginRight: 2
+                            gap: 4
                           }}
                         >
                           <Trash size={12} weight="bold" />
@@ -351,40 +363,41 @@ export const Shell = () => {
                       )}
                       <button
                         onClick={fetchNotifications}
-                        title="Refresh"
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4 }}
+                        title="Refresh Notifications"
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4, display: 'flex', alignItems: 'center' }}
                       >
-                        <ArrowsClockwise size={14} weight="bold" className={loadingNotifs ? 'spin' : ''} />
+                        <ArrowsClockwise size={15} weight="bold" className={loadingNotifs ? 'spin' : ''} />
                       </button>
                       <button
                         onClick={() => setShowDropdown(false)}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4 }}
+                        title="Close Window"
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4, display: 'flex', alignItems: 'center' }}
                       >
-                        <X size={16} />
+                        <X size={16} weight="bold" />
                       </button>
                     </div>
                   </div>
 
                   {/* List Body */}
-                  <div style={{ flex: 1, overflowY: 'auto', maxHeight: 360 }}>
+                  <div style={{ flex: 1, overflowY: 'auto', maxHeight: 380 }}>
                     {loadingNotifs ? (
-                      <div style={{ padding: 24, textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                      <div style={{ padding: 28, textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                         Fetching notifications...
                       </div>
-                    ) : notifications.length === 0 ? (
-                      <div style={{ padding: 32, textAlign: 'center', fontSize: '0.82rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-                        <CheckCircle size={24} weight="bold" color="var(--emerald)" />
-                        <span>All topbar notifications cleared!</span>
-                        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 2 }}>
-                          System-wide anomalies remain saved on the <strong style={{ color: 'var(--brand-accent-hover)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleActionClick('/alerts')}>Alerts & Anomalies page →</strong>
+                    ) : displayNotifications.length === 0 ? (
+                      <div style={{ padding: 36, textAlign: 'center', fontSize: '0.82rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+                        <CheckCircle size={28} weight="bold" color="var(--emerald)" />
+                        <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>All notifications cleared!</span>
+                        <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', maxWidth: 280, lineHeight: 1.4 }}>
+                          Historical telemetry anomalies remain saved on the <strong style={{ color: 'var(--brand-accent-hover)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleActionClick('/alerts')}>Alerts & Anomalies page &rarr;</strong>
                         </span>
                       </div>
                     ) : (
-                      notifications.map((n) => (
+                      displayNotifications.map((n) => (
                         <div
                           key={n.id}
                           style={{
-                            padding: '12px 16px',
+                            padding: '14px 18px',
                             borderBottom: '1px solid var(--border-subtle)',
                             display: 'flex',
                             gap: 12,
@@ -397,63 +410,72 @@ export const Shell = () => {
                           onClick={() => handleActionClick(n.link || '/telemetry')}
                         >
                           <div style={{ marginTop: 2, flexShrink: 0 }}>
-                            {n.type === 'FUEL' && <GasPump size={16} weight="bold" color="#dc2626" />}
-                            {n.type === 'CONTRACT' && <FileText size={16} weight="bold" color="#d97706" />}
-                            {n.type === 'FAULT' && <Warning size={16} weight="bold" color="#dc2626" />}
-                            {n.type === 'ANOMALY' && <Pulse size={16} weight="bold" color="#0284c7" />}
+                            {n.type === 'FUEL' && <GasPump size={18} weight="bold" color="#dc2626" />}
+                            {n.type === 'CONTRACT' && <FileText size={18} weight="bold" color="#d97706" />}
+                            {n.type === 'FAULT' && <Warning size={18} weight="bold" color="#dc2626" />}
+                            {n.type === 'ANOMALY' && <Pulse size={18} weight="bold" color="#0284c7" />}
                           </div>
 
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 3 }}>
-                              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                                {n.title}
+                            {/* Top Title & Tag & Timestamp Row */}
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8, marginBottom: 4 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', minWidth: 0 }}>
+                                <span style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2 }}>
+                                  {n.title}
+                                </span>
                                 {n.assetId && (
                                   <span style={{
-                                    fontSize: '0.65rem',
+                                    fontSize: '0.66rem',
                                     fontWeight: 800,
                                     fontFamily: 'monospace',
-                                    padding: '1px 5px',
+                                    padding: '1px 6px',
                                     borderRadius: 4,
-                                    background: 'var(--bg-hover)',
-                                    color: 'var(--text-secondary)'
+                                    background: 'var(--bg-elevated)',
+                                    border: '1px solid var(--border)',
+                                    color: 'var(--text-secondary)',
+                                    whiteSpace: 'nowrap'
                                   }}>
                                     {n.assetId}
                                   </span>
                                 )}
-                              </span>
-                              <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+                              </div>
+                              <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'monospace', whiteSpace: 'nowrap', flexShrink: 0, marginTop: 1 }}>
                                 {n.timestamp}
                               </span>
                             </div>
 
-                            <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', lineHeight: 1.4, marginBottom: 6 }}>
+                            {/* Description */}
+                            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4, margin: '4px 0 8px 0' }}>
                               {n.message}
                             </p>
 
+                            {/* Action & Dismiss Bar */}
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                               <span style={{
-                                fontSize: '0.72rem',
-                                fontWeight: 700,
+                                fontSize: '0.74rem',
+                                fontWeight: 800,
                                 color: 'var(--brand-accent-hover)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 3
                               }}>
-                                {n.action || 'View Details'} <CaretRight size={12} weight="bold" />
+                                {n.action || 'View Details'} <CaretRight size={13} weight="bold" />
                               </span>
 
                               <button
                                 onClick={(e) => handleDismiss(n.id, e)}
                                 style={{
-                                  fontSize: '0.68rem',
-                                  fontWeight: 600,
+                                  fontSize: '0.72rem',
+                                  fontWeight: 700,
                                   color: 'var(--text-muted)',
                                   background: 'none',
                                   border: 'none',
-                                  cursor: 'pointer'
+                                  cursor: 'pointer',
+                                  padding: '2px 6px',
+                                  borderRadius: 4
                                 }}
-                                onMouseEnter={(e) => e.target.style.color = 'var(--text-primary)'}
-                                onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--rose)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
                               >
                                 Dismiss
                               </button>
@@ -464,16 +486,17 @@ export const Shell = () => {
                     )}
                   </div>
 
-                  {/* Footer */}
+                  {/* Scope Footer Bar */}
                   <div style={{
-                    padding: '8px 16px',
+                    padding: '10px 18px',
                     background: 'var(--bg-elevated)',
                     borderTop: '1px solid var(--border-subtle)',
                     textAlign: 'center',
-                    fontSize: '0.72rem',
-                    color: 'var(--text-muted)'
+                    fontSize: '0.74rem',
+                    color: 'var(--text-muted)',
+                    fontWeight: 600
                   }}>
-                    Scope: <strong style={{ color: 'var(--text-primary)' }}>{companyName} ({isCustomer ? customerCode : 'Dealer Admin'})</strong>
+                    Notification Scope: <strong style={{ color: 'var(--text-primary)', fontWeight: 800 }}>{isCustomer ? `${companyName} (${customerCode})` : 'Caterpillar Dealer Operations (All Fleets)'}</strong>
                   </div>
                 </div>
               )}
