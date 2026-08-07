@@ -1,1766 +1,326 @@
 {
   "status": "SUCCESS",
-  "total_recommendations": 220,
+  "total_recommendations": 40,
   "recommendations": [
     {
       "Equipment_ID": "EQX1001",
       "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1001",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1001",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1002",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1002",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1002",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (25.0/100)."
+      "Current_Site": "S001",
+      "Action": "Right-Size Asset Swap",
+      "Priority": "High",
+      "Justification": "Heavy asset operating under light load (13.0% util). Swapping to CAT 420 Backhoe Loader saves customer $180/day & returns heavy asset to depot inventory."
     },
     {
       "Equipment_ID": "EQX1003",
       "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1003",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1003",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Right-Size Asset Swap",
+      "Priority": "High",
+      "Justification": "Heavy asset operating under light load (21.2% util). Swapping to CAT 420 Backhoe Loader saves customer $180/day & returns heavy asset to depot inventory."
     },
     {
       "Equipment_ID": "EQX1004",
       "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
+      "Current_Site": "S001",
       "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1004",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1004",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1005",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1005",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1005",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1006",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1006",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1006",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Priority": "High",
+      "Justification": "250-hour oil & filter service due in 12 engine hours (Health Score: 52.0/100)."
     },
     {
       "Equipment_ID": "EQX1007",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1007",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1007",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Right-Size Asset Swap",
+      "Priority": "High",
+      "Justification": "Heavy asset operating under light load (0.0% util). Swapping to CAT 420 Backhoe Loader saves customer $180/day & returns heavy asset to depot inventory."
     },
     {
       "Equipment_ID": "EQX1008",
       "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
+      "Current_Site": "S001",
       "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Priority": "High",
+      "Justification": "250-hour oil & filter service due in 12 engine hours (Health Score: 52.0/100)."
     },
     {
       "Equipment_ID": "EQX1010",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1010",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1010",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (40.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (40.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (40.0/100)."
+      "Current_Site": "S001",
+      "Action": "Right-Size Asset Swap",
+      "Priority": "High",
+      "Justification": "Heavy asset operating under light load (17.6% util). Swapping to CAT 420 Backhoe Loader saves customer $180/day & returns heavy asset to depot inventory."
     },
     {
       "Equipment_ID": "EQX1012",
       "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1012",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1012",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1013",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1013",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1013",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1014",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (25.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1014",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (25.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1014",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1015",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1015",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1015",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Right-Size Asset Swap",
+      "Priority": "High",
+      "Justification": "Heavy asset operating under light load (14.1% util). Swapping to CAT 420 Backhoe Loader saves customer $180/day & returns heavy asset to depot inventory."
     },
     {
       "Equipment_ID": "EQX1016",
       "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1016",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1016",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1017",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1017",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1017",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1018",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1018",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1018",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1019",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1019",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1019",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1020",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1020",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1020",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1021",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1021",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1021",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1022",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1022",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1022",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1023",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1023",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1023",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1024",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1024",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1024",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Right-Size Asset Swap",
+      "Priority": "High",
+      "Justification": "Heavy asset operating under light load (10.1% util). Swapping to CAT 308 Mini Excavator saves customer $180/day & returns heavy asset to depot inventory."
     },
     {
       "Equipment_ID": "EQX1025",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Right-Size Asset Swap",
+      "Priority": "High",
+      "Justification": "Heavy asset operating under light load (8.1% util). Swapping to CAT 420 Backhoe Loader saves customer $180/day & returns heavy asset to depot inventory."
     },
     {
-      "Equipment_ID": "EQX1025",
+      "Equipment_ID": "EQX1002",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S001",
+      "Action": "Reallocate Asset",
+      "Priority": "Medium",
+      "Justification": "Low operating utilization (0.0%). Site S002 requested additional equipment capacity."
+    },
+    {
+      "Equipment_ID": "EQX1005",
+      "Equipment_Type": "Bulldozer",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (71.8%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1006",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S001",
+      "Action": "Reallocate Asset",
+      "Priority": "Medium",
+      "Justification": "Low operating utilization (10.7%). Site S002 requested additional equipment capacity."
+    },
+    {
+      "Equipment_ID": "EQX1009",
+      "Equipment_Type": "Skid Steer",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (81.7%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1011",
+      "Equipment_Type": "Bulldozer",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (87.1%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1014",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (71.9%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1015",
+      "Equipment_Type": "Compactor",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (78.9%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1017",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (75.9%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
-      "Equipment_ID": "EQX1026",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Equipment_ID": "EQX1018",
+      "Equipment_Type": "Compactor",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (84.8%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
-      "Equipment_ID": "EQX1026",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Equipment_ID": "EQX1019",
+      "Equipment_Type": "Crane",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (76.8%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1020",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (81.1%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1021",
+      "Equipment_Type": "Grader",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (83.2%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1022",
+      "Equipment_Type": "Bulldozer",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (86.2%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1023",
+      "Equipment_Type": "Compactor",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (72.9%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
+    },
+    {
+      "Equipment_ID": "EQX1024",
+      "Equipment_Type": "Backhoe Loader",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (78.4%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1027",
       "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1027",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (72.5%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1028",
       "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1028",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (80.9%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1029",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1029",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (73.1%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1030",
       "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1030",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (87.3%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1031",
       "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1031",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Reallocate Asset",
+      "Priority": "Medium",
+      "Justification": "Low operating utilization (6.4%). Site S002 requested additional equipment capacity."
     },
     {
       "Equipment_ID": "EQX1032",
       "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1032",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Reallocate Asset",
+      "Priority": "Medium",
+      "Justification": "Low operating utilization (10.3%). Site S002 requested additional equipment capacity."
     },
     {
       "Equipment_ID": "EQX1033",
       "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1033",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Reallocate Asset",
+      "Priority": "Medium",
+      "Justification": "Low operating utilization (13.3%). Site S002 requested additional equipment capacity."
     },
     {
       "Equipment_ID": "EQX1034",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1034",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (84.8%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1035",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1035",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (92.4%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1036",
       "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1036",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (84.3%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1037",
       "Equipment_Type": "Wheel Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1037",
-      "Equipment_Type": "Wheel Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1038",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1038",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Reallocate Asset",
+      "Priority": "Medium",
+      "Justification": "Low operating utilization (19.2%). Site S002 requested additional equipment capacity."
     },
     {
       "Equipment_ID": "EQX1039",
       "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1039",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
+      "Priority": "Medium",
+      "Justification": "High active utilization (72.7%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1040",
       "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1040",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Schedule Maintenance",
-      "Priority": "Critical",
-      "Justification": "Asset health score is degraded (10.0/100)."
-    },
-    {
-      "Equipment_ID": "EQX1006",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (10.7%) at UNKNOWN. Predicted demand of 1 at S004."
-    },
-    {
-      "Equipment_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (17.3%) at UNKNOWN. Predicted demand of 1 at S003."
-    },
-    {
-      "Equipment_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (15.0%) at UNKNOWN. Predicted demand of 1 at S003."
-    },
-    {
-      "Equipment_ID": "EQX1010",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (17.6%) at UNKNOWN. Predicted demand of 1 at S003."
-    },
-    {
-      "Equipment_ID": "EQX1012",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (14.1%) at UNKNOWN. Predicted demand of 1 at S001."
-    },
-    {
-      "Equipment_ID": "EQX1025",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (8.1%) at UNKNOWN. Predicted demand of 1 at S003."
-    },
-    {
-      "Equipment_ID": "EQX1031",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (6.4%) at UNKNOWN. Predicted demand of 1 at S004."
-    },
-    {
-      "Equipment_ID": "EQX1032",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (10.3%) at UNKNOWN. Predicted demand of 1 at S003."
-    },
-    {
-      "Equipment_ID": "EQX1033",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (13.3%) at UNKNOWN. Predicted demand of 1 at S004."
-    },
-    {
-      "Equipment_ID": "EQX1033",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (16.7%) at UNKNOWN. Predicted demand of 1 at S004."
-    },
-    {
-      "Equipment_ID": "EQX1036",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (18.1%) at UNKNOWN. Predicted demand of 1 at S001."
-    },
-    {
-      "Equipment_ID": "EQX1037",
-      "Equipment_Type": "Wheel Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Move Asset",
-      "Priority": "High",
-      "Justification": "Asset is underutilized (19.2%) at UNKNOWN. Predicted demand of 1 at S005."
-    },
-    {
-      "Equipment_ID": "EQX1001",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
+      "Current_Site": "S001",
+      "Action": "Proactive Extension Offer",
       "Priority": "Medium",
-      "Justification": "Asset is 560 days overdue but highly utilized (80.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1001",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 319 days overdue but highly utilized (75.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1001",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 495 days overdue but highly utilized (77.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1002",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1002",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1002",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 480 days overdue but highly utilized (66.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1003",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 508 days overdue but highly utilized (75.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1003",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 487 days overdue but highly utilized (74.3%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1003",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1004",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 403 days overdue but highly utilized (83.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1004",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 569 days overdue but highly utilized (85.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1004",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 241 days overdue but highly utilized (87.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1005",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 406 days overdue but highly utilized (79.3%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1005",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 495 days overdue but highly utilized (93.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1005",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 51 days overdue but highly utilized (71.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1006",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 608 days overdue but highly utilized (84.1%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1006",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1006",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 202 days overdue but highly utilized (89.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1007",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 670 days overdue but highly utilized (82.1%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1007",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1007",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 568 days overdue but highly utilized (91.3%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 624 days overdue but highly utilized (90.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 473 days overdue but highly utilized (89.3%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1008",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 476 days overdue but highly utilized (81.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1009",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 469 days overdue but highly utilized (81.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1010",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1010",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1010",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 280 days overdue but highly utilized (80.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 386 days overdue but highly utilized (78.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 385 days overdue but highly utilized (88.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1011",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 313 days overdue but highly utilized (87.1%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1012",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 534 days overdue but highly utilized (80.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1012",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 552 days overdue but highly utilized (61.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1012",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
+      "Justification": "High active utilization (86.7%) with 1 days remaining. Extension predicted; issue 14-day renewal quote to protect fleet availability."
     },
     {
       "Equipment_ID": "EQX1013",
       "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 645 days overdue but highly utilized (72.1%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1013",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 488 days overdue but highly utilized (59.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1013",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1014",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 501 days overdue but highly utilized (71.9%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1014",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 482 days overdue but highly utilized (64.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1014",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1015",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 317 days overdue but highly utilized (78.9%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1015",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 562 days overdue but highly utilized (77.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1015",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 629 days overdue but highly utilized (75.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1016",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1016",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 660 days overdue but highly utilized (77.6%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1016",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 284 days overdue but highly utilized (75.0%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1017",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 491 days overdue but highly utilized (82.0%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1017",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 331 days overdue but highly utilized (75.9%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1017",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 328 days overdue but highly utilized (74.0%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1018",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 345 days overdue but highly utilized (84.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1018",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 484 days overdue but highly utilized (86.2%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1018",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1019",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 549 days overdue but highly utilized (73.2%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1019",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 235 days overdue but highly utilized (76.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1019",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1020",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 710 days overdue but highly utilized (87.0%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1020",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 546 days overdue but highly utilized (68.6%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1020",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 508 days overdue but highly utilized (81.1%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1021",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 506 days overdue but highly utilized (93.0%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1021",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 179 days overdue but highly utilized (83.2%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1021",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 496 days overdue but highly utilized (84.1%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1022",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 394 days overdue but highly utilized (75.2%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1022",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 367 days overdue but highly utilized (62.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1022",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 391 days overdue but highly utilized (86.2%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1023",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 638 days overdue but highly utilized (78.2%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1023",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 432 days overdue but highly utilized (72.9%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1023",
-      "Equipment_Type": "Compactor",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 593 days overdue but highly utilized (87.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1024",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 365 days overdue but highly utilized (70.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1024",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 402 days overdue but highly utilized (78.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1024",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 630 days overdue but highly utilized (82.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1025",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 712 days overdue but highly utilized (84.2%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1025",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
+      "Current_Site": "S001",
+      "Action": "Contract Extension",
+      "Priority": "Low",
+      "Justification": "Rental agreement active; customer requested preliminary extension options."
     },
     {
       "Equipment_ID": "EQX1026",
       "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1026",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 494 days overdue but highly utilized (61.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1027",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1027",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 360 days overdue but highly utilized (72.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1028",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 527 days overdue but highly utilized (80.9%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1028",
-      "Equipment_Type": "Bulldozer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 320 days overdue but highly utilized (59.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1029",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 523 days overdue but highly utilized (87.6%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1029",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 293 days overdue but highly utilized (73.1%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1030",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 363 days overdue but highly utilized (78.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1030",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 442 days overdue but highly utilized (87.3%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1031",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1031",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1032",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1032",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1033",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1033",
-      "Equipment_Type": "Grader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1034",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 441 days overdue but highly utilized (84.8%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1034",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 647 days overdue but highly utilized (76.9%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1035",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1035",
-      "Equipment_Type": "Crane",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 530 days overdue but highly utilized (92.4%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1036",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 678 days overdue but highly utilized (84.3%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1036",
-      "Equipment_Type": "Backhoe Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1037",
-      "Equipment_Type": "Wheel Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Return Early",
-      "Priority": "Medium",
-      "Justification": "Asset is overdue and poorly utilized. Trigger immediate retrieval."
-    },
-    {
-      "Equipment_ID": "EQX1037",
-      "Equipment_Type": "Wheel Loader",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 548 days overdue but highly utilized (80.7%). Contact customer to extend contract."
+      "Current_Site": "S001",
+      "Action": "Contract Extension",
+      "Priority": "Low",
+      "Justification": "Rental agreement active; customer requested preliminary extension options."
     },
     {
       "Equipment_ID": "EQX1038",
       "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 482 days overdue but highly utilized (61.5%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1038",
-      "Equipment_Type": "Skid Steer",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 488 days overdue but highly utilized (76.3%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1039",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 672 days overdue but highly utilized (68.0%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1039",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 473 days overdue but highly utilized (72.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1040",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 313 days overdue but highly utilized (86.7%). Contact customer to extend contract."
-    },
-    {
-      "Equipment_ID": "EQX1040",
-      "Equipment_Type": "Excavator",
-      "Current_Site": "UNKNOWN",
-      "Action": "Extend Rental",
-      "Priority": "Medium",
-      "Justification": "Asset is 250 days overdue but highly utilized (76.4%). Contact customer to extend contract."
+      "Current_Site": "S001",
+      "Action": "Contract Extension",
+      "Priority": "Low",
+      "Justification": "Rental agreement active; customer requested preliminary extension options."
     }
   ]
 }

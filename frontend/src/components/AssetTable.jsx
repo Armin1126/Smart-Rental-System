@@ -5,62 +5,17 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { getSiteLocation, getLiveTimestamp } from '../utils/formatters';
 
-// Caterpillar Equipment Category Icons / Thumbnails
+// Equipment Category Badge
 const MachineThumbnail = ({ type = '' }) => {
-  const t = type.toLowerCase();
-
-  if (t.includes('excavator') || t.includes('ex')) {
-    return (
-      <div className="w-10 h-7 bg-amber-100 rounded border border-amber-300 flex items-center justify-center text-[#ffcd00] font-bold text-[10px]">
-        🚜
-      </div>
-    );
-  }
-  if (t.includes('dozer') || t.includes('dz') || t.includes('bulldozer')) {
-    return (
-      <div className="w-10 h-7 bg-yellow-100 rounded border border-yellow-300 flex items-center justify-center text-yellow-800 font-bold text-[10px]">
-        🚜
-      </div>
-    );
-  }
-  if (t.includes('skid') || t.includes('skd')) {
-    return (
-      <div className="w-10 h-7 bg-[#ffcd00]/20 rounded border border-[#ffcd00]/40 flex items-center justify-center text-amber-900 font-bold text-[10px]">
-        🚜
-      </div>
-    );
-  }
-  if (t.includes('loader') || t.includes('bl') || t.includes('wheel')) {
-    return (
-      <div className="w-10 h-7 bg-amber-50 rounded border border-amber-200 flex items-center justify-center text-amber-700 font-bold text-[10px]">
-        🚜
-      </div>
-    );
-  }
-  if (t.includes('truck') || t.includes('tr')) {
-    return (
-      <div className="w-10 h-7 bg-slate-100 rounded border border-slate-300 flex items-center justify-center text-slate-700 font-bold text-[10px]">
-        🛻
-      </div>
-    );
-  }
-  if (t.includes('compactor') || t.includes('roller') || t.includes('cp')) {
-    return (
-      <div className="w-10 h-7 bg-[#ffcd00]/15 rounded border border-[#ffcd00]/30 flex items-center justify-center text-amber-800 font-bold text-[10px]">
-        🚜
-      </div>
-    );
-  }
-
+  const label = type.substring(0, 3).toUpperCase();
   return (
-    <div className="w-10 h-7 bg-gray-100 rounded border border-gray-300 flex items-center justify-center text-gray-700 font-bold text-[10px]">
-      ⚙️
+    <div className="w-10 h-7 bg-amber-100 rounded border border-amber-300 flex items-center justify-center text-[#ffcd00] font-bold text-[10px]">
+      {label}
     </div>
   );
 };
 
 export const AssetTable = ({ assets = [] }) => {
-  // Live ticker counter to simulate real-time telemetry streaming
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
@@ -85,7 +40,6 @@ export const AssetTable = ({ assets = [] }) => {
 
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left">
-          {/* Table Header matching VisionLink */}
           <thead>
             <tr className="border-b border-gray-200 bg-gray-50 text-gray-700 font-semibold select-none">
               <th className="p-3 w-10 text-center">
@@ -127,7 +81,6 @@ export const AssetTable = ({ assets = [] }) => {
             </tr>
           </thead>
 
-          {/* Table Body */}
           <tbody className="divide-y divide-gray-100 text-gray-800">
             {assets.map((asset, idx) => {
               const code = asset.equipmentId || asset.assetCode || `EX-${idx + 10}`;
@@ -135,7 +88,6 @@ export const AssetTable = ({ assets = [] }) => {
               const makeModel = `${asset.model || '320 GC'} - ${asset.make || 'CAT'} - ${code}`;
               const location = getSiteLocation(asset.currentSite);
               
-              // Simulate micro telemetry increments for live feel
               const baseHours = asset.engineHours != null ? asset.engineHours : 1200 + idx * 145;
               const liveHours = (baseHours + (tick * 0.01) % 5).toFixed(1);
               
@@ -147,12 +99,10 @@ export const AssetTable = ({ assets = [] }) => {
 
               return (
                 <tr key={code + idx} className="hover:bg-amber-50/30 transition-colors">
-                  {/* Checkbox */}
                   <td className="p-3 text-center">
                     <input type="checkbox" className="rounded border-gray-300 accent-neutral-800" />
                   </td>
 
-                  {/* Asset Column */}
                   <td className="p-3">
                     <div className="flex items-center gap-3">
                       <MachineThumbnail type={type} />
@@ -166,7 +116,6 @@ export const AssetTable = ({ assets = [] }) => {
                     </div>
                   </td>
 
-                  {/* Known Location */}
                   <td className="p-3">
                     <a href="#map" className="text-blue-600 hover:underline font-semibold text-xs block truncate max-w-[220px]">
                       {location}
@@ -176,7 +125,6 @@ export const AssetTable = ({ assets = [] }) => {
                     </span>
                   </td>
 
-                  {/* Service Meter Box */}
                   <td className="p-3">
                     <div className="bg-white border border-gray-200 rounded px-2.5 py-1 inline-flex items-baseline gap-1 shadow-2xs min-w-[120px] justify-between">
                       <span className="font-bold text-gray-900 text-xs font-mono">{Number(liveHours).toLocaleString()}</span>
@@ -187,7 +135,6 @@ export const AssetTable = ({ assets = [] }) => {
                     </span>
                   </td>
 
-                  {/* Fuel Level */}
                   <td className="p-3">
                     <div className="font-bold text-gray-900 text-xs font-mono flex items-center gap-1.5">
                       <span>{liveFuel}%</span>
@@ -205,7 +152,6 @@ export const AssetTable = ({ assets = [] }) => {
                     </span>
                   </td>
 
-                  {/* Subscription Status (Wifi Icon Badge) */}
                   <td className="p-3 text-center">
                     {isOnline ? (
                       <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white shadow-2xs cursor-pointer hover:bg-emerald-700 transition-colors" title="Connected to PostgreSQL Telemetry Stream">

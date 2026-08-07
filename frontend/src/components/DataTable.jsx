@@ -41,7 +41,6 @@ export const DataTable = ({ columns = [], rows = [], rowKey, emptyMessage = 'No 
     return (
       <div className="data-table-wrapper">
         <div className="empty-state">
-          <div className="empty-icon">📭</div>
           <div className="empty-title">{emptyMessage}</div>
           <div className="empty-desc">No records to display</div>
         </div>

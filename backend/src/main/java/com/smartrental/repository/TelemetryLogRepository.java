@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TelemetryLogRepository extends JpaRepository<TelemetryLog, String> {
     List<TelemetryLog> findByEquipmentId(String equipmentId);
+    List<TelemetryLog> findTop50ByEquipmentIdOrderByTimestampDesc(String equipmentId);
 }

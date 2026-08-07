@@ -18,7 +18,9 @@ public class TelemetryService {
     }
 
     public List<TelemetryLogDTO> getTelemetryByAssetId(String assetId) {
-        return telemetryRepository.findByEquipmentId(assetId).stream()
+        List<TelemetryLog> logs = telemetryRepository.findTop50ByEquipmentIdOrderByTimestampDesc(assetId);
+        java.util.Collections.reverse(logs);
+        return logs.stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }

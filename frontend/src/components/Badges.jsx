@@ -1,59 +1,65 @@
 import React from 'react';
 
-/**
- * StatusBadge — for asset status (AVAILABLE, RENTED, MAINTENANCE, IDLE)
- */
+const BADGE_STYLES = {
+  // Statuses
+  AVAILABLE:   { bg: 'var(--emerald-dim)', color: 'var(--emerald)', border: '#a7f3d0' },
+  RENTED:      { bg: '#e0f2fe', color: '#0284c7', border: '#bae6fd' },
+  IN_USE:      { bg: '#e0f2fe', color: '#0284c7', border: '#bae6fd' },
+  MAINTENANCE: { bg: 'var(--amber-dim)', color: 'var(--amber)', border: '#fde68a' },
+  IDLE:        { bg: 'var(--slate-dim)', color: 'var(--slate)', border: '#cbd5e1' },
+  
+  // Severities / Priorities
+  CRITICAL:    { bg: 'var(--rose-dim)', color: 'var(--rose)', border: '#fca5a5' },
+  HIGH:        { bg: 'var(--amber-dim)', color: 'var(--amber)', border: '#fde68a' },
+  MEDIUM:      { bg: '#e0f2fe', color: '#0284c7', border: '#bae6fd' },
+  LOW:         { bg: 'var(--slate-dim)', color: 'var(--slate)', border: '#cbd5e1' },
+
+  // Custom Actions
+  RIGHT_SIZE:  { bg: '#fef3c7', color: '#d97706', border: '#fcd34d' },
+  EXTENSION:   { bg: '#e0e7ff', color: '#4338ca', border: '#c7d2fe' },
+};
+
+const BaseBadge = ({ text, styleKey }) => {
+  const conf = BADGE_STYLES[styleKey] || { bg: 'var(--bg-elevated)', color: 'var(--text-secondary)', border: 'var(--border)' };
+  return (
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      padding: '4px 10px',
+      borderRadius: 4,
+      fontSize: '0.7rem',
+      fontWeight: 700,
+      textTransform: 'uppercase',
+      letterSpacing: '0.04em',
+      background: conf.bg,
+      color: conf.color,
+      border: `1px solid ${conf.border}`,
+      lineHeight: 1
+    }}>
+      {text}
+    </span>
+  );
+};
+
 export const StatusBadge = ({ status = '' }) => {
-  const s = status.toUpperCase();
-  const cls =
-    s === 'AVAILABLE'   ? 'badge badge-available' :
-    s === 'RENTED'      ? 'badge badge-rented' :
-    s === 'MAINTENANCE' ? 'badge badge-maintenance' :
-    s === 'IN_USE'      ? 'badge badge-rented' :
-    'badge badge-idle';
-
-  return <span className={cls}>{status}</span>;
+  return <BaseBadge text={status} styleKey={status.toUpperCase()} />;
 };
 
-/**
- * SeverityBadge — for alert/anomaly severity (CRITICAL, HIGH, MEDIUM, LOW)
- */
 export const SeverityBadge = ({ severity = '' }) => {
-  const s = severity.toUpperCase();
-  const cls =
-    s === 'CRITICAL' ? 'badge badge-critical' :
-    s === 'HIGH'     ? 'badge badge-high' :
-    s === 'MEDIUM'   ? 'badge badge-medium' :
-    s === 'LOW'      ? 'badge badge-low' :
-    'badge badge-info';
-
-  return <span className={cls}>{severity}</span>;
+  return <BaseBadge text={severity} styleKey={severity.toUpperCase()} />;
 };
 
-/**
- * PriorityBadge — for recommendation priority
- */
 export const PriorityBadge = ({ priority = '' }) => {
-  const p = priority.toUpperCase();
-  const cls =
-    p === 'CRITICAL' ? 'badge badge-critical' :
-    p === 'HIGH'     ? 'badge badge-high' :
-    p === 'MEDIUM'   ? 'badge badge-medium' :
-    'badge badge-low';
-  return <span className={cls}>{priority}</span>;
+  return <BaseBadge text={priority} styleKey={priority.toUpperCase()} />;
 };
 
-/**
- * ActionBadge — for recommendation action types
- */
 export const ActionBadge = ({ action = '' }) => {
   const a = action.toLowerCase();
-  const cls =
-    a.includes('maintenance') ? 'badge badge-action-maintenance' :
-    a.includes('return')      ? 'badge badge-action-return' :
-    a.includes('move')        ? 'badge badge-action-move' :
-    a.includes('refuel')      ? 'badge badge-action-refuel' :
-    a.includes('extend')      ? 'badge badge-action-extend' :
-    'badge badge-info';
-  return <span className={cls}>{action}</span>;
+  let key = 'LOW';
+  if (a.includes('right-size') || a.includes('swap')) key = 'RIGHT_SIZE';
+  else if (a.includes('proactive') || a.includes('extension offer')) key = 'EXTENSION';
+  else if (a.includes('maintenance')) key = 'HIGH';
+  else if (a.includes('return')) key = 'CRITICAL';
+  else if (a.includes('refuel')) key = 'MEDIUM';
+  return <BaseBadge text={action} styleKey={key} />;
 };

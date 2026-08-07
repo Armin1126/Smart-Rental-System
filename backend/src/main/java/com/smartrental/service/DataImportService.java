@@ -29,6 +29,8 @@ public class DataImportService implements CommandLineRunner {
     private final TelemetryLogRepository telemetryRepository;
     private final AlertRepository alertRepository;
     private final RecommendationRepository recommendationRepository;
+    private final com.smartrental.repository.UserRepository userRepository;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     public DataImportService(
             AssetRepository assetRepository,
@@ -37,7 +39,9 @@ public class DataImportService implements CommandLineRunner {
             RentalRecordRepository rentalRepository,
             TelemetryLogRepository telemetryRepository,
             AlertRepository alertRepository,
-            RecommendationRepository recommendationRepository) {
+            RecommendationRepository recommendationRepository,
+            com.smartrental.repository.UserRepository userRepository,
+            org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
         this.assetRepository = assetRepository;
         this.siteRepository = siteRepository;
         this.operatorRepository = operatorRepository;
@@ -45,11 +49,20 @@ public class DataImportService implements CommandLineRunner {
         this.telemetryRepository = telemetryRepository;
         this.alertRepository = alertRepository;
         this.recommendationRepository = recommendationRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void run(String... args) throws Exception {
         log.info("Starting initial data import from CSV files in {}", datasetsDir);
+        try {
+            assetRepository.deleteAll();
+            rentalRepository.deleteAll();
+        } catch (Exception e) {
+            log.warn("Could not clear old asset/rental tables: {}", e.getMessage());
+        }
+        importUsers();
         importSites();
         importOperators();
         importAssets();
@@ -162,28 +175,37 @@ public class DataImportService implements CommandLineRunner {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build().parse(in);
             int count = 0;
             for (CSVRecord record : records) {
-                String id = record.get("Equipment_ID");
-                if (!assetRepository.existsById(id)) {
-                    Asset a = Asset.builder()
-                            .equipmentId(id)
-                            .equipmentType(parseStrSafe(record.get("Equipment_Type")))
-                            .make(parseStrSafe(record.get("Make")))
-                            .model(parseStrSafe(record.get("Model")))
-                            .manufactureYear(parseIntSafe(record.get("Year")))
-                            .purchaseDate(parseStrSafe(record.get("Purchase_Date")))
-                            .currentSite(parseStrSafe(record.get("Current_Site")))
-                            .status(parseStrSafe(record.get("Status")))
-                            .dailyRentalRate(parseDoubleSafe(record.get("Daily_Rental_Rate")))
-                            .currentValue(parseDoubleSafe(record.get("Current_Value")))
-                            .expectedLifespanYears(parseIntSafe(record.get("Expected_Lifespan_Years")))
-                            .engineHours(parseDoubleSafe(record.get("Engine_Hours")))
-                            .idleHours(parseDoubleSafe(record.get("Idle_Hours")))
-                            .build();
+                try {
+                    String id = record.get("Equipment_ID");
+                    Asset a = Asset.builder().equipmentId(id).build();
+                    a.setEquipmentType(parseStrSafe(record.get("Equipment_Type")));
+                    a.setMake(parseStrSafe(record.get("Make")));
+                    a.setModel(parseStrSafe(record.get("Model")));
+                    a.setManufactureYear(parseIntSafe(record.get("Year")));
+                    a.setPurchaseDate(record.isMapped("Purchase_Date") ? parseStrSafe(record.get("Purchase_Date")) : null);
+                    a.setCurrentSite(parseStrSafe(record.isMapped("Site_ID") ? record.get("Site_ID") : (record.isMapped("Current_Site") ? record.get("Current_Site") : null)));
+                    a.setStatus(parseStrSafe(record.get("Status")));
+                    a.setDailyRentalRate(parseDoubleSafe(record.get("Daily_Rental_Rate")));
+                    a.setCurrentValue(record.isMapped("Current_Value") ? parseDoubleSafe(record.get("Current_Value")) : null);
+                    a.setExpectedLifespanYears(record.isMapped("Expected_Lifespan_Years") ? parseIntSafe(record.get("Expected_Lifespan_Years")) : null);
+                    // Set engine/idle hours from CSV or generate realistic defaults
+                    Double engineHrs = record.isMapped("Engine_Hours") ? parseDoubleSafe(record.get("Engine_Hours")) : null;
+                    Double idleHrs = record.isMapped("Idle_Hours") ? parseDoubleSafe(record.get("Idle_Hours")) : null;
+                    if (engineHrs == null) {
+                        engineHrs = 1200.0 + (count * 47.5) % 800;
+                    }
+                    if (idleHrs == null) {
+                        idleHrs = 150.0 + (count * 23.0) % 250;
+                    }
+                    a.setEngineHours(engineHrs);
+                    a.setIdleHours(idleHrs);
                     assetRepository.save(a);
                     count++;
+                } catch (Exception rowErr) {
+                    log.warn("Skipping asset row: {}", rowErr.getMessage());
                 }
             }
-            log.info("Imported {} new Assets.", count);
+            log.info("Imported {} Assets into database.", count);
         } catch (Exception e) {
             log.error("Failed to import assets.csv", e);
         }
@@ -196,32 +218,55 @@ public class DataImportService implements CommandLineRunner {
         try (Reader in = new FileReader(path.toFile())) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build().parse(in);
             int count = 0;
+            rentalRepository.deleteAll();
+
             for (CSVRecord record : records) {
                 String id = record.get("Rental_ID");
-                if (!rentalRepository.existsById(id)) {
-                    RentalRecord r = RentalRecord.builder()
-                            .rentalId(id)
-                            .equipmentId(parseStrSafe(record.get("Equipment_ID")))
-                            .type(parseStrSafe(record.get("Type")))
-                            .siteId(parseStrSafe(record.get("Site_ID")))
-                            .checkInDate(parseStrSafe(record.get("Check_In_Date")))
-                            .checkOutDate(parseStrSafe(record.get("Check_Out_Date")))
-                            .originalReturnDate(parseStrSafe(record.get("Original_Return_Date")))
-                            .actualReturnDate(parseStrSafe(record.get("Actual_Return_Date")))
-                            .engineHoursDay(parseDoubleSafe(record.get("Engine_Hours_Day")))
-                            .idleHoursDay(parseDoubleSafe(record.get("Idle_Hours_Day")))
-                            .rentalDays(parseIntSafe(record.get("Rental_Days")))
-                            .contractType(parseStrSafe(record.get("Contract_Type")))
-                            .rentalStatus(parseStrSafe(record.get("Rental_Status")))
-                            .isExtended(parseBoolSafe(record.get("Is_Extended")))
-                            .extensionCount(parseIntSafe(record.get("Extension_Count")))
-                            .lastOperatorId(parseStrSafe(record.get("Last_Operator_ID")))
-                            .build();
-                    rentalRepository.save(r);
-                    count++;
+                String eqId = parseStrSafe(record.get("Equipment_ID"));
+                
+                // Map customer based on Equipment ID
+                String custName = "Acme Construction Co.";
+                String custCode = "CUST001";
+                
+                if (eqId != null) {
+                    int eqNum = 1;
+                    try {
+                        eqNum = Integer.parseInt(eqId.replaceAll("\\D+", ""));
+                    } catch (Exception ignored) {}
+
+                    if (eqNum % 3 == 0 || eqId.equals("EQX1002") || eqId.equals("EQX1004") || eqId.equals("EQX1012")) {
+                        custName = "Pacific Mining Ltd.";
+                        custCode = "CUST002";
+                    } else if (eqNum % 3 == 2 || eqId.equals("EQX1005") || eqId.equals("EQX1008") || eqId.equals("EQX1015")) {
+                        custName = "Titan Earthworks Ltd.";
+                        custCode = "CUST003";
+                    }
                 }
+
+                RentalRecord r = RentalRecord.builder()
+                        .rentalId(id)
+                        .equipmentId(eqId)
+                        .type(parseStrSafe(record.get("Type")))
+                        .siteId(parseStrSafe(record.get("Site_ID")))
+                        .checkInDate(parseStrSafe(record.get("Check_In_Date")))
+                        .checkOutDate(parseStrSafe(record.get("Check_Out_Date")))
+                        .originalReturnDate(parseStrSafe(record.get("Original_Return_Date")))
+                        .actualReturnDate(parseStrSafe(record.get("Actual_Return_Date")))
+                        .engineHoursDay(parseDoubleSafe(record.get("Engine_Hours_Day")))
+                        .idleHoursDay(parseDoubleSafe(record.get("Idle_Hours_Day")))
+                        .rentalDays(parseIntSafe(record.get("Rental_Days")))
+                        .contractType(parseStrSafe(record.get("Contract_Type")))
+                        .rentalStatus(parseStrSafe(record.get("Rental_Status")))
+                        .isExtended(parseBoolSafe(record.get("Is_Extended")))
+                        .extensionCount(parseIntSafe(record.get("Extension_Count")))
+                        .lastOperatorId(parseStrSafe(record.get("Last_Operator_ID")))
+                        .customerName(custName)
+                        .customerCode(custCode)
+                        .build();
+                rentalRepository.save(r);
+                count++;
             }
-            log.info("Imported {} new Rental Records.", count);
+            log.info("Imported {} new Rental Records with customer mappings.", count);
         } catch (Exception e) {
             log.error("Failed to import rental_records.csv", e);
         }
@@ -275,27 +320,33 @@ public class DataImportService implements CommandLineRunner {
         try (Reader in = new FileReader(path.toFile())) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build().parse(in);
             int count = 0;
-            // Anomalies doesn't have an ID in the CSV, so we just clear and re-insert if we want,
-            // or simply just insert. To prevent duplicates on restart without an ID column, 
-            // we can delete all first, or just skip if any exist. Let's skip if table has data.
-            if (alertRepository.count() > 0) {
-                log.info("Alert table already has data. Skipping import.");
-                return;
+            
+            try {
+                alertRepository.deleteAll();
+            } catch (Exception e) {
+                log.warn("Could not clear old alerts table: {}", e.getMessage());
             }
 
             for (CSVRecord record : records) {
+                String assetId = parseStrSafe(record.isMapped("Asset_ID") ? record.get("Asset_ID") : (record.isMapped("Asset ID") ? record.get("Asset ID") : record.get("Equipment_ID")));
+                String anomalyType = parseStrSafe(record.isMapped("Anomaly_Type") ? record.get("Anomaly_Type") : record.get("Anomaly Type"));
+                String severity = parseStrSafe(record.get("Severity"));
+                String description = parseStrSafe(record.get("Description"));
+                String timestamp = parseStrSafe(record.get("Timestamp"));
+                String recommendedAction = parseStrSafe(record.isMapped("Recommended_Action") ? record.get("Recommended_Action") : record.get("Recommended Action"));
+
                 Alert a = Alert.builder()
-                        .assetId(parseStrSafe(record.get("Asset ID")))
-                        .anomalyType(parseStrSafe(record.get("Anomaly Type")))
-                        .severity(parseStrSafe(record.get("Severity")))
-                        .description(parseStrSafe(record.get("Description")))
-                        .timestamp(parseStrSafe(record.get("Timestamp")))
-                        .recommendedAction(parseStrSafe(record.get("Recommended Action")))
+                        .assetId(assetId)
+                        .anomalyType(anomalyType)
+                        .severity(severity)
+                        .description(description)
+                        .timestamp(timestamp)
+                        .recommendedAction(recommendedAction)
                         .build();
                 alertRepository.save(a);
                 count++;
             }
-            log.info("Imported {} new Alerts.", count);
+            log.info("Imported {} new Alerts/Anomalies into database.", count);
         } catch (Exception e) {
             log.error("Failed to import anomalies.csv", e);
         }
@@ -309,10 +360,8 @@ public class DataImportService implements CommandLineRunner {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build().parse(in);
             int count = 0;
             
-            if (recommendationRepository.count() > 0) {
-                log.info("Recommendation table already has data. Skipping import.");
-                return;
-            }
+            recommendationRepository.deleteAll();
+            log.info("Cleared existing database recommendations prior to fresh import.");
 
             for (CSVRecord record : records) {
                 Recommendation r = Recommendation.builder()
@@ -332,4 +381,52 @@ public class DataImportService implements CommandLineRunner {
         }
     }
 
+    private void importUsers() {
+        try {
+            userRepository.deleteAll();
+            com.smartrental.model.User dealer = com.smartrental.model.User.builder()
+                    .email("dealer@cat.com")
+                    .password(passwordEncoder.encode("dealer123"))
+                    .fullName("CAT Dealer Operations Manager")
+                    .role("DEALER")
+                    .companyName("Caterpillar Fleet Management")
+                    .customerCode("DEALER001")
+                    .build();
+
+            com.smartrental.model.User acmeCust = com.smartrental.model.User.builder()
+                    .email("customer@acme.com")
+                    .password(passwordEncoder.encode("customer123"))
+                    .fullName("Acme Site Manager")
+                    .role("CUSTOMER")
+                    .companyName("Acme Construction Co.")
+                    .customerCode("CUST001")
+                    .build();
+
+            com.smartrental.model.User pacificCust = com.smartrental.model.User.builder()
+                    .email("customer@pacific.com")
+                    .password(passwordEncoder.encode("customer123"))
+                    .fullName("Pacific Infrastructure Director")
+                    .role("CUSTOMER")
+                    .companyName("Pacific Mining Ltd.")
+                    .customerCode("CUST002")
+                    .build();
+
+            com.smartrental.model.User titanCust = com.smartrental.model.User.builder()
+                    .email("customer@titan.com")
+                    .password(passwordEncoder.encode("customer123"))
+                    .fullName("Titan Earthworks Lead")
+                    .role("CUSTOMER")
+                    .companyName("Titan Earthworks Ltd.")
+                    .customerCode("CUST003")
+                    .build();
+
+            userRepository.save(dealer);
+            userRepository.save(acmeCust);
+            userRepository.save(pacificCust);
+            userRepository.save(titanCust);
+            log.info("Successfully seeded Dealer and 3 distinct Customer accounts with BCrypt hashed passwords into PostgreSQL.");
+        } catch (Exception e) {
+            log.error("Failed to seed default user accounts: {}", e.getMessage());
+        }
+    }
 }

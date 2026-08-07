@@ -35,4 +35,6 @@ public class RentalRecord {
     private Integer extensionCount;
     private String lastOperatorId;
 
+    private String customerName;
+    private String customerCode;
 }
