@@ -345,7 +345,7 @@ export const Shell = () => {
                             marginRight: 2
                           }}
                         >
-                          <Trash2 size={12} />
+                          <Trash size={12} weight="bold" />
                           <span>Clear All</span>
                         </button>
                       )}
@@ -354,7 +354,7 @@ export const Shell = () => {
                         title="Refresh"
                         style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4 }}
                       >
-                        <RotateCw size={14} className={loadingNotifs ? 'spin' : ''} />
+                        <ArrowsClockwise size={14} weight="bold" className={loadingNotifs ? 'spin' : ''} />
                       </button>
                       <button
                         onClick={() => setShowDropdown(false)}

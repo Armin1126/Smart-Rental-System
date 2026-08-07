@@ -628,8 +628,8 @@ export const QrCheckInOut = () => {
                       className="btn btn-primary"
                       style={{ marginTop: 8, justifyContent: 'center' }}
                     >
-                      {loading ? <RotateCw className="spin" size={16} /> : <ArrowUpRight size={16} />}
-                      <span>Confirm Check-Out & Update Catalog (IN_USE)</span>
+                      {loading ? <ArrowsClockwise className="spin" size={16} weight="bold" /> : <ArrowLineUp size={16} weight="bold" />}
+                      <span>{loading ? 'Processing Check-Out...' : 'Complete Vehicle Check-Out'}</span>
                     </button>
                   </form>
                 )}
@@ -689,7 +689,7 @@ export const QrCheckInOut = () => {
                       className="btn btn-primary"
                       style={{ marginTop: 8, justifyContent: 'center' }}
                     >
-                      {loading ? <RotateCw className="spin" size={16} /> : <ArrowDownLeft size={16} />}
+                      {loading ? <ArrowsClockwise className="spin" size={16} weight="bold" /> : <ArrowLineDown size={16} weight="bold" />}
                       <span>Confirm Check-In & Mark Catalog AVAILABLE</span>
                     </button>
                   </form>
